@@ -1,0 +1,9 @@
+{
+  "name": "checkout-shipping",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.97.1/public/@types/vtex.render-runtime"
+  }
+}
