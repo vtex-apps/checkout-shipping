@@ -6,5 +6,17 @@
     "docs": "0.x",
     "react": "3.x"
   },
+  "dependencies": {
+    "vtex.address-context": "0.x",
+    "vtex.checkout-graphql": "0.x",
+    "vtex.format-currency": "0.x",
+    "vtex.formatted-price": "0.x",
+    "vtex.order-manager": "0.x",
+    "vtex.order-shipping": "0.x",
+    "vtex.place-components": "0.x",
+    "vtex.places-graphql": "0.x",
+    "vtex.shipping-estimate-translator": "2.x",
+    "vtex.styleguide": "9.x"
+  },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

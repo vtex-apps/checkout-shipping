@@ -4,6 +4,25 @@
   "private": true,
   "license": "UNLICENSED",
   "devDependencies": {
-    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.97.1/public/@types/vtex.render-runtime"
+    "@types/classnames": "^2.2.10",
+    "@types/node": "^12.12.31",
+    "@types/react": "^16.9.26",
+    "vtex.address-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.0.4/public/@types/vtex.address-context",
+    "vtex.checkout-graphql": "https://lucas--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-graphql@0.31.0+build1585948984/public/@types/vtex.checkout-graphql",
+    "vtex.format-currency": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.1.3/public/@types/vtex.format-currency",
+    "vtex.formatted-price": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.formatted-price@0.4.0/public/@types/vtex.formatted-price",
+    "vtex.order-manager": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-manager@0.8.4/public/@types/vtex.order-manager",
+    "vtex.order-shipping": "https://lucas--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.3.1+build1585939211/public/@types/vtex.order-shipping",
+    "vtex.place-components": "https://lucas--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.place-components@0.6.0+build1585948614/public/@types/vtex.place-components",
+    "vtex.places-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.2.0/public/@types/vtex.places-graphql",
+    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.98.1/public/@types/vtex.render-runtime",
+    "vtex.shipping-estimate-translator": "https://lucas--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.shipping-estimate-translator@2.1.2+build1585858327/public/@types/vtex.shipping-estimate-translator",
+    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.112.28/public/@types/vtex.styleguide"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-intl": "^3"
   }
 }
