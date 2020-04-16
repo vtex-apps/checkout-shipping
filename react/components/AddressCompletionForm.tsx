@@ -8,7 +8,6 @@ import {
   IconEdit,
   Divider,
 } from 'vtex.styleguide'
-import { OrderShipping } from 'vtex.order-shipping'
 import { FormattedCurrency } from 'vtex.format-currency'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { OrderForm } from 'vtex.order-manager'
@@ -17,28 +16,31 @@ import { FormattedMessage } from 'react-intl'
 
 interface Props {
   address: Address
+  deliveryOptions: DeliveryOption[]
+  isSubmitting: boolean
   onShippingOptionEdit?: () => void
-  onAddressCompleted?: (result: { buyerIsReceiver: boolean }) => void
+  onAddressCompleted?: (
+    updatedAddress: Address,
+    buyerIsReceiver: boolean
+  ) => void
 }
 
 const AddressCompletionForm: React.FC<Props> = ({
+  deliveryOptions,
+  isSubmitting,
   onShippingOptionEdit,
   onAddressCompleted = () => {},
 }) => {
   const {
     orderForm: { clientProfileData },
   } = OrderForm.useOrderForm()
-  const {
-    deliveryOptions,
-    updateSelectedAddress,
-  } = OrderShipping.useOrderShipping()
+
   const [buyerIsReceiver, setBuyerIsReceiver] = useState(true)
   const { address } = AddressContext.useAddressContext()
-  const [submitLoading, setSubmitLoading] = useState(false)
 
   const { firstName, lastName } = clientProfileData!
 
-  const selectedDeliveryOption: DeliveryOption = deliveryOptions.find(
+  const selectedDeliveryOption = deliveryOptions.find(
     ({ isSelected }) => isSelected
   )
 
@@ -55,13 +57,7 @@ const AddressCompletionForm: React.FC<Props> = ({
       updatedAddress.receiverName = `${firstName} ${lastName}`
     }
 
-    setSubmitLoading(true)
-
-    await updateSelectedAddress(updatedAddress)
-
-    setSubmitLoading(false)
-
-    onAddressCompleted({ buyerIsReceiver })
+    onAddressCompleted(updatedAddress, buyerIsReceiver)
   }
 
   return (
@@ -78,14 +74,14 @@ const AddressCompletionForm: React.FC<Props> = ({
 
         <div className="mt2 flex flex-column c-muted-1">
           <span>
-            {selectedDeliveryOption.id} &ndash;{' '}
+            {selectedDeliveryOption?.id} &ndash;{' '}
             <FormattedCurrency
-              value={(selectedDeliveryOption.price ?? 0) / 100}
+              value={(selectedDeliveryOption?.price ?? 0) / 100}
             />
           </span>
           <span>
             <TranslateEstimate
-              shippingEstimate={selectedDeliveryOption.estimate ?? ''}
+              shippingEstimate={selectedDeliveryOption?.estimate ?? ''}
             />
           </span>
         </div>
@@ -121,8 +117,8 @@ const AddressCompletionForm: React.FC<Props> = ({
           block
           size="large"
           type="submit"
-          disabled={submitLoading}
-          isLoading={submitLoading}
+          disabled={isSubmitting}
+          isLoading={isSubmitting}
         >
           <span className="f5">
             <FormattedMessage id="store/checkout.shipping.continue" />
