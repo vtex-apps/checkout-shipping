@@ -198,6 +198,10 @@ shallow-equal@^1.2.1:
   version "0.0.4"
   resolved "https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.address-context@0.0.4+build1587034420/public/@types/vtex.address-context#2c6ca6890aa36c8b9f7b87fc15a8c287035f1643"
 
+"vtex.checkout-container@https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-container@0.4.0+build1587062002/public/@types/vtex.checkout-container":
+  version "0.4.0"
+  resolved "https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-container@0.4.0+build1587062002/public/@types/vtex.checkout-container#e0d60f5a3286711abed66163d175fdb556f14911"
+
 "vtex.checkout-graphql@https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-graphql@0.31.2+build1587060834/public/@types/vtex.checkout-graphql":
   version "0.31.2"
   resolved "https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-graphql@0.31.2+build1587060834/public/@types/vtex.checkout-graphql#3c169f8e8d403296bef534808121a615d3460337"
