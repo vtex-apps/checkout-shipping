@@ -1,5 +1,6 @@
 import { useMachine } from '@xstate/react'
 import { useMemo } from 'react'
+import { Router } from 'vtex.checkout-container'
 import { OrderShipping } from 'vtex.order-shipping'
 import { State } from 'xstate'
 
@@ -20,12 +21,17 @@ const useShippingStateMachine = ({
     updateSelectedAddress,
   } = OrderShipping.useOrderShipping()
 
+  const history = Router.useHistory()
+
   const [state, send] = useMachine(shippingStateMachine, {
     devTools: true,
     context: {
       availableAddresses,
       selectedAddress,
       deliveryOptions,
+    },
+    actions: {
+      goToNextStep: () => history.push('/payment'),
     },
     services: {
       tryToEditReceiverInfo: (ctx, { receiverName }) => {
