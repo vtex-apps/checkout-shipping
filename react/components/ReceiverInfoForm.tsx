@@ -1,23 +1,22 @@
 import React, { useState } from 'react'
-import { OrderShipping } from 'vtex.order-shipping'
+import { Address } from 'vtex.checkout-graphql'
 import { Button, Input } from 'vtex.styleguide'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 interface Props {
-  onReceiverInfoSave?: () => void
+  isSubmitting: boolean
+  onReceiverInfoSave: (receiverName: string) => void
+  selectedAddress: Address
 }
 
 const ReceiverInfoForm: React.FC<Props> = ({
-  onReceiverInfoSave = () => {},
+  isSubmitting,
+  onReceiverInfoSave,
+  selectedAddress,
 }) => {
   const intl = useIntl()
-  const {
-    selectedAddress,
-    updateSelectedAddress,
-  } = OrderShipping.useOrderShipping()
 
   const [name, setName] = useState(selectedAddress.receiverName)
-  const [submitLoading, setSubmitLoading] = useState(false)
 
   const handleNameChange: React.ChangeEventHandler<HTMLInputElement> = evt => {
     setName(evt.target.value)
@@ -25,18 +24,8 @@ const ReceiverInfoForm: React.FC<Props> = ({
 
   const handleSubmit: React.FormEventHandler = async evt => {
     evt.preventDefault()
-
-    setSubmitLoading(true)
-
-    try {
-      await updateSelectedAddress({
-        ...selectedAddress,
-        receiverName: name,
-      })
-
-      onReceiverInfoSave()
-    } finally {
-      setSubmitLoading(false)
+    if (name) {
+      onReceiverInfoSave(name)
     }
   }
 
@@ -58,8 +47,8 @@ const ReceiverInfoForm: React.FC<Props> = ({
 
       <Button
         type="submit"
-        isLoading={submitLoading}
-        disabled={submitLoading}
+        isLoading={isSubmitting}
+        disabled={isSubmitting}
         size="large"
         block
       >

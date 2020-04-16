@@ -1,5 +1,5 @@
 import React from 'react'
-import { DeliveryOption } from 'vtex.checkout-graphql'
+import { Address, DeliveryOption } from 'vtex.checkout-graphql'
 import { ButtonPlain, IconEdit } from 'vtex.styleguide'
 import { PlaceDetails } from 'vtex.place-components'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
@@ -12,7 +12,8 @@ interface Props {
   deliveryOptions: DeliveryOption[]
   onEditAddress?: () => void
   onEditReceiverInfo?: () => void
-  onDeliveryOptionSelected?: () => void
+  onDeliveryOptionSelected?: (id: string) => void
+  selectedAddress: Address
 }
 
 const ShippingOptionList: React.FC<Props> = ({
@@ -20,15 +21,10 @@ const ShippingOptionList: React.FC<Props> = ({
   onEditAddress,
   onEditReceiverInfo,
   onDeliveryOptionSelected = () => {},
+  selectedAddress,
 }) => {
-  const {
-    selectDeliveryOption,
-    selectedAddress,
-  } = OrderShipping.useOrderShipping()
-
-  const handleDeliveryOptionSelect = async (deliveryOption: DeliveryOption) => {
-    await selectDeliveryOption(deliveryOption.id!)
-    onDeliveryOptionSelected()
+  const handleDeliveryOptionSelect = (deliveryOption: DeliveryOption) => {
+    onDeliveryOptionSelected(deliveryOption.id!)
   }
 
   return (

@@ -1,5 +1,5 @@
 import { Address } from 'vtex.checkout-graphql'
-import React, { useState, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { OrderForm } from 'vtex.order-manager'
 import { OrderShipping } from 'vtex.order-shipping'
 import { AddressContext } from 'vtex.address-context'
@@ -9,14 +9,7 @@ import AddressList from './components/AddressList'
 import ShippingOptionList from './components/ShippingOptionList'
 import AddressCompletionForm from './components/AddressCompletionForm'
 import ReceiverInfoForm from './components/ReceiverInfoForm'
-
-enum ShippingStage {
-  CREATE_ADDRESS,
-  SELECT_ADDRESS,
-  SELECT_DELIVERY_OPTION,
-  COMPLETE_ADDRESS,
-  EDIT_RECEIVER_INFO,
-}
+import useShippingStateMachine from './shippingStateMachine/useShippingStateMachine'
 
 const ShippingForm: React.FC = () => {
   const {
@@ -26,87 +19,81 @@ const ShippingForm: React.FC = () => {
   } = OrderForm.useOrderForm()
   const { selectedAddress, deliveryOptions } = OrderShipping.useOrderShipping()
 
-  const selectedDeliveryOptions = deliveryOptions.filter(
-    ({ isSelected }) => isSelected
-  )
-
-  const [currentStage, setCurrentStage] = useState<ShippingStage>(() => {
-    if (selectedAddress != null) {
-      return ShippingStage.SELECT_DELIVERY_OPTION
-    }
-    if (availableAddresses?.length !== 0) {
-      return ShippingStage.SELECT_ADDRESS
-    }
-    return ShippingStage.CREATE_ADDRESS
+  const { matches, send, state } = useShippingStateMachine({
+    availableAddresses: availableAddresses ?? [],
+    selectedAddress,
+    deliveryOptions,
   })
 
-  const handleAddressCreated = useCallback(() => {
-    setCurrentStage(ShippingStage.SELECT_DELIVERY_OPTION)
-  }, [])
+  const handleAddressCreated = useCallback(
+    (address: Address) => {
+      send({ type: 'SUBMIT_CREATE_ADDRESS', address })
+    },
+    [send]
+  )
 
-  const handleDeliveryOptionSelect = () => {
-    if (selectedAddress.addressType == null) {
-      setCurrentStage(ShippingStage.COMPLETE_ADDRESS)
-    }
+  const handleDeliveryOptionSelect = (deliveryOptionId: string) => {
+    send({ type: 'SUBMIT_SELECT_DELIVERY_OPTION', deliveryOptionId })
   }
 
-  const handleAddressCompleted = ({
-    buyerIsReceiver,
-  }: {
+  const handleAddressCompleted = (
+    updatedAddress: Address,
     buyerIsReceiver: boolean
-  }) => {
-    if (!buyerIsReceiver) {
-      setCurrentStage(ShippingStage.EDIT_RECEIVER_INFO)
-    } else {
-      // go to next step
-    }
+  ) => {
+    send({ type: 'SUBMIT_COMPLETE_ADDRESS', buyerIsReceiver, updatedAddress })
   }
 
-  switch (currentStage) {
-    case ShippingStage.COMPLETE_ADDRESS: {
+  switch (true) {
+    case matches('completeAddress'): {
       return (
         <AddressCompletionForm
           address={selectedAddress}
-          onShippingOptionEdit={() =>
-            setCurrentStage(ShippingStage.SELECT_DELIVERY_OPTION)
-          }
+          deliveryOptions={state.context.deliveryOptions}
+          onShippingOptionEdit={() => send('GO_TO_SELECT_DELIVERY_OPTION')}
           onAddressCompleted={handleAddressCompleted}
+          isSubmitting={matches({ completeAddress: 'submitting' })}
         />
       )
     }
-    case ShippingStage.EDIT_RECEIVER_INFO: {
+    case matches('editReceiverInfo'): {
       return (
-        <ReceiverInfoForm
-          onReceiverInfoSave={() =>
-            setCurrentStage(ShippingStage.SELECT_DELIVERY_OPTION)
-          }
-        />
+        state.context.selectedAddress && (
+          <ReceiverInfoForm
+            isSubmitting={matches({ editReceiverInfo: 'submitting' })}
+            selectedAddress={state.context.selectedAddress}
+            onReceiverInfoSave={receiverName => {
+              send({ type: 'SUBMIT_RECEIVER_INFO', receiverName })
+            }}
+          />
+        )
       )
     }
-    case ShippingStage.SELECT_DELIVERY_OPTION: {
+    case matches('selectDeliveryOption'): {
       return (
-        <ShippingOptionList
-          deliveryOptions={deliveryOptions}
-          onEditAddress={() => setCurrentStage(ShippingStage.SELECT_ADDRESS)}
-          onEditReceiverInfo={() =>
-            setCurrentStage(ShippingStage.EDIT_RECEIVER_INFO)
-          }
-          onDeliveryOptionSelected={handleDeliveryOptionSelect}
-        />
+        state.context.selectedAddress && (
+          <ShippingOptionList
+            deliveryOptions={state.context.deliveryOptions}
+            onEditAddress={() => send('GO_TO_SELECT_ADDRESS')}
+            onEditReceiverInfo={() => send('EDIT_RECEIVER_INFO')}
+            onDeliveryOptionSelected={handleDeliveryOptionSelect}
+            selectedAddress={state.context.selectedAddress}
+          />
+        )
       )
     }
-    case ShippingStage.SELECT_ADDRESS: {
+    case matches('selectAddress'): {
       return (
         <AddressList
-          addresses={availableAddresses as Address[]}
-          onCreateAddress={() => setCurrentStage(ShippingStage.CREATE_ADDRESS)}
-          onAddressSelected={() =>
-            setCurrentStage(ShippingStage.SELECT_DELIVERY_OPTION)
+          addresses={state.context.availableAddresses}
+          selectedAddress={state.context.selectedAddress}
+          onCreateAddress={() => send('GO_TO_CREATE_ADDRESS')}
+          onAddressSelected={address =>
+            send({ type: 'SUBMIT_SELECT_ADDRESS', address })
           }
         />
       )
     }
-    case ShippingStage.CREATE_ADDRESS:
+    case matches('createAddress'):
     default: {
       return <NewAddressForm onAddressCreated={handleAddressCreated} />
     }

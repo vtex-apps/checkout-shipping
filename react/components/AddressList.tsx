@@ -9,24 +9,17 @@ import { ListGroup, GroupOption } from 'vtex.checkout-components'
 interface Props {
   addresses: Address[]
   onCreateAddress?: () => void
-  onAddressSelected?: () => void
+  onAddressSelected?: (address: Address) => void
+  selectedAddress: Address | null
 }
 
 const AddressList: React.FC<Props> = ({
   addresses,
   onCreateAddress = () => {},
   onAddressSelected = () => {},
+  selectedAddress,
 }) => {
-  const {
-    countries,
-    updateSelectedAddress,
-    selectedAddress,
-  } = OrderShipping.useOrderShipping()
-
-  const handleSelectAddress = async (address: Address) => {
-    await updateSelectedAddress(address)
-    onAddressSelected()
-  }
+  const { countries } = OrderShipping.useOrderShipping()
 
   return (
     <div>
@@ -34,11 +27,11 @@ const AddressList: React.FC<Props> = ({
         <FormattedMessage id="store/checkout.shipping.chooseAddress" />
       </span>
       <ListGroup>
-        {addresses.map(address => (
+        {addresses.map((address, id) => (
           <GroupOption
-            onClick={() => handleSelectAddress(address)}
-            selected={address.addressId === selectedAddress.addressId}
-            key={address.addressId!}
+            onClick={() => onAddressSelected(address)}
+            selected={address.addressId === selectedAddress?.addressId}
+            key={`${address?.addressId}-${id}`}
           >
             <AddressContext.AddressContextProvider
               address={address}

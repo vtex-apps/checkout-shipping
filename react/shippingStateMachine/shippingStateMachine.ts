@@ -1,4 +1,4 @@
-import { assign, actions, Machine, send } from 'xstate'
+import { assign, Machine } from 'xstate'
 
 import {
   ShippingMachineContext,
@@ -34,17 +34,15 @@ const shippingStateMachine = Machine<
         states: {
           editing: {
             on: {
-              SUBMIT: 'submitting',
+              SUBMIT_CREATE_ADDRESS: 'submitting',
             },
           },
           submitting: {
             invoke: {
-              src: 'tryToInsertAddress',
+              src: 'tryToCreateAddress',
               onDone: {
                 target: '#shipping.selectDeliveryOption',
-                actions: assign((_, event) => {
-                  return { deliveryOptions: event.data.deliveryOptions }
-                }),
+                actions: 'updateSelectDeliveryOptions',
               },
             },
           },
@@ -52,13 +50,11 @@ const shippingStateMachine = Machine<
       },
       selectAddress: {
         initial: 'idle',
-        on: {
-          GO_TO_CREATE_ADDRESS: 'createAddress',
-        },
         states: {
           idle: {
             on: {
-              SELECT_ADDRESS: 'submitting',
+              GO_TO_CREATE_ADDRESS: '#shipping.createAddress',
+              SUBMIT_SELECT_ADDRESS: 'submitting',
             },
           },
           submitting: {
@@ -77,7 +73,7 @@ const shippingStateMachine = Machine<
         states: {
           editing: {
             on: {
-              SELECT_ADDRESS: '#shipping.selectAddress',
+              GO_TO_SELECT_ADDRESS: '#shipping.selectAddress',
               SUBMIT_SELECT_DELIVERY_OPTION: 'submitting',
               EDIT_RECEIVER_INFO: '#shipping.editReceiverInfo',
             },
@@ -98,13 +94,11 @@ const shippingStateMachine = Machine<
       },
       completeAddress: {
         initial: 'editing',
-        on: {
-          GO_TO_CREATE_ADDRESS: 'createAddress',
-        },
         states: {
           editing: {
             on: {
               SUBMIT_COMPLETE_ADDRESS: 'submitting',
+              GO_TO_SELECT_DELIVERY_OPTION: '#shipping.selectDeliveryOption',
             },
           },
           submitting: {
@@ -113,12 +107,10 @@ const shippingStateMachine = Machine<
               onDone: [
                 {
                   target: '#shipping.done',
-                  // actions: "updateSelectedAddress",
                   cond: 'buyerIsReceiver',
                 },
                 {
                   target: '#shipping.editReceiverInfo',
-                  // actions: "updateSelectedAddress",
                 },
               ],
             },
@@ -147,24 +139,30 @@ const shippingStateMachine = Machine<
           },
         },
       },
-      done: {},
+      done: {
+        entry: 'goToNextStep',
+      },
     },
   },
   {
     actions: {
+      goToNextStep: () => {},
       updateSelectDeliveryOptions: assign((_, event) => {
-        if (event.type === 'done.invoke.tryToInsertAddress') {
+        if (event.type === 'done.invoke.tryToCreateAddress') {
           return {
-            deliveryOptions: event.data.deliveryOptions,
+            deliveryOptions: event.data.orderForm.shipping.deliveryOptions,
+            selectedAddress: event.data.orderForm.shipping.selectedAddress,
           }
         }
-        alert('deu ruim')
         return {}
       }),
       updateSelectedAddress: assign((_, event) => {
-        if (event.type === 'done.invoke.tryToSelectAddress') {
+        if (
+          event.type === 'done.invoke.tryToSelectAddress' ||
+          event.type === 'done.invoke.tryToEditReceiverInfo'
+        ) {
           return {
-            selectedAddress: event.data.selectedAddress,
+            selectedAddress: event.data.orderForm.shipping.selectedAddress,
           }
         }
         return {}
@@ -176,13 +174,20 @@ const shippingStateMachine = Machine<
         availableAddresses.length !== 0,
       hasIncompleteSelectedAddress: ({ selectedAddress }) =>
         !!selectedAddress && selectedAddress.addressType == null,
-      buyerIsReceiver: (_, event) => event.buyerIsReceiver,
+      buyerIsReceiver: (_, event) => {
+        if (event.type === 'done.invoke.tryToUpdateCompleteAddress') {
+          return event.data.buyerIsReceiver
+        }
+        return false
+      },
     },
     services: {
       tryToInsertAddress: () =>
         new Promise(resolve => {
           setTimeout(() => {
-            resolve({ deliveryOptions: ['lalalal'] })
+            resolve({
+              orderForm: { shipping: { deliveryOptions: ['lalalal'] } },
+            })
           }, 250)
         }),
       tryToSelectDeliveryOption: () =>

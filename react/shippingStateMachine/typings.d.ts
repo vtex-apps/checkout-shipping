@@ -19,18 +19,44 @@ export interface ShippingMachineContext {
 export type ShippingMachineEvents =
   | { type: 'EDIT_RECEIVER_INFO' }
   | { type: 'GO_TO_CREATE_ADDRESS' }
-  | { type: 'SELECT_ADDRESS' }
-  | { type: 'SUBMIT_COMPLETE_ADDRESS' }
-  | { type: 'SUBMIT_RECEIVER_INFO' }
-  | { type: 'SUBMIT_SELECT_DELIVERY_OPTION' }
-  | { type: 'SUBMIT' }
+  | { type: 'GO_TO_SELECT_DELIVERY_OPTION' }
+  | { type: 'GO_TO_SELECT_ADDRESS' }
+  | { type: 'SUBMIT_SELECT_ADDRESS'; address: Address }
   | {
-      type: 'done.invoke.tryToInsertAddress'
-      data: { deliveryOptions: DeliveryOption[] }
+      type: 'SUBMIT_COMPLETE_ADDRESS'
+      updatedAddress: Address
+      buyerIsReceiver: boolean
+    }
+  | { type: 'SUBMIT_RECEIVER_INFO'; receiverName: string }
+  | { type: 'SUBMIT_SELECT_DELIVERY_OPTION'; deliveryOptionId: string }
+  | { type: 'SUBMIT_CREATE_ADDRESS'; address: Address }
+  | {
+      type: 'done.invoke.tryToCreateAddress'
+      data: {
+        orderForm: {
+          shipping: {
+            deliveryOptions: DeliveryOption[]
+            selectedAddress: Address
+          }
+        }
+      }
     }
   | {
-      type: 'done.invoke.tryToSelectAddress'
-      data: { selectedAddress: Address }
+      type:
+        | 'done.invoke.tryToSelectAddress'
+        | 'done.invoke.tryToEditReceiverInfo'
+      data: {
+        orderForm: {
+          shipping: {
+            deliveryOptions: DeliveryOption[]
+            selectedAddress: Address
+          }
+        }
+      }
+    }
+  | {
+      type: 'done.invoke.tryToUpdateCompleteAddress'
+      data: { success: boolean; buyerIsReceiver: boolean }
     }
 
 interface ShippingMachineStates<HasStates = false> {
@@ -76,3 +102,7 @@ interface ShippingMachineStates<HasStates = false> {
 }
 
 export type ShippingMachineStateSchema = ShippingMachineStates<true>
+
+export type ShippingMachineState =
+  | DeepPartial<ShippingMachineStates['states']>
+  | keyof ShippingMachineStates['states']
