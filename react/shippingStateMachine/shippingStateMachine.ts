@@ -181,40 +181,6 @@ const shippingStateMachine = Machine<
         return false
       },
     },
-    services: {
-      tryToInsertAddress: () =>
-        new Promise(resolve => {
-          setTimeout(() => {
-            resolve({
-              orderForm: { shipping: { deliveryOptions: ['lalalal'] } },
-            })
-          }, 250)
-        }),
-      tryToSelectDeliveryOption: () =>
-        new Promise(resolve => {
-          setTimeout(() => {
-            resolve()
-          }, 250)
-        }),
-      tryToSelectAddress: () =>
-        new Promise(resolve => {
-          setTimeout(() => {
-            resolve({ selectedAddress: { addressType: '12o12o' } })
-          }, 250)
-        }),
-      tryToUpdateCompleteAddress: () =>
-        new Promise(resolve => {
-          setTimeout(() => {
-            resolve({ selectedAddress: { addressType: 'adfla' } })
-          }, 250)
-        }),
-      tryToEditReceiverInfo: () =>
-        new Promise(resolve => {
-          setTimeout(() => {
-            resolve()
-          }, 250)
-        }),
-    },
   }
 )
 
