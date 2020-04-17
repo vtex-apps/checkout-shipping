@@ -70,15 +70,13 @@ const ShippingForm: React.FC = () => {
     }
     case matches('selectDeliveryOption'): {
       return (
-        state.context.selectedAddress && (
-          <ShippingOptionList
-            deliveryOptions={state.context.deliveryOptions}
-            onEditAddress={() => send('GO_TO_SELECT_ADDRESS')}
-            onEditReceiverInfo={() => send('EDIT_RECEIVER_INFO')}
-            onDeliveryOptionSelected={handleDeliveryOptionSelect}
-            selectedAddress={state.context.selectedAddress}
-          />
-        )
+        <ShippingOptionList
+          deliveryOptions={state.context.deliveryOptions}
+          onEditAddress={() => send('GO_TO_SELECT_ADDRESS')}
+          onEditReceiverInfo={() => send('EDIT_RECEIVER_INFO')}
+          onDeliveryOptionSelected={handleDeliveryOptionSelect}
+          selectedAddress={state.context.selectedAddress!}
+        />
       )
     }
     case matches('selectAddress'): {
