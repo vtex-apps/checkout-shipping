@@ -3,6 +3,7 @@ import { AddressContext } from 'vtex.address-context'
 import { PlaceDetails } from 'vtex.place-components'
 import { Address } from 'vtex.checkout-graphql'
 import { OrderShipping } from 'vtex.order-shipping'
+import { FormattedMessage } from 'react-intl'
 
 import { ListGroup, GroupOption } from './ListGroup'
 
@@ -30,7 +31,9 @@ const AddressList: React.FC<Props> = ({
 
   return (
     <div>
-      <span className="db fw6 lh-copy mb3">Choose an address</span>
+      <span className="db fw6 lh-copy mb3">
+        <FormattedMessage id="store/checkout.shipping.chooseAddress" />
+      </span>
       <ListGroup>
         {addresses.map(address => (
           <GroupOption
@@ -46,7 +49,9 @@ const AddressList: React.FC<Props> = ({
             </AddressContext.AddressContextProvider>
           </GroupOption>
         ))}
-        <GroupOption onClick={onCreateAddress}>New address...</GroupOption>
+        <GroupOption onClick={onCreateAddress}>
+          <FormattedMessage id="store/checkout.shipping.newAddressLabel" />
+        </GroupOption>
       </ListGroup>
     </div>
   )

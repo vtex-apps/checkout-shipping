@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { OrderShipping } from 'vtex.order-shipping'
 import { Button, Input } from 'vtex.styleguide'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 interface Props {
   onReceiverInfoSave?: () => void
@@ -9,6 +10,7 @@ interface Props {
 const ReceiverInfoForm: React.FC<Props> = ({
   onReceiverInfoSave = () => {},
 }) => {
+  const intl = useIntl()
   const {
     selectedAddress,
     updateSelectedAddress,
@@ -40,10 +42,18 @@ const ReceiverInfoForm: React.FC<Props> = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <span className="fw6 dib mb6">Person who will receive the order</span>
+      <span className="fw6 dib mb6">
+        <FormattedMessage id="store/checkout.shipping.receiverDescription" />
+      </span>
 
       <div className="mb7">
-        <Input label="Name" onChange={handleNameChange} value={name} />
+        <Input
+          label={intl.formatMessage({
+            id: 'store/checkout.shipping.receiverNameLabel',
+          })}
+          onChange={handleNameChange}
+          value={name}
+        />
       </div>
 
       <Button
@@ -53,7 +63,9 @@ const ReceiverInfoForm: React.FC<Props> = ({
         size="large"
         block
       >
-        <span className="f5">Continue</span>
+        <span className="f5">
+          <FormattedMessage id="store/checkout.shipping.continue" />
+        </span>
       </Button>
     </form>
   )

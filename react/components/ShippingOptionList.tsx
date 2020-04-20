@@ -5,6 +5,7 @@ import { PlaceDetails } from 'vtex.place-components'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { OrderShipping } from 'vtex.order-shipping'
+import { FormattedMessage } from 'react-intl'
 
 import { ListGroup, GroupOption } from './ListGroup'
 
@@ -36,7 +37,7 @@ const ShippingOptionList: React.FC<Props> = ({
       {selectedAddress.receiverName && (
         <div className="c-muted-1">
           <span className="fw6 flex items-center">
-            Receiver{' '}
+            <FormattedMessage id="store/checkout.shipping.receiverLabel" />{' '}
             <div className="dib ml4">
               <ButtonPlain onClick={onEditReceiverInfo}>
                 <IconEdit solid />
@@ -49,7 +50,7 @@ const ShippingOptionList: React.FC<Props> = ({
       )}
 
       <span className="t-body fw6 flex items-center">
-        Shipping options for{' '}
+        <FormattedMessage id="store/checkout.shipping.shippingOptionsForAddressLabel" />{' '}
         <div className="dib ml4">
           <ButtonPlain onClick={onEditAddress}>
             <IconEdit solid />

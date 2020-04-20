@@ -1,0 +1,12 @@
+{
+  "store/checkout.shipping.chooseAddress": "Choose an address",
+  "store/checkout.shipping.newAddressLabel": "New address...",
+  "store/checkout.shipping.shippingOptionLabel": "Shipping Option",
+  "store/checkout.shipping.completeAddressLabel": "Complete the delivery addres",
+  "store/checkout.shipping.nameWillReceiveOrderLabel": "{name} will receive the order.",
+  "store/checkout.shipping.receiverDescription": "Person who will receive the order",
+  "store/checkout.shipping.receiverNameLabel": "Name",
+  "store/checkout.shipping.receiverLabel": "Receiver",
+  "store/checkout.shipping.shippingOptionsForAddressLabel": "Shipping options for",
+  "store/checkout.shipping.continue": "Continue"
+}

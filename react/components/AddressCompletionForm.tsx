@@ -13,6 +13,7 @@ import { FormattedCurrency } from 'vtex.format-currency'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { OrderForm } from 'vtex.order-manager'
 import { AddressContext } from 'vtex.address-context'
+import { FormattedMessage } from 'react-intl'
 
 interface Props {
   address: Address
@@ -67,7 +68,7 @@ const AddressCompletionForm: React.FC<Props> = ({
     <div className="lh-copy">
       <div className="c-muted-1">
         <span className="fw6 flex items-center">
-          Shipping option{' '}
+          <FormattedMessage id="store/checkout.shipping.shippingOptionLabel" />{' '}
           <div className="dib ml4">
             <ButtonPlain onClick={onShippingOptionEdit}>
               <IconEdit solid />
@@ -96,7 +97,7 @@ const AddressCompletionForm: React.FC<Props> = ({
 
       <form onSubmit={handleFormSubmit}>
         <span className="dib mb4 t-body fw6">
-          Complete the delivery address
+          <FormattedMessage id="store/checkout.shipping.completeAddressLabel" />
         </span>
 
         <AddressForm hiddenFields={['receiverName']} />
@@ -105,10 +106,10 @@ const AddressCompletionForm: React.FC<Props> = ({
           <div className="mt5 mb7">
             <Checkbox
               label={
-                <Fragment>
-                  <span className="fw6">{firstName}</span> will receive the
-                  order.
-                </Fragment>
+                <FormattedMessage
+                  id="store/checkout.shipping.nameWillReceiveOrderLabel"
+                  values={{ name: <span className="fw6">{firstName}</span> }}
+                />
               }
               checked={buyerIsReceiver}
               onChange={handleBuyerIsReceiverChange}
@@ -123,7 +124,9 @@ const AddressCompletionForm: React.FC<Props> = ({
           disabled={submitLoading}
           isLoading={submitLoading}
         >
-          <span className="f5">Continue</span>
+          <span className="f5">
+            <FormattedMessage id="store/checkout.shipping.continue" />
+          </span>
         </Button>
       </form>
     </div>
