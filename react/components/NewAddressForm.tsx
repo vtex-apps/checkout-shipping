@@ -31,7 +31,7 @@ const NewAddressForm: React.FC<Props> = ({ onAddressCreated = () => {} }) => {
         <LocationCountry />
       </div>
       <div className="mt6 w-100 mw5">
-        <LocationInput onSuccess={handleAddressUpdate} />
+        <LocationInput onSuccess={handleAddressUpdate} variation="primary" />
       </div>
     </Fragment>
   )
