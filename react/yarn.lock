@@ -193,6 +193,10 @@ shallow-equal@^1.2.1:
   version "0.0.4"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.0.4/public/@types/vtex.address-context#865c4ba79c9ab240645eb3e7de0bfb9a2b04dab5"
 
+"vtex.checkout-components@https://lucas--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-components@0.0.0+build1587560024/public/@types/vtex.checkout-components":
+  version "0.0.0"
+  resolved "https://lucas--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-components@0.0.0+build1587560024/public/@types/vtex.checkout-components#e0b4a74428309a8070d6b0a48d84b86d222bfd49"
+
 "vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.32.1/public/@types/vtex.checkout-graphql":
   version "0.32.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.32.1/public/@types/vtex.checkout-graphql#c91c0dd4c995e69615560c773b554c7ad09a908d"

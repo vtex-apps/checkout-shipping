@@ -6,8 +6,7 @@ import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { OrderShipping } from 'vtex.order-shipping'
 import { FormattedMessage } from 'react-intl'
-
-import { ListGroup, GroupOption } from './ListGroup'
+import { ListGroup, GroupOption } from 'vtex.checkout-components'
 
 interface Props {
   deliveryOptions: DeliveryOption[]

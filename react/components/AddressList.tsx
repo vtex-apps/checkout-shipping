@@ -4,8 +4,7 @@ import { PlaceDetails } from 'vtex.place-components'
 import { Address } from 'vtex.checkout-graphql'
 import { OrderShipping } from 'vtex.order-shipping'
 import { FormattedMessage } from 'react-intl'
-
-import { ListGroup, GroupOption } from './ListGroup'
+import { ListGroup, GroupOption } from 'vtex.checkout-components'
 
 interface Props {
   addresses: Address[]

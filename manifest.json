@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "vtex.address-context": "0.x",
+    "vtex.checkout-components": "0.x",
     "vtex.checkout-graphql": "0.x",
     "vtex.format-currency": "0.x",
     "vtex.formatted-price": "0.x",
