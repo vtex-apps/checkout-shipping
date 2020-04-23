@@ -20,7 +20,7 @@ const ShippingForm: React.FC = () => {
   const { selectedAddress, deliveryOptions } = OrderShipping.useOrderShipping()
 
   const { matches, send, state } = useShippingStateMachine({
-    availableAddresses: availableAddresses ?? [],
+    availableAddresses: (availableAddresses as Address[]) ?? [],
     selectedAddress,
     deliveryOptions,
   })

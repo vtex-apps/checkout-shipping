@@ -194,17 +194,21 @@ shallow-equal@^1.2.1:
   resolved "https://registry.yarnpkg.com/shallow-equal/-/shallow-equal-1.2.1.tgz#4c16abfa56043aa20d050324efa68940b0da79da"
   integrity sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA==
 
-"vtex.address-context@https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.address-context@0.0.4+build1587034420/public/@types/vtex.address-context":
+"vtex.address-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.0.4/public/@types/vtex.address-context":
   version "0.0.4"
-  resolved "https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.address-context@0.0.4+build1587034420/public/@types/vtex.address-context#2c6ca6890aa36c8b9f7b87fc15a8c287035f1643"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.0.4/public/@types/vtex.address-context#865c4ba79c9ab240645eb3e7de0bfb9a2b04dab5"
 
-"vtex.checkout-container@https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-container@0.4.0+build1587062002/public/@types/vtex.checkout-container":
+"vtex.checkout-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.1.0/public/@types/vtex.checkout-components":
+  version "0.1.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.1.0/public/@types/vtex.checkout-components#a4d199c1935afde4dd9c5c2f49e5f2a74e58a716"
+
+"vtex.checkout-container@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.4.0/public/@types/vtex.checkout-container":
   version "0.4.0"
-  resolved "https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-container@0.4.0+build1587062002/public/@types/vtex.checkout-container#e0d60f5a3286711abed66163d175fdb556f14911"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.4.0/public/@types/vtex.checkout-container#5510b1ebb8bc8ae565371ee70149ceee5ce1e321"
 
-"vtex.checkout-graphql@https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-graphql@0.31.2+build1587060834/public/@types/vtex.checkout-graphql":
-  version "0.31.2"
-  resolved "https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-graphql@0.31.2+build1587060834/public/@types/vtex.checkout-graphql#3c169f8e8d403296bef534808121a615d3460337"
+"vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.32.1/public/@types/vtex.checkout-graphql":
+  version "0.32.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.32.1/public/@types/vtex.checkout-graphql#c91c0dd4c995e69615560c773b554c7ad09a908d"
 
 "vtex.format-currency@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.1.3/public/@types/vtex.format-currency":
   version "0.1.3"
@@ -218,13 +222,13 @@ shallow-equal@^1.2.1:
   version "0.8.4"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-manager@0.8.4/public/@types/vtex.order-manager#3a4761c73364853954dd61a61d1d01260cbbf634"
 
-"vtex.order-shipping@https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.3.1+build1587059742/public/@types/vtex.order-shipping":
+"vtex.order-shipping@https://lucas--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.3.1+build1585939211/public/@types/vtex.order-shipping":
   version "0.3.1"
-  resolved "https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.3.1+build1587059742/public/@types/vtex.order-shipping#88468c1c8db8de80417795439eb98c10add5aa59"
+  resolved "https://lucas--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.3.1+build1585939211/public/@types/vtex.order-shipping#436b58d2e5bc273bda118091bf4781efed6aac32"
 
-"vtex.place-components@https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.place-components@0.6.0+build1587059757/public/@types/vtex.place-components":
-  version "0.6.0"
-  resolved "https://murakami--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.place-components@0.6.0+build1587059757/public/@types/vtex.place-components#9f098c7ef449eca66f0224ddf9a82fc6ba390fe2"
+"vtex.place-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.7.0/public/@types/vtex.place-components":
+  version "0.7.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.7.0/public/@types/vtex.place-components#5917224804a2c43db4aa6f32baf4666317cd5934"
 
 "vtex.places-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.2.0/public/@types/vtex.places-graphql":
   version "0.2.0"
