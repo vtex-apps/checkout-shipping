@@ -13,7 +13,7 @@ const ShippingSummary: React.FC = () => {
   } = OrderShipping.useOrderShipping()
 
   const selectedDeliveryOptions = deliveryOptions.filter(
-    ({ isSelected }: { isSelected: boolean }) => isSelected
+    ({ isSelected }) => isSelected
   )
 
   if (!selectedDeliveryOptions.length) {
@@ -23,7 +23,7 @@ const ShippingSummary: React.FC = () => {
   return (
     <div className="c-muted-1 lh-copy">
       <AddressContext.AddressContextProvider
-        address={selectedAddress}
+        address={selectedAddress!}
         countries={countries}
       >
         <PlaceDetails display="extended" />

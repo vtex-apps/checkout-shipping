@@ -21,7 +21,7 @@ const ShippingForm: React.FC = () => {
 
   const { matches, send, state } = useShippingStateMachine({
     availableAddresses: (availableAddresses as Address[]) ?? [],
-    selectedAddress,
+    selectedAddress: selectedAddress ?? null,
     deliveryOptions,
   })
 
@@ -47,7 +47,7 @@ const ShippingForm: React.FC = () => {
     case matches('completeAddress'): {
       return (
         <AddressCompletionForm
-          address={selectedAddress}
+          address={selectedAddress!}
           deliveryOptions={state.context.deliveryOptions}
           onShippingOptionEdit={() => send('GO_TO_SELECT_DELIVERY_OPTION')}
           onAddressCompleted={handleAddressCompleted}
@@ -103,7 +103,7 @@ const ShippingFormWithAddress: React.FC = () => {
 
   return (
     <AddressContext.AddressContextProvider
-      address={selectedAddress}
+      address={selectedAddress!}
       countries={countries}
     >
       <ShippingForm />
