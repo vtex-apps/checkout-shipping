@@ -222,9 +222,9 @@ shallow-equal@^1.2.1:
   version "0.8.4"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-manager@0.8.4/public/@types/vtex.order-manager#3a4761c73364853954dd61a61d1d01260cbbf634"
 
-"vtex.order-shipping@https://lucas--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.3.1+build1585939211/public/@types/vtex.order-shipping":
-  version "0.3.1"
-  resolved "https://lucas--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.3.1+build1585939211/public/@types/vtex.order-shipping#436b58d2e5bc273bda118091bf4781efed6aac32"
+"vtex.order-shipping@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.4.1/public/@types/vtex.order-shipping":
+  version "0.4.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.4.1/public/@types/vtex.order-shipping#ffe9e705d9e7ff35eec22ccc4d83991e3fd37b78"
 
 "vtex.place-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.7.0/public/@types/vtex.place-components":
   version "0.7.0"
@@ -234,9 +234,9 @@ shallow-equal@^1.2.1:
   version "0.2.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.2.0/public/@types/vtex.places-graphql#5625dafa1175684df56f78f4aefc66d01cce8234"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.99.0/public/@types/vtex.render-runtime":
-  version "8.99.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.99.0/public/@types/vtex.render-runtime#2b514299e4afe4cb940de52278ff4c67525d4985"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.99.1/public/@types/vtex.render-runtime":
+  version "8.99.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.99.1/public/@types/vtex.render-runtime#16d571b1f5a081d06d656bb8d8c5ee7e7028c0ff"
 
 "vtex.shipping-estimate-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shipping-estimate-translator@2.2.0/public/@types/vtex.shipping-estimate-translator":
   version "2.2.0"
