@@ -1,6 +1,6 @@
 {
   "store/checkout.shipping.chooseAddress": "Choose an address",
-  "store/checkout.shipping.newAddressLabel": "New address...",
+  "store/checkout.shipping.newAddressLabel": "New address…",
   "store/checkout.shipping.shippingOptionLabel": "Shipping Option",
   "store/checkout.shipping.completeAddressLabel": "Complete the delivery addres",
   "store/checkout.shipping.nameWillReceiveOrderLabel": "{name} will receive the order.",
