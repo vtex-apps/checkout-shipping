@@ -32,7 +32,7 @@ const Form = ({ isPreviewMode = false }) => {
 }
 ```
 
-Note that you need to have `OrderFormProvider` from `vtex.order-shipping` app somewhere above this
+Note that you need to have `OrderShippingProvider` from `vtex.order-shipping` app somewhere above this
 component in your tree.
 
 ## State machine
