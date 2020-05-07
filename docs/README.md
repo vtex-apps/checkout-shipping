@@ -9,25 +9,18 @@ This app has the `ShippingSummary` and `ShippingForm` components used in the shi
 
 This app is used by [`checkout-step-group`](https://github.com/vtex-apps/checkout-step-group) and shouldn't be used individually. Should you find the need to use it, you need to:
 
-1. Add it as a dependency in your `manifest.json`:
-```json
-{
-  "dependencies": {
-    "vtex.checkout-shipping": "0.x"
-  }
-}
-```
+1. Add it as a dependency: `vtex add vtex.checkout-shipping`
 
 2. Import the components in your code:
 
 ```jsx
 import React from 'react'
-import { ShippingPreview, ShippingForm } from 'vtex.checkout-shipping'
+import { ShippingSummary, ShippingForm } from 'vtex.checkout-shipping'
 
 const Form = ({ isPreviewMode = false }) => {
   if (isPreviewMode) {
     return (
-      <ShippingPreview />
+      <ShippingSummary />
     )
   }
 
@@ -39,7 +32,7 @@ const Form = ({ isPreviewMode = false }) => {
 }
 ```
 
-Note that you need to have `OrderFormProvider` from `vtex.order-manager` app somewhere above this
+Note that you need to have `OrderFormProvider` from `vtex.order-shipping` app somewhere above this
 component in your tree.
 
 ## State machine
