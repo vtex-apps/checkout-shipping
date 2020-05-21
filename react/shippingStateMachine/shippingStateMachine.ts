@@ -173,7 +173,9 @@ const shippingStateMachine = Machine<
       hasAvailableAddresses: ({ availableAddresses }) =>
         availableAddresses.length !== 0,
       hasIncompleteSelectedAddress: ({ selectedAddress }) =>
-        !!selectedAddress && selectedAddress.addressType == null,
+        !!selectedAddress &&
+        (selectedAddress.addressType == null ||
+          selectedAddress.receiverName == null),
       buyerIsReceiver: (_, event) => {
         if (event.type === 'done.invoke.tryToUpdateCompleteAddress') {
           return event.data.buyerIsReceiver

@@ -27,7 +27,13 @@ const ShippingForm: React.FC = () => {
 
   const handleAddressCreated = useCallback(
     (address: Address) => {
-      send({ type: 'SUBMIT_CREATE_ADDRESS', address })
+      send({
+        type: 'SUBMIT_CREATE_ADDRESS',
+        address: {
+          ...address,
+          addressType: address.addressType ?? 'residential',
+        },
+      })
     },
     [send]
   )
@@ -40,7 +46,14 @@ const ShippingForm: React.FC = () => {
     updatedAddress: Address,
     buyerIsReceiver: boolean
   ) => {
-    send({ type: 'SUBMIT_COMPLETE_ADDRESS', buyerIsReceiver, updatedAddress })
+    send({
+      type: 'SUBMIT_COMPLETE_ADDRESS',
+      buyerIsReceiver,
+      updatedAddress: {
+        ...updatedAddress,
+        addressType: updatedAddress.addressType ?? 'residential',
+      },
+    })
   }
 
   switch (true) {
