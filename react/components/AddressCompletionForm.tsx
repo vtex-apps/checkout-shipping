@@ -107,6 +107,8 @@ const AddressCompletionForm: React.FC<Props> = ({
                   values={{ name: <span className="fw6">{firstName}</span> }}
                 />
               }
+              name="buyer-is-receiver"
+              id="buyer-is-receiver-checkbox"
               checked={buyerIsReceiver}
               onChange={handleBuyerIsReceiverChange}
             />
