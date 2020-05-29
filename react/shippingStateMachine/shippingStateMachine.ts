@@ -49,7 +49,12 @@ const shippingStateMachine = Machine<
         },
       },
       selectAddress: {
-        initial: 'idle',
+        on: {
+          '': [
+            { target: '.idle', cond: 'hasAvailableAddresses' },
+            { target: '#shipping.createAddress' },
+          ],
+        },
         states: {
           idle: {
             on: {
