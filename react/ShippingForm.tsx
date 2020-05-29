@@ -64,6 +64,7 @@ const ShippingForm: React.FC = () => {
           deliveryOptions={state.context.deliveryOptions}
           onShippingOptionEdit={() => send('GO_TO_SELECT_DELIVERY_OPTION')}
           onAddressCompleted={handleAddressCompleted}
+          onAddressReset={() => send('RESET_ADDRESS')}
           isSubmitting={matches({ completeAddress: 'submitting' })}
         />
       )

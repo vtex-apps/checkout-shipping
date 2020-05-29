@@ -23,11 +23,13 @@ interface Props {
     updatedAddress: Address,
     buyerIsReceiver: boolean
   ) => void
+  onAddressReset: () => void
 }
 
 const AddressCompletionForm: React.FC<Props> = ({
   deliveryOptions,
   isSubmitting,
+  onAddressReset = () => {},
   onShippingOptionEdit,
   onAddressCompleted = () => {},
 }) => {
@@ -96,7 +98,10 @@ const AddressCompletionForm: React.FC<Props> = ({
           <FormattedMessage id="store/checkout.shipping.completeAddressLabel" />
         </span>
 
-        <AddressForm hiddenFields={['receiverName']} />
+        <AddressForm
+          hiddenFields={['receiverName']}
+          onResetAddress={onAddressReset}
+        />
 
         {address.receiverName == null && (
           <div className="mt5 mb7">
