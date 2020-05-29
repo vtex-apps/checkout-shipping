@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Button in "complete your address" sub-step to edit the postal code.
+
+### Fixed
+- Fastest delivery option not highlighted.
+- Shipping option translation in portuguese.
+- Receiver name checkbox not working by clicking on the text.
+- User not redirected to "create address" from "select address" state when
+  they didn't had any available addresses.
 
 ## [0.1.1] - 2020-05-21
 ### Fixed
