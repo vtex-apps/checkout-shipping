@@ -1,7 +1,7 @@
 {
   "store/checkout.shipping.chooseAddress": "Escolha um endereço",
   "store/checkout.shipping.newAddressLabel": "Novo endereço…",
-  "store/checkout.shipping.shippingOptionLabel": "Opções de entrega",
+  "store/checkout.shipping.shippingOptionLabel": "Opção de entrega",
   "store/checkout.shipping.completeAddressLabel": "Complete o endereço de entrega",
   "store/checkout.shipping.nameWillReceiveOrderLabel": "{name} vai receber o pedido.",
   "store/checkout.shipping.receiverDescription": "Pessoa que vai receber o pedido",
