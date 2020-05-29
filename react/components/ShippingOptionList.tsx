@@ -78,8 +78,12 @@ const ShippingOptionList: React.FC<Props> = ({
                 <span className="c-on-base">{deliveryOption.id}</span>
                 <span
                   className={classnames({
-                    'c-muted-1': deliveryOption.id !== fastestOption?.id,
-                    'c-success': deliveryOption.id === fastestOption?.id,
+                    'c-muted-1':
+                      deliveryOption.estimate !==
+                      fastestOption?.shippingEstimate,
+                    'c-success':
+                      deliveryOption.estimate ===
+                      fastestOption?.shippingEstimate,
                   })}
                 >
                   <TranslateEstimate
