@@ -49,15 +49,16 @@ const shippingStateMachine = Machine<
         },
       },
       selectAddress: {
-        on: {
-          '': [
-            { target: '.idle', cond: 'hasAvailableAddresses' },
-            { target: 'createAddress' },
-          ],
-        },
+        initial: 'idle',
         states: {
           idle: {
             on: {
+              '': [
+                {
+                  target: '#shipping.createAddress',
+                  cond: 'hasNoAvailableAddresses',
+                },
+              ],
               GO_TO_CREATE_ADDRESS: '#shipping.createAddress',
               SUBMIT_SELECT_ADDRESS: 'submitting',
             },
@@ -104,7 +105,7 @@ const shippingStateMachine = Machine<
             on: {
               SUBMIT_COMPLETE_ADDRESS: 'submitting',
               GO_TO_SELECT_DELIVERY_OPTION: '#shipping.selectDeliveryOption',
-              RESET_ADDRESS: '#shipping.createAddress',
+              RESET_ADDRESS: '#shipping.selectAddress',
             },
           },
           submitting: {
@@ -176,6 +177,8 @@ const shippingStateMachine = Machine<
     },
     guards: {
       hasSelectedAddress: ({ selectedAddress }) => selectedAddress != null,
+      hasNoAvailableAddresses: ({ availableAddresses }) =>
+        availableAddresses.length === 0,
       hasAvailableAddresses: ({ availableAddresses }) =>
         availableAddresses.length !== 0,
       hasIncompleteSelectedAddress: ({ selectedAddress }) =>
