@@ -1,12 +1,13 @@
-import React from 'react'
+import classnames from 'classnames'
+import React, { useMemo } from 'react'
 import { Address, DeliveryOption } from 'vtex.checkout-graphql'
 import { ButtonPlain, IconEdit } from 'vtex.styleguide'
 import { PlaceDetails } from 'vtex.place-components'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
-import { OrderShipping } from 'vtex.order-shipping'
 import { FormattedMessage } from 'react-intl'
 import { ListGroup, GroupOption } from 'vtex.checkout-components'
+import { getFastestSla } from '@vtex/estimate-calculator'
 
 interface Props {
   deliveryOptions: DeliveryOption[]
@@ -26,6 +27,15 @@ const ShippingOptionList: React.FC<Props> = ({
   const handleDeliveryOptionSelect = (deliveryOption: DeliveryOption) => {
     onDeliveryOptionSelected(deliveryOption.id!)
   }
+
+  const fastestOption = useMemo(() => {
+    return getFastestSla(
+      deliveryOptions.map(({ id, estimate }) => ({
+        id: id!,
+        shippingEstimate: estimate!,
+      }))
+    )
+  }, [deliveryOptions])
 
   return (
     <div>
@@ -66,7 +76,16 @@ const ShippingOptionList: React.FC<Props> = ({
             <div className="flex w-100">
               <div className="flex flex-column w-100">
                 <span className="c-on-base">{deliveryOption.id}</span>
-                <span className="c-muted-1">
+                <span
+                  className={classnames({
+                    'c-muted-1':
+                      deliveryOption.estimate !==
+                      fastestOption?.shippingEstimate,
+                    'c-success':
+                      deliveryOption.estimate ===
+                      fastestOption?.shippingEstimate,
+                  })}
+                >
                   <TranslateEstimate
                     shippingEstimate={deliveryOption.estimate ?? ''}
                   />
