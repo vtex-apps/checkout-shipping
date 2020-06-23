@@ -10,14 +10,18 @@ import ShippingOptionList from './components/ShippingOptionList'
 import AddressCompletionForm from './components/AddressCompletionForm'
 import ReceiverInfoForm from './components/ReceiverInfoForm'
 import useShippingStateMachine from './shippingStateMachine/useShippingStateMachine'
+import { useAddressRules } from './hooks/useAddressRules'
+
+const { useOrderForm } = OrderForm
+const { useOrderShipping } = OrderShipping
 
 const ShippingForm: React.FC = () => {
   const {
     orderForm: {
       shipping: { availableAddresses },
     },
-  } = OrderForm.useOrderForm()
-  const { selectedAddress, deliveryOptions } = OrderShipping.useOrderShipping()
+  } = useOrderForm()
+  const { selectedAddress, deliveryOptions } = useOrderShipping()
 
   const { matches, send, state } = useShippingStateMachine({
     availableAddresses: (availableAddresses as Address[]) ?? [],
@@ -113,12 +117,15 @@ const ShippingForm: React.FC = () => {
 }
 
 const ShippingFormWithAddress: React.FC = () => {
-  const { selectedAddress, countries } = OrderShipping.useOrderShipping()
+  const { selectedAddress, countries } = useOrderShipping()
+
+  const addressRules = useAddressRules()
 
   return (
     <AddressContext.AddressContextProvider
       address={selectedAddress!}
       countries={countries}
+      rules={addressRules}
     >
       <ShippingForm />
     </AddressContext.AddressContextProvider>

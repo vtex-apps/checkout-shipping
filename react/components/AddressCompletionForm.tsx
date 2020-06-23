@@ -14,6 +14,9 @@ import { OrderForm } from 'vtex.order-manager'
 import { AddressContext } from 'vtex.address-context'
 import { FormattedMessage } from 'react-intl'
 
+const { useOrderForm } = OrderForm
+const { useAddressContext } = AddressContext
+
 interface Props {
   address: Address
   deliveryOptions: DeliveryOption[]
@@ -35,10 +38,10 @@ const AddressCompletionForm: React.FC<Props> = ({
 }) => {
   const {
     orderForm: { clientProfileData },
-  } = OrderForm.useOrderForm()
+  } = useOrderForm()
 
   const [buyerIsReceiver, setBuyerIsReceiver] = useState(true)
-  const { address } = AddressContext.useAddressContext()
+  const { address } = useAddressContext()
 
   const { firstName, lastName } = clientProfileData!
 
