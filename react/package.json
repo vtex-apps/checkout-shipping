@@ -9,7 +9,7 @@
     "@types/react": "^16.9.26",
     "vtex.address-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.2.0/public/@types/vtex.address-context",
     "vtex.checkout-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.4.0/public/@types/vtex.checkout-components",
-    "vtex.checkout-container": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.5.0/public/@types/vtex.checkout-container",
+    "vtex.checkout-container": "https://sndpurchase--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-container@0.4.1+build1593609633/public/@types/vtex.checkout-container",
     "vtex.checkout-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.36.4/public/@types/vtex.checkout-graphql",
     "vtex.country-data-settings": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.2.0/public/@types/vtex.country-data-settings",
     "vtex.format-currency": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.1.4/public/@types/vtex.format-currency",

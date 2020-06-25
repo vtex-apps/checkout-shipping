@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import { AddressForm } from 'vtex.place-components'
 import { Address, DeliveryOption } from 'vtex.checkout-graphql'
 import {
@@ -40,11 +40,13 @@ const AddressCompletionForm: React.FC<Props> = ({
   onEditReceiverInfo = () => {},
 }) => {
   const {
-    orderForm: { clientProfileData },
+    orderForm: { clientProfileData, canEditData },
   } = useOrderForm()
 
-  const [buyerIsReceiver, setBuyerIsReceiver] = useState(true)
   const { address, invalidFields } = useAddressContext()
+  const [buyerIsReceiver, setBuyerIsReceiver] = useState(
+    !address.isDisposable || canEditData
+  )
 
   const { firstName, lastName } = clientProfileData!
 
@@ -52,11 +54,13 @@ const AddressCompletionForm: React.FC<Props> = ({
     ({ isSelected }) => isSelected
   )
 
-  const handleBuyerIsReceiverChange: React.ChangeEventHandler<HTMLInputElement> = evt => {
+  const handleBuyerIsReceiverChange: React.ChangeEventHandler<HTMLInputElement> = (
+    evt
+  ) => {
     setBuyerIsReceiver(evt.target.checked)
   }
 
-  const handleFormSubmit: React.FormEventHandler = async evt => {
+  const handleFormSubmit: React.FormEventHandler = async (evt) => {
     evt.preventDefault()
 
     const updatedAddress = { ...address }
@@ -66,7 +70,7 @@ const AddressCompletionForm: React.FC<Props> = ({
     }
 
     const validAddress =
-      invalidFields.filter(field => field !== 'receiverName').length === 0
+      invalidFields.filter((field) => field !== 'receiverName').length === 0
 
     if (validAddress) {
       onAddressCompleted(updatedAddress, buyerIsReceiver)
@@ -131,8 +135,8 @@ const AddressCompletionForm: React.FC<Props> = ({
           />
         </div>
 
-        {selectedAddress.receiverName == null && (
-          <div className="mb7">
+        {selectedAddress.receiverName == null && canEditData && (
+          <div className="mt5 mb7">
             <Checkbox
               label={
                 <FormattedMessage

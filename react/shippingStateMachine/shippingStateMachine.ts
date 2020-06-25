@@ -1,10 +1,10 @@
 import { assign, Machine } from 'xstate'
 
-import {
+import type {
   ShippingMachineContext,
   ShippingMachineStateSchema,
   ShippingMachineEvents,
-} from './typings'
+} from './types'
 
 const shippingStateMachine = Machine<
   ShippingMachineContext,
@@ -45,7 +45,10 @@ const shippingStateMachine = Machine<
               src: 'tryToCreateAddress',
               onDone: {
                 target: '#shipping.selectDeliveryOption',
-                actions: 'updateSelectDeliveryOptions',
+                actions: [
+                  'updateSelectDeliveryOptions',
+                  'updateSelectedAddress',
+                ],
               },
             },
           },
@@ -100,7 +103,13 @@ const shippingStateMachine = Machine<
                 },
               ],
               SUBMIT_SELECT_DELIVERY_OPTION: 'submitting',
-              EDIT_RECEIVER_INFO: '#shipping.editReceiverInfo',
+              EDIT_RECEIVER_INFO: [
+                {
+                  cond: 'canEditReceiverInfo',
+                  target: '#shipping.editReceiverInfo',
+                },
+                { actions: 'requestLogin' },
+              ],
             },
           },
           submitting: {
@@ -134,6 +143,7 @@ const shippingStateMachine = Machine<
               onDone: [
                 {
                   target: '#shipping.done',
+                  actions: 'updateSelectedAddress',
                   cond: 'buyerIsReceiver',
                 },
                 {
@@ -177,6 +187,7 @@ const shippingStateMachine = Machine<
   {
     actions: {
       goToNextStep: () => {},
+      requestLogin: () => {},
       updateSelectDeliveryOptions: assign((_, event) => {
         if (event.type === 'done.invoke.tryToCreateAddress') {
           return {
@@ -184,22 +195,13 @@ const shippingStateMachine = Machine<
             selectedAddress: event.data.orderForm.shipping.selectedAddress,
           }
         }
-        return {}
-      }),
-      updateSelectedAddress: assign((_, event) => {
-        if (
-          event.type === 'done.invoke.tryToSelectAddress' ||
-          event.type === 'done.invoke.tryToEditReceiverInfo' ||
-          event.type === 'done.invoke.tryToUpdateCompleteAddress'
-        ) {
-          return {
-            selectedAddress: event.data.orderForm.shipping.selectedAddress,
-          }
-        }
+
         return {}
       }),
     },
     guards: {
+      canEditReceiverInfo: ({ canEditData, selectedAddress }) =>
+        canEditData || !!selectedAddress?.isDisposable,
       hasSelectedAddress: ({ selectedAddress }) => selectedAddress != null,
       hasNoAvailableAddresses: ({ availableAddresses }) =>
         availableAddresses.length === 0,
@@ -209,11 +211,12 @@ const shippingStateMachine = Machine<
         !!selectedAddress &&
         (selectedAddress.addressType == null ||
           selectedAddress.receiverName == null),
-      buyerIsReceiver: (_, event) => {
+      buyerIsReceiver: ({ selectedAddress }, event) => {
         if (event.type === 'done.invoke.tryToUpdateCompleteAddress') {
-          return event.data.buyerIsReceiver
+          return event.data.buyerIsReceiver && !selectedAddress?.isDisposable
         }
-        return false
+
+        return !selectedAddress?.isDisposable
       },
       isFirstPurchase: ({ canEditData, userProfileId }) =>
         canEditData && !userProfileId,

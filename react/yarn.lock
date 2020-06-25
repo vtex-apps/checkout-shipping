@@ -305,9 +305,9 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.4.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.4.0/public/@types/vtex.checkout-components#e944338bd1d7acaee7e32dacb0ffd2bc45aa5c9b"
 
-"vtex.checkout-container@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.5.0/public/@types/vtex.checkout-container":
-  version "0.5.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.5.0/public/@types/vtex.checkout-container#ae471630c2a99225e9c7b231005ea389c9cb526a"
+"vtex.checkout-container@https://sndpurchase--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-container@0.4.1+build1593609633/public/@types/vtex.checkout-container":
+  version "0.4.1"
+  resolved "https://sndpurchase--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-container@0.4.1+build1593609633/public/@types/vtex.checkout-container#753df7f9d406e1a585336bd15bfa144dded322a9"
 
 "vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.36.4/public/@types/vtex.checkout-graphql":
   version "0.36.4"
