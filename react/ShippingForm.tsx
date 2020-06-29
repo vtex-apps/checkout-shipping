@@ -77,11 +77,14 @@ const ShippingForm: React.FC = () => {
       return (
         state.context.selectedAddress && (
           <ReceiverInfoForm
+            deliveryOptions={state.context.deliveryOptions}
             isSubmitting={matches({ editReceiverInfo: 'submitting' })}
             selectedAddress={state.context.selectedAddress}
+            onEditAddress={() => send('EDIT_ADDRESS')}
             onReceiverInfoSave={receiverName => {
               send({ type: 'SUBMIT_RECEIVER_INFO', receiverName })
             }}
+            onShippingOptionEdit={() => send('GO_TO_SELECT_DELIVERY_OPTION')}
           />
         )
       )
