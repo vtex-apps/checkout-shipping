@@ -211,9 +211,12 @@ const shippingStateMachine = Machine<
         !!selectedAddress &&
         (selectedAddress.addressType == null ||
           selectedAddress.receiverName == null),
-      buyerIsReceiver: ({ selectedAddress }, event) => {
+      buyerIsReceiver: ({ selectedAddress, canEditData }, event) => {
         if (event.type === 'done.invoke.tryToUpdateCompleteAddress') {
-          return event.data.buyerIsReceiver && !selectedAddress?.isDisposable
+          return (
+            event.data.buyerIsReceiver &&
+            (!selectedAddress?.isDisposable || canEditData)
+          )
         }
 
         return !selectedAddress?.isDisposable
