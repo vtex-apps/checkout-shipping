@@ -5,12 +5,13 @@ import { OrderShipping } from 'vtex.order-shipping'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedCurrency } from 'vtex.format-currency'
 
+import { useAddressRules } from './hooks/useAddressRules'
+
+const { useOrderShipping } = OrderShipping
+
 const ShippingSummary: React.FC = () => {
-  const {
-    selectedAddress,
-    countries,
-    deliveryOptions,
-  } = OrderShipping.useOrderShipping()
+  const { selectedAddress, countries, deliveryOptions } = useOrderShipping()
+  const addressRules = useAddressRules()
 
   const selectedDeliveryOptions = deliveryOptions.filter(
     ({ isSelected }) => isSelected
@@ -25,6 +26,7 @@ const ShippingSummary: React.FC = () => {
       <AddressContext.AddressContextProvider
         address={selectedAddress!}
         countries={countries}
+        rules={addressRules}
       >
         <PlaceDetails display="extended" />
       </AddressContext.AddressContextProvider>

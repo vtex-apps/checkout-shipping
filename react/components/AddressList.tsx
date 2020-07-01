@@ -6,6 +6,9 @@ import { OrderShipping } from 'vtex.order-shipping'
 import { FormattedMessage } from 'react-intl'
 import { ListGroup, GroupOption } from 'vtex.checkout-components'
 
+const { useAddressContext } = AddressContext
+const { useOrderShipping } = OrderShipping
+
 interface Props {
   addresses: Address[]
   onCreateAddress?: () => void
@@ -19,7 +22,8 @@ const AddressList: React.FC<Props> = ({
   onAddressSelected = () => {},
   selectedAddress,
 }) => {
-  const { countries } = OrderShipping.useOrderShipping()
+  const { countries } = useOrderShipping()
+  const { rules } = useAddressContext()
 
   return (
     <div>
@@ -36,6 +40,7 @@ const AddressList: React.FC<Props> = ({
             <AddressContext.AddressContextProvider
               address={address}
               countries={countries}
+              rules={rules}
             >
               <PlaceDetails />
             </AddressContext.AddressContextProvider>

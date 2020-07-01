@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "vtex.address-context": "0.x",
+    "vtex.country-data-settings": "0.x",
     "vtex.checkout-components": "0.x",
     "vtex.checkout-container": "0.x",
     "vtex.checkout-graphql": "0.x",

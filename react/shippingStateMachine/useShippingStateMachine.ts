@@ -7,6 +7,9 @@ import { State } from 'xstate'
 import shippingStateMachine from './shippingStateMachine'
 import { ShippingMachineContext, ShippingMachineState } from './typings'
 
+const { useOrderShipping } = OrderShipping
+const { useHistory } = Router
+
 export const useMatcher = <T, U>(state: State<U>) => (params: T) =>
   state.matches(params)
 
@@ -19,9 +22,9 @@ const useShippingStateMachine = ({
     insertAddress,
     selectDeliveryOption,
     updateSelectedAddress,
-  } = OrderShipping.useOrderShipping()
+  } = useOrderShipping()
 
-  const history = Router.useHistory()
+  const history = useHistory()
 
   const [state, send] = useMachine(shippingStateMachine, {
     devTools: true,
