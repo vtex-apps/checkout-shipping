@@ -297,9 +297,9 @@ tslib@^1.10.0, tslib@^1.9.3:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 
-"vtex.address-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.1.0/public/@types/vtex.address-context":
+"vtex.address-context@https://marcos--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.address-context@0.1.0+build1593725917/public/@types/vtex.address-context":
   version "0.1.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.1.0/public/@types/vtex.address-context#0717272bfd9d4182e4a0ba380590b6420f6a493b"
+  resolved "https://marcos--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.address-context@0.1.0+build1593725917/public/@types/vtex.address-context#79f9b1f1efe70d315bba52eee0917cb076f70fff"
 
 "vtex.checkout-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.4.0/public/@types/vtex.checkout-components":
   version "0.4.0"

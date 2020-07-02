@@ -41,7 +41,7 @@ const AddressCompletionForm: React.FC<Props> = ({
   } = useOrderForm()
 
   const [buyerIsReceiver, setBuyerIsReceiver] = useState(true)
-  const { address } = useAddressContext()
+  const { address, invalidFields } = useAddressContext()
 
   const { firstName, lastName } = clientProfileData!
 
@@ -62,7 +62,12 @@ const AddressCompletionForm: React.FC<Props> = ({
       updatedAddress.receiverName = `${firstName} ${lastName}`
     }
 
-    onAddressCompleted(updatedAddress, buyerIsReceiver)
+    const validAddress =
+      invalidFields.filter(field => field !== 'receiverName').length === 0
+
+    if (validAddress) {
+      onAddressCompleted(updatedAddress, buyerIsReceiver)
+    }
   }
 
   return (
