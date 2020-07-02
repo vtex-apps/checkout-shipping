@@ -5,9 +5,12 @@ import { ButtonPlain, IconEdit } from 'vtex.styleguide'
 import { PlaceDetails } from 'vtex.place-components'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
+import { AddressContext } from 'vtex.address-context'
 import { FormattedMessage } from 'react-intl'
 import { ListGroup, GroupOption } from 'vtex.checkout-components'
 import { getFastestSla } from '@vtex/estimate-calculator'
+
+const { useAddressContext } = AddressContext
 
 interface Props {
   deliveryOptions: DeliveryOption[]
@@ -24,6 +27,8 @@ const ShippingOptionList: React.FC<Props> = ({
   onDeliveryOptionSelected = () => {},
   selectedAddress,
 }) => {
+  const { isValid } = useAddressContext()
+
   const handleDeliveryOptionSelect = (deliveryOption: DeliveryOption) => {
     onDeliveryOptionSelected(deliveryOption.id!)
   }
@@ -64,7 +69,7 @@ const ShippingOptionList: React.FC<Props> = ({
       </span>
 
       <div className="mt2 mb6 lh-copy">
-        <PlaceDetails display="compact" />
+        <PlaceDetails display={isValid ? 'compact' : 'minimal'} />
       </div>
 
       <ListGroup>
