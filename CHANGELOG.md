@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- User can no longer advance from the complete address step if there are invalid fields.
+
+### Changed
+- Display mode of address in SLA selection step to `minimal` if it is new and incomplete.
+- User is sent to payment step after editing receiver name.
+- The step the user is sent to when clicking the edit address button on the SLA selection step changes depending on whether it is a first/second purchase and whether the current address is complete or not.
 
 ## [0.2.2] - 2020-07-10
 ### Added
