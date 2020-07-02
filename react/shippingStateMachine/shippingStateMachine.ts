@@ -141,7 +141,7 @@ const shippingStateMachine = Machine<
             invoke: {
               src: 'tryToEditReceiverInfo',
               onDone: {
-                target: '#shipping.selectDeliveryOption',
+                target: '#shipping.done',
                 actions: 'updateSelectedAddress',
               },
             },
