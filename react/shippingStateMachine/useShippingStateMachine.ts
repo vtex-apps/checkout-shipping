@@ -17,6 +17,9 @@ const useShippingStateMachine = ({
   availableAddresses,
   deliveryOptions,
   selectedAddress,
+  canEditData,
+  userProfileId,
+  isAddressValid,
 }: ShippingMachineContext) => {
   const {
     insertAddress,
@@ -32,6 +35,9 @@ const useShippingStateMachine = ({
       availableAddresses,
       selectedAddress,
       deliveryOptions,
+      canEditData,
+      userProfileId,
+      isAddressValid,
     },
     actions: {
       goToNextStep: () => history.push('/payment'),

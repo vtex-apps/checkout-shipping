@@ -15,9 +15,12 @@ const shippingStateMachine = Machine<
     id: 'shipping',
     initial: 'initial',
     context: {
-      selectedAddress: null,
       availableAddresses: [],
+      canEditData: true,
       deliveryOptions: [],
+      selectedAddress: null,
+      userProfileId: null,
+      isAddressValid: false,
     },
     states: {
       initial: {
@@ -58,6 +61,10 @@ const shippingStateMachine = Machine<
                   target: '#shipping.createAddress',
                   cond: 'hasNoAvailableAddresses',
                 },
+                {
+                  target: '#shipping.createAddress',
+                  cond: 'isFirstPurchase',
+                },
               ],
               GO_TO_CREATE_ADDRESS: '#shipping.createAddress',
               SUBMIT_SELECT_ADDRESS: 'submitting',
@@ -79,7 +86,19 @@ const shippingStateMachine = Machine<
         states: {
           editing: {
             on: {
-              GO_TO_SELECT_ADDRESS: '#shipping.selectAddress',
+              EDIT_ADDRESS: [
+                {
+                  target: '#shipping.completeAddress',
+                  cond: 'firstPurchaseCompleteAddress',
+                },
+                {
+                  target: '#shipping.createAddress',
+                  cond: 'firstPurchaseIncompleteAddress',
+                },
+                {
+                  target: '#shipping.selectAddress',
+                },
+              ],
               SUBMIT_SELECT_DELIVERY_OPTION: 'submitting',
               EDIT_RECEIVER_INFO: '#shipping.editReceiverInfo',
             },
@@ -193,6 +212,18 @@ const shippingStateMachine = Machine<
         }
         return false
       },
+      isFirstPurchase: ({ canEditData, userProfileId }) =>
+        canEditData && !userProfileId,
+      firstPurchaseCompleteAddress: ({
+        canEditData,
+        userProfileId,
+        isAddressValid,
+      }) => canEditData && !userProfileId && isAddressValid,
+      firstPurchaseIncompleteAddress: ({
+        canEditData,
+        userProfileId,
+        isAddressValid,
+      }) => canEditData && !userProfileId && !isAddressValid,
     },
   }
 )

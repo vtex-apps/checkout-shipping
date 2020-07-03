@@ -11,9 +11,12 @@ type DeepPartial<T> = {
 }
 
 export interface ShippingMachineContext {
-  selectedAddress: Address | null
   availableAddresses: Address[]
+  canEditData: boolean
   deliveryOptions: DeliveryOption[]
+  selectedAddress: Address | null
+  userProfileId: string | null | undefined
+  isAddressValid: boolean
 }
 
 export type ShippingMachineEvents =
