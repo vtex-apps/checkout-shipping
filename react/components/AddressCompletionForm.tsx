@@ -106,13 +106,15 @@ const AddressCompletionForm: React.FC<Props> = ({
           <FormattedMessage id="store/checkout.shipping.completeAddressLabel" />
         </span>
 
-        <AddressForm
-          hiddenFields={['receiverName']}
-          onResetAddress={onAddressReset}
-        />
+        <div className="mb5">
+          <AddressForm
+            hiddenFields={['receiverName']}
+            onResetAddress={onAddressReset}
+          />
+        </div>
 
         {address.receiverName == null && (
-          <div className="mt5 mb7">
+          <div className="mb7">
             <Checkbox
               label={
                 <FormattedMessage
