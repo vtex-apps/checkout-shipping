@@ -59,7 +59,7 @@ const AddressCompletionForm: React.FC<Props> = ({
   const handleFormSubmit: React.FormEventHandler = async evt => {
     evt.preventDefault()
 
-    const updatedAddress = address
+    const updatedAddress = { ...address }
 
     if (buyerIsReceiver) {
       updatedAddress.receiverName = `${firstName} ${lastName}`

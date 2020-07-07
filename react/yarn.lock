@@ -297,9 +297,9 @@ tslib@^1.10.0, tslib@^1.9.3:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 
-"vtex.address-context@https://shippingflow--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.address-context@0.1.0+build1593730691/public/@types/vtex.address-context":
+"vtex.address-context@https://shippingflow--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.address-context@0.1.0+build1594330307/public/@types/vtex.address-context":
   version "0.1.0"
-  resolved "https://shippingflow--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.address-context@0.1.0+build1593730691/public/@types/vtex.address-context#5079d34ae782426d28070f61043776fa18108836"
+  resolved "https://shippingflow--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.address-context@0.1.0+build1594330307/public/@types/vtex.address-context#ea17c1e00a827f4c76edb3dda0b674d258799eae"
 
 "vtex.checkout-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.4.0/public/@types/vtex.checkout-components":
   version "0.4.0"
@@ -309,9 +309,9 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.5.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.5.0/public/@types/vtex.checkout-container#ae471630c2a99225e9c7b231005ea389c9cb526a"
 
-"vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.36.2/public/@types/vtex.checkout-graphql":
-  version "0.36.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.36.2/public/@types/vtex.checkout-graphql#db93c1a9db87533f4a6a6b9a996eacc93d904139"
+"vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.36.4/public/@types/vtex.checkout-graphql":
+  version "0.36.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.36.4/public/@types/vtex.checkout-graphql#93d1f6c2fd673759bd0b0409f883a1f6b2fb75d5"
 
 "vtex.country-data-settings@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.2.0/public/@types/vtex.country-data-settings":
   version "0.2.0"
