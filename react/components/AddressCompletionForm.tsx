@@ -18,7 +18,7 @@ const { useOrderForm } = OrderForm
 const { useAddressContext } = AddressContext
 
 interface Props {
-  address: Address
+  selectedAddress: Address
   deliveryOptions: DeliveryOption[]
   isSubmitting: boolean
   onShippingOptionEdit?: () => void
@@ -27,14 +27,17 @@ interface Props {
     buyerIsReceiver: boolean
   ) => void
   onAddressReset: () => void
+  onEditReceiverInfo: () => void
 }
 
 const AddressCompletionForm: React.FC<Props> = ({
+  selectedAddress,
   deliveryOptions,
   isSubmitting,
   onAddressReset = () => {},
   onShippingOptionEdit,
   onAddressCompleted = () => {},
+  onEditReceiverInfo = () => {},
 }) => {
   const {
     orderForm: { clientProfileData },
@@ -72,6 +75,21 @@ const AddressCompletionForm: React.FC<Props> = ({
 
   return (
     <div className="lh-copy">
+      {selectedAddress.receiverName && (
+        <div className="c-muted-1">
+          <span className="fw6 flex items-center">
+            <FormattedMessage id="store/checkout.shipping.receiverLabel" />{' '}
+            <div className="dib ml4">
+              <ButtonPlain onClick={onEditReceiverInfo}>
+                <IconEdit solid />
+              </ButtonPlain>
+            </div>
+          </span>
+
+          <div className="mt2 mb6 lh-copy">{selectedAddress.receiverName}</div>
+        </div>
+      )}
+
       <div className="c-muted-1">
         <span className="fw6 flex items-center">
           <FormattedMessage id="store/checkout.shipping.shippingOptionLabel" />{' '}
@@ -113,7 +131,7 @@ const AddressCompletionForm: React.FC<Props> = ({
           />
         </div>
 
-        {address.receiverName == null && (
+        {selectedAddress.receiverName == null && (
           <div className="mb7">
             <Checkbox
               label={

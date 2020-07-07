@@ -125,6 +125,7 @@ const shippingStateMachine = Machine<
               SUBMIT_COMPLETE_ADDRESS: 'submitting',
               GO_TO_SELECT_DELIVERY_OPTION: '#shipping.selectDeliveryOption',
               RESET_ADDRESS: '#shipping.selectAddress',
+              EDIT_RECEIVER_INFO: '#shipping.editReceiverInfo',
             },
           },
           submitting: {
