@@ -313,9 +313,9 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.35.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.35.0/public/@types/vtex.checkout-graphql#26e3e5d22bda7905f1858b4f8adfdffdbe6e5f64"
 
-"vtex.country-data-settings@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.1.0/public/@types/vtex.country-data-settings":
-  version "0.1.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.1.0/public/@types/vtex.country-data-settings#2cc7d18f2224510e76509706576c47323a45f825"
+"vtex.country-data-settings@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.2.0/public/@types/vtex.country-data-settings":
+  version "0.2.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.2.0/public/@types/vtex.country-data-settings#b1783cda8026784c05bcdfda4e67a6b20393202b"
 
 "vtex.format-currency@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.1.4/public/@types/vtex.format-currency":
   version "0.1.4"
@@ -333,25 +333,25 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.4.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.4.1/public/@types/vtex.order-shipping#ffe9e705d9e7ff35eec22ccc4d83991e3fd37b78"
 
-"vtex.place-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.7.2/public/@types/vtex.place-components":
-  version "0.7.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.7.2/public/@types/vtex.place-components#297abdb066d8d11fa66138c37ce66c6cb39dc5f5"
+"vtex.place-components@https://chui63--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.place-components@0.7.1+build1594150885/public/@types/vtex.place-components":
+  version "0.7.1"
+  resolved "https://chui63--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.place-components@0.7.1+build1594150885/public/@types/vtex.place-components#7c1aed66e773839974e1a37b0b44ebbc6f1b2945"
 
-"vtex.places-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.2.0/public/@types/vtex.places-graphql":
+"vtex.places-graphql@https://chui63--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.places-graphql@0.2.0+build1594150677/public/@types/vtex.places-graphql":
   version "0.2.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.2.0/public/@types/vtex.places-graphql#5625dafa1175684df56f78f4aefc66d01cce8234"
+  resolved "https://chui63--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.places-graphql@0.2.0+build1594150677/public/@types/vtex.places-graphql#ff1855b8d659c13d02bdff2d8937f723ef0b2b78"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.109.0/public/@types/vtex.render-runtime":
-  version "8.109.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.109.0/public/@types/vtex.render-runtime#88f682998e59c395fa10147883e95c03b8ee0884"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.110.0/public/@types/vtex.render-runtime":
+  version "8.110.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.110.0/public/@types/vtex.render-runtime#2657d0055546b849a6f009c512ff7c9ac7111779"
 
 "vtex.shipping-estimate-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shipping-estimate-translator@2.2.1/public/@types/vtex.shipping-estimate-translator":
   version "2.2.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shipping-estimate-translator@2.2.1/public/@types/vtex.shipping-estimate-translator#c2e78e6aed3042457d99bbb8b81ae6923869e8bb"
 
-"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.123.0/public/@types/vtex.styleguide":
-  version "9.123.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.123.0/public/@types/vtex.styleguide#821de16fb8128fbe29e69b7fa7864345d5dc31ba"
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.124.0/public/@types/vtex.styleguide":
+  version "9.124.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.124.0/public/@types/vtex.styleguide#5c79d53204ea7e52b5fe5118c6ba0579cbc9ed8c"
 
 xstate@^4.8.0:
   version "4.9.1"
