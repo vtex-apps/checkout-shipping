@@ -11,10 +11,12 @@ import {
 import { FormattedCurrency } from 'vtex.format-currency'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { OrderForm } from 'vtex.order-manager'
+import { OrderShipping } from 'vtex.order-shipping'
 import { AddressContext } from 'vtex.address-context'
 import { FormattedMessage } from 'react-intl'
 
 const { useOrderForm } = OrderForm
+const { useOrderShipping } = OrderShipping
 const { useAddressContext } = AddressContext
 
 interface Props {
@@ -42,11 +44,24 @@ const AddressCompletionForm: React.FC<Props> = ({
   const {
     orderForm: { clientProfileData, canEditData },
   } = useOrderForm()
+  const { autocompletedAddress } = useOrderShipping()
 
-  const { address, invalidFields } = useAddressContext()
+  const { address, invalidFields, rules } = useAddressContext()
   const [buyerIsReceiver, setBuyerIsReceiver] = useState(
     !address.isDisposable || canEditData
   )
+
+  const countryRules = (address.country && rules[address.country]) || undefined
+  const { fields, display } = countryRules ?? {}
+  const mandatoryEditableFields = autocompletedAddress
+    ? Object.entries(fields ?? {})
+        .filter(
+          ([fieldName, fieldSchema]) =>
+            fieldSchema.required &&
+            !autocompletedAddress[fieldName as keyof Address]
+        )
+        .map(([fieldName]) => fieldName)
+    : []
 
   const { firstName, lastName } = clientProfileData!
 
@@ -54,13 +69,11 @@ const AddressCompletionForm: React.FC<Props> = ({
     ({ isSelected }) => isSelected
   )
 
-  const handleBuyerIsReceiverChange: React.ChangeEventHandler<HTMLInputElement> = (
-    evt
-  ) => {
+  const handleBuyerIsReceiverChange: React.ChangeEventHandler<HTMLInputElement> = evt => {
     setBuyerIsReceiver(evt.target.checked)
   }
 
-  const handleFormSubmit: React.FormEventHandler = async (evt) => {
+  const handleFormSubmit: React.FormEventHandler = async evt => {
     evt.preventDefault()
 
     const updatedAddress = { ...address }
@@ -70,7 +83,7 @@ const AddressCompletionForm: React.FC<Props> = ({
     }
 
     const validAddress =
-      invalidFields.filter((field) => field !== 'receiverName').length === 0
+      invalidFields.filter(field => field !== 'receiverName').length === 0
 
     if (validAddress) {
       onAddressCompleted(updatedAddress, buyerIsReceiver)
@@ -132,6 +145,7 @@ const AddressCompletionForm: React.FC<Props> = ({
           <AddressForm
             hiddenFields={['receiverName']}
             onResetAddress={onAddressReset}
+            mandatoryEditableFields={mandatoryEditableFields}
           />
         </div>
 
