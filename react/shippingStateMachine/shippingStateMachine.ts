@@ -138,6 +138,7 @@ const shippingStateMachine = Machine<
                 },
                 {
                   target: '#shipping.editReceiverInfo',
+                  actions: 'updateSelectedAddress',
                 },
               ],
             },
@@ -188,7 +189,8 @@ const shippingStateMachine = Machine<
       updateSelectedAddress: assign((_, event) => {
         if (
           event.type === 'done.invoke.tryToSelectAddress' ||
-          event.type === 'done.invoke.tryToEditReceiverInfo'
+          event.type === 'done.invoke.tryToEditReceiverInfo' ||
+          event.type === 'done.invoke.tryToUpdateCompleteAddress'
         ) {
           return {
             selectedAddress: event.data.orderForm.shipping.selectedAddress,

@@ -61,7 +61,16 @@ export type ShippingMachineEvents =
     }
   | {
       type: 'done.invoke.tryToUpdateCompleteAddress'
-      data: { success: boolean; buyerIsReceiver: boolean }
+      data: {
+        orderForm: {
+          shipping: {
+            deliveryOptions: DeliveryOption[]
+            selectedAddress: Address
+          }
+        }
+        success: boolean
+        buyerIsReceiver: boolean
+      }
     }
 
 interface ShippingMachineStates<HasStates = false> {
