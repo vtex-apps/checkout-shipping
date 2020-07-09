@@ -305,17 +305,17 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.4.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.4.0/public/@types/vtex.checkout-components#e944338bd1d7acaee7e32dacb0ffd2bc45aa5c9b"
 
-"vtex.checkout-container@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.4.1/public/@types/vtex.checkout-container":
-  version "0.4.1"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.4.1/public/@types/vtex.checkout-container#b021d3d4443a1372a224dac0fabb6280b2348e2a"
+"vtex.checkout-container@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.5.0/public/@types/vtex.checkout-container":
+  version "0.5.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.5.0/public/@types/vtex.checkout-container#ae471630c2a99225e9c7b231005ea389c9cb526a"
 
-"vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.35.0/public/@types/vtex.checkout-graphql":
-  version "0.35.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.35.0/public/@types/vtex.checkout-graphql#26e3e5d22bda7905f1858b4f8adfdffdbe6e5f64"
+"vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.36.2/public/@types/vtex.checkout-graphql":
+  version "0.36.2"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.36.2/public/@types/vtex.checkout-graphql#db93c1a9db87533f4a6a6b9a996eacc93d904139"
 
-"vtex.country-data-settings@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.1.0/public/@types/vtex.country-data-settings":
-  version "0.1.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.1.0/public/@types/vtex.country-data-settings#2cc7d18f2224510e76509706576c47323a45f825"
+"vtex.country-data-settings@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.2.0/public/@types/vtex.country-data-settings":
+  version "0.2.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.2.0/public/@types/vtex.country-data-settings#b1783cda8026784c05bcdfda4e67a6b20393202b"
 
 "vtex.format-currency@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.1.4/public/@types/vtex.format-currency":
   version "0.1.4"
@@ -333,25 +333,25 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.4.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.4.1/public/@types/vtex.order-shipping#ffe9e705d9e7ff35eec22ccc4d83991e3fd37b78"
 
-"vtex.place-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.7.2/public/@types/vtex.place-components":
-  version "0.7.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.7.2/public/@types/vtex.place-components#297abdb066d8d11fa66138c37ce66c6cb39dc5f5"
+"vtex.place-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.8.1/public/@types/vtex.place-components":
+  version "0.8.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.8.1/public/@types/vtex.place-components#ce6d6a053572ba0e311c7e06c5de3221091e8fc7"
 
-"vtex.places-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.2.0/public/@types/vtex.places-graphql":
-  version "0.2.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.2.0/public/@types/vtex.places-graphql#5625dafa1175684df56f78f4aefc66d01cce8234"
+"vtex.places-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.2.1/public/@types/vtex.places-graphql":
+  version "0.2.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.2.1/public/@types/vtex.places-graphql#ca02f9676515458e537afc08658ec79e6b263a7b"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.109.0/public/@types/vtex.render-runtime":
-  version "8.109.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.109.0/public/@types/vtex.render-runtime#88f682998e59c395fa10147883e95c03b8ee0884"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.111.0/public/@types/vtex.render-runtime":
+  version "8.111.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.111.0/public/@types/vtex.render-runtime#01b2ce53d1aa2a974f5229c61bd9c83b43a86d76"
 
 "vtex.shipping-estimate-translator@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shipping-estimate-translator@2.2.1/public/@types/vtex.shipping-estimate-translator":
   version "2.2.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shipping-estimate-translator@2.2.1/public/@types/vtex.shipping-estimate-translator#c2e78e6aed3042457d99bbb8b81ae6923869e8bb"
 
-"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.123.0/public/@types/vtex.styleguide":
-  version "9.123.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.123.0/public/@types/vtex.styleguide#821de16fb8128fbe29e69b7fa7864345d5dc31ba"
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.124.1/public/@types/vtex.styleguide":
+  version "9.124.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.124.1/public/@types/vtex.styleguide#2b17f3f51bf9f5a39fc43be15641594451708324"
 
 xstate@^4.8.0:
   version "4.9.1"
