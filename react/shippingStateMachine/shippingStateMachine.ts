@@ -128,6 +128,8 @@ const shippingStateMachine = Machine<
         initial: 'editing',
         on: {
           GO_TO_CREATE_ADDRESS: 'createAddress',
+          GO_TO_SELECT_DELIVERY_OPTION: '#shipping.selectDeliveryOption',
+          EDIT_ADDRESS: '#shipping.completeAddress',
         },
         states: {
           editing: {

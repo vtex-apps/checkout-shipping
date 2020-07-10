@@ -21,6 +21,7 @@ export type ShippingMachineEvents =
   | { type: 'GO_TO_CREATE_ADDRESS' }
   | { type: 'GO_TO_SELECT_DELIVERY_OPTION' }
   | { type: 'GO_TO_SELECT_ADDRESS' }
+  | { type: 'EDIT_ADDRESS' }
   | { type: 'RESET_ADDRESS' }
   | { type: 'SUBMIT_SELECT_ADDRESS'; address: Address }
   | {
