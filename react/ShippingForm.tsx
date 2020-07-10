@@ -14,19 +14,26 @@ import { useAddressRules } from './hooks/useAddressRules'
 
 const { useOrderForm } = OrderForm
 const { useOrderShipping } = OrderShipping
+const { useAddressContext } = AddressContext
 
 const ShippingForm: React.FC = () => {
   const {
     orderForm: {
+      canEditData,
       shipping: { availableAddresses },
+      userProfileId,
     },
   } = useOrderForm()
   const { selectedAddress, deliveryOptions } = useOrderShipping()
+  const { isValid } = useAddressContext()
 
   const { matches, send, state } = useShippingStateMachine({
     availableAddresses: (availableAddresses as Address[]) ?? [],
-    selectedAddress: selectedAddress ?? null,
+    canEditData,
     deliveryOptions,
+    selectedAddress: selectedAddress ?? null,
+    userProfileId,
+    isAddressValid: isValid,
   })
 
   const handleAddressCreated = useCallback(
@@ -64,11 +71,12 @@ const ShippingForm: React.FC = () => {
     case matches('completeAddress'): {
       return (
         <AddressCompletionForm
-          address={selectedAddress!}
+          selectedAddress={selectedAddress!}
           deliveryOptions={state.context.deliveryOptions}
           onShippingOptionEdit={() => send('GO_TO_SELECT_DELIVERY_OPTION')}
           onAddressCompleted={handleAddressCompleted}
           onAddressReset={() => send('RESET_ADDRESS')}
+          onEditReceiverInfo={() => send('EDIT_RECEIVER_INFO')}
           isSubmitting={matches({ completeAddress: 'submitting' })}
         />
       )
@@ -93,7 +101,7 @@ const ShippingForm: React.FC = () => {
       return (
         <ShippingOptionList
           deliveryOptions={state.context.deliveryOptions}
-          onEditAddress={() => send('GO_TO_SELECT_ADDRESS')}
+          onEditAddress={() => send('EDIT_ADDRESS')}
           onEditReceiverInfo={() => send('EDIT_RECEIVER_INFO')}
           onDeliveryOptionSelected={handleDeliveryOptionSelect}
           selectedAddress={state.context.selectedAddress!}

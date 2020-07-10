@@ -18,7 +18,7 @@ const { useOrderForm } = OrderForm
 const { useAddressContext } = AddressContext
 
 interface Props {
-  address: Address
+  selectedAddress: Address
   deliveryOptions: DeliveryOption[]
   isSubmitting: boolean
   onShippingOptionEdit?: () => void
@@ -27,21 +27,24 @@ interface Props {
     buyerIsReceiver: boolean
   ) => void
   onAddressReset: () => void
+  onEditReceiverInfo: () => void
 }
 
 const AddressCompletionForm: React.FC<Props> = ({
+  selectedAddress,
   deliveryOptions,
   isSubmitting,
   onAddressReset = () => {},
   onShippingOptionEdit,
   onAddressCompleted = () => {},
+  onEditReceiverInfo = () => {},
 }) => {
   const {
     orderForm: { clientProfileData },
   } = useOrderForm()
 
   const [buyerIsReceiver, setBuyerIsReceiver] = useState(true)
-  const { address } = useAddressContext()
+  const { address, invalidFields } = useAddressContext()
 
   const { firstName, lastName } = clientProfileData!
 
@@ -56,17 +59,37 @@ const AddressCompletionForm: React.FC<Props> = ({
   const handleFormSubmit: React.FormEventHandler = async evt => {
     evt.preventDefault()
 
-    const updatedAddress = address
+    const updatedAddress = { ...address }
 
     if (buyerIsReceiver) {
       updatedAddress.receiverName = `${firstName} ${lastName}`
     }
 
-    onAddressCompleted(updatedAddress, buyerIsReceiver)
+    const validAddress =
+      invalidFields.filter(field => field !== 'receiverName').length === 0
+
+    if (validAddress) {
+      onAddressCompleted(updatedAddress, buyerIsReceiver)
+    }
   }
 
   return (
     <div className="lh-copy">
+      {selectedAddress.receiverName && (
+        <div className="c-muted-1">
+          <span className="fw6 flex items-center">
+            <FormattedMessage id="store/checkout.shipping.receiverLabel" />{' '}
+            <div className="dib ml4">
+              <ButtonPlain onClick={onEditReceiverInfo}>
+                <IconEdit solid />
+              </ButtonPlain>
+            </div>
+          </span>
+
+          <div className="mt2 mb6 lh-copy">{selectedAddress.receiverName}</div>
+        </div>
+      )}
+
       <div className="c-muted-1">
         <span className="fw6 flex items-center">
           <FormattedMessage id="store/checkout.shipping.shippingOptionLabel" />{' '}
@@ -101,13 +124,15 @@ const AddressCompletionForm: React.FC<Props> = ({
           <FormattedMessage id="store/checkout.shipping.completeAddressLabel" />
         </span>
 
-        <AddressForm
-          hiddenFields={['receiverName']}
-          onResetAddress={onAddressReset}
-        />
+        <div className="mb5">
+          <AddressForm
+            hiddenFields={['receiverName']}
+            onResetAddress={onAddressReset}
+          />
+        </div>
 
-        {address.receiverName == null && (
-          <div className="mt5 mb7">
+        {selectedAddress.receiverName == null && (
+          <div className="mb7">
             <Checkbox
               label={
                 <FormattedMessage
