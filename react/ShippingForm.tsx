@@ -81,6 +81,7 @@ const ShippingForm: React.FC = () => {
         />
       )
     }
+
     case matches('editReceiverInfo'): {
       return (
         state.context.selectedAddress && (
@@ -89,7 +90,7 @@ const ShippingForm: React.FC = () => {
             isSubmitting={matches({ editReceiverInfo: 'submitting' })}
             selectedAddress={state.context.selectedAddress}
             onEditAddress={() => send('EDIT_ADDRESS')}
-            onReceiverInfoSave={receiverName => {
+            onReceiverInfoSave={(receiverName) => {
               send({ type: 'SUBMIT_RECEIVER_INFO', receiverName })
             }}
             onShippingOptionEdit={() => send('GO_TO_SELECT_DELIVERY_OPTION')}
@@ -97,6 +98,7 @@ const ShippingForm: React.FC = () => {
         )
       )
     }
+
     case matches('selectDeliveryOption'): {
       return (
         <ShippingOptionList
@@ -108,19 +110,23 @@ const ShippingForm: React.FC = () => {
         />
       )
     }
+
     case matches('selectAddress'): {
       return (
         <AddressList
           addresses={state.context.availableAddresses}
           selectedAddress={state.context.selectedAddress}
           onCreateAddress={() => send('GO_TO_CREATE_ADDRESS')}
-          onAddressSelected={address =>
+          onAddressSelected={(address) =>
             send({ type: 'SUBMIT_SELECT_ADDRESS', address })
           }
         />
       )
     }
+
     case matches('createAddress'):
+
+    // eslint-disable-next-line no-fallthrough
     default: {
       return <NewAddressForm onAddressCreated={handleAddressCreated} />
     }

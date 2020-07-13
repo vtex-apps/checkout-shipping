@@ -25,17 +25,19 @@ const ReceiverInfoForm: React.FC<Props> = ({
 }) => {
   const intl = useIntl()
 
-  const [name, setName] = useState(selectedAddress.receiverName)
+  const [name, setName] = useState(selectedAddress.receiverName ?? '')
 
   const selectedDeliveryOption = deliveryOptions.find(
     ({ isSelected }) => isSelected
   )
 
-  const handleNameChange: React.ChangeEventHandler<HTMLInputElement> = evt => {
+  const handleNameChange: React.ChangeEventHandler<HTMLInputElement> = (
+    evt
+  ) => {
     setName(evt.target.value)
   }
 
-  const handleSubmit: React.FormEventHandler = async evt => {
+  const handleSubmit: React.FormEventHandler = async (evt) => {
     evt.preventDefault()
     if (name) {
       onReceiverInfoSave(name)

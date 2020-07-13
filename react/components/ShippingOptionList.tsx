@@ -73,7 +73,7 @@ const ShippingOptionList: React.FC<Props> = ({
       </div>
 
       <ListGroup>
-        {deliveryOptions.map(deliveryOption => (
+        {deliveryOptions.map((deliveryOption) => (
           <GroupOption
             key={deliveryOption.id!}
             onClick={() => handleDeliveryOptionSelect(deliveryOption)}

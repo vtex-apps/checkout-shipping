@@ -1,14 +1,17 @@
 import { useMachine } from '@xstate/react'
 import { useMemo } from 'react'
-import { Router } from 'vtex.checkout-container'
+import { Router, routes, ContainerContext } from 'vtex.checkout-container'
 import { OrderShipping } from 'vtex.order-shipping'
-import { State } from 'xstate'
+import { State, assign } from 'xstate'
+import { AddressContext } from 'vtex.address-context'
 
 import shippingStateMachine from './shippingStateMachine'
-import { ShippingMachineContext, ShippingMachineState } from './typings'
+import { ShippingMachineContext, ShippingMachineState } from './types'
 
-const { useOrderShipping } = OrderShipping
 const { useHistory } = Router
+const { useOrderShipping } = OrderShipping
+const { useCheckoutContainer } = ContainerContext
+const { useAddressContext } = AddressContext
 
 export const useMatcher = <T, U>(state: State<U>) => (params: T) =>
   state.matches(params)
@@ -27,6 +30,10 @@ const useShippingStateMachine = ({
     updateSelectedAddress,
   } = useOrderShipping()
 
+  const { setAddress } = useAddressContext()
+
+  const { requestLogin } = useCheckoutContainer()
+
   const history = useHistory()
 
   const [state, send] = useMachine(shippingStateMachine, {
@@ -40,7 +47,26 @@ const useShippingStateMachine = ({
       isAddressValid,
     },
     actions: {
-      goToNextStep: () => history.push('/payment'),
+      goToNextStep: () => history.push(routes.PAYMENT),
+      requestLogin: () => requestLogin(),
+      updateSelectedAddress: assign((_, event) => {
+        if (
+          event.type === 'done.invoke.tryToCreateAddress' ||
+          event.type === 'done.invoke.tryToSelectAddress' ||
+          event.type === 'done.invoke.tryToEditReceiverInfo' ||
+          event.type === 'done.invoke.tryToUpdateCompleteAddress'
+        ) {
+          const updatedAddress = event.data.orderForm.shipping.selectedAddress
+
+          setAddress(updatedAddress)
+
+          return {
+            selectedAddress: event.data.orderForm.shipping.selectedAddress,
+          }
+        }
+
+        return {}
+      }),
     },
     services: {
       tryToEditReceiverInfo: (ctx, { receiverName }) => {
@@ -60,6 +86,7 @@ const useShippingStateMachine = ({
       },
       tryToUpdateCompleteAddress: async (_, event) => {
         const result = await updateSelectedAddress(event.updatedAddress)
+
         return { ...result, buyerIsReceiver: event.buyerIsReceiver }
       },
     },
