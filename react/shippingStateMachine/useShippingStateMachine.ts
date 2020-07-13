@@ -70,6 +70,7 @@ const useShippingStateMachine = ({
     },
     services: {
       tryToEditReceiverInfo: (ctx, { receiverName }) => {
+        console.log(ctx, receiverName);
         return updateSelectedAddress({
           ...ctx.selectedAddress,
           receiverName,
