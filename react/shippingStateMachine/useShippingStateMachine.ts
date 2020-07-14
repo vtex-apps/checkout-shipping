@@ -29,7 +29,6 @@ const useShippingStateMachine = ({
     selectDeliveryOption,
     updateSelectedAddress,
   } = useOrderShipping()
-
   const { setAddress } = useAddressContext()
 
   const { requestLogin } = useCheckoutContainer()
@@ -70,14 +69,20 @@ const useShippingStateMachine = ({
     },
     services: {
       tryToEditReceiverInfo: (ctx, { receiverName }) => {
-        console.log(ctx, receiverName);
         return updateSelectedAddress({
           ...ctx.selectedAddress,
           receiverName,
         })
       },
-      tryToCreateAddress: (_, event) => {
-        return insertAddress(event.address)
+      tryToCreateAddress: async (_, event) => {
+        const res = await insertAddress(event.address)
+        const { success, orderForm } = res;
+
+        if (success && orderForm?.shipping.selectedAddress) {
+          setAddress(orderForm.shipping.selectedAddress)
+        }
+
+        return res
       },
       tryToSelectAddress: (_, event) => {
         return updateSelectedAddress(event.address)

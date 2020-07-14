@@ -43,7 +43,6 @@ const ShippingForm: React.FC = () => {
         address: {
           ...address,
           addressType: address.addressType ?? 'residential',
-          addressId: '12345'
         },
       })
     },
