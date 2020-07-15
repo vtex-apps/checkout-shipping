@@ -11,11 +11,14 @@ import {
 import { FormattedCurrency } from 'vtex.format-currency'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { OrderForm } from 'vtex.order-manager'
-import { AddressContext } from 'vtex.address-context'
+import { OrderShipping } from 'vtex.order-shipping'
+import { AddressContext, Utils } from 'vtex.address-context'
 import { FormattedMessage } from 'react-intl'
 
 const { useOrderForm } = OrderForm
+const { useOrderShipping } = OrderShipping
 const { useAddressContext } = AddressContext
+const { validateAddress } = Utils
 
 interface Props {
   selectedAddress: Address
@@ -43,9 +46,16 @@ const AddressCompletionForm: React.FC<Props> = ({
     orderForm: { clientProfileData, canEditData },
   } = useOrderForm()
 
-  const { address, invalidFields } = useAddressContext()
+  const { searchedAddress } = useOrderShipping()
+
+  const { address, invalidFields, rules } = useAddressContext()
   const [buyerIsReceiver, setBuyerIsReceiver] = useState(
     !address.isDisposable || canEditData
+  )
+
+  const { invalidFields: mandatoryEditableFields } = validateAddress(
+    searchedAddress,
+    rules
   )
 
   const { firstName, lastName } = clientProfileData!
@@ -132,6 +142,7 @@ const AddressCompletionForm: React.FC<Props> = ({
           <AddressForm
             hiddenFields={['receiverName']}
             onResetAddress={onAddressReset}
+            mandatoryEditableFields={mandatoryEditableFields}
           />
         </div>
 
