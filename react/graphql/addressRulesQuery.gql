@@ -13,6 +13,7 @@ fragment FieldFragment on Field {
   optionsCaption
   elementName
   mask
+  pattern
   additionalData {
     ... on PostalCodeData {
       forgottenURL
