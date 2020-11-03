@@ -1,4 +1,5 @@
 {
+  "store/checkout.shipping.informAddress": "Please inform your address",
   "store/checkout.shipping.chooseAddress": "Choose an address",
   "store/checkout.shipping.selectedDeliveryOptionsLabel": "You selected",
   "store/checkout.shipping.newAddressLabel": "New address…",

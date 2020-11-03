@@ -14,7 +14,11 @@ const ShippingHeader: React.VFC<Props> = ({ onEditAddress }) => {
   const { address, invalidFields } = useAddressContext()
 
   if (!address || invalidFields.includes('postalCode')) {
-    return <p className="t-body mt0 mb6">Por favor informe seu endereço</p>
+    return (
+      <p className="t-body mt0 mb6">
+        <FormattedMessage id="store/checkout.shipping.informAddress" />
+      </p>
+    )
   }
 
   return (
