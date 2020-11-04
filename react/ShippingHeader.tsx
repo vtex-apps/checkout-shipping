@@ -19,8 +19,9 @@ const ShippingHeader: React.VFC<Props> = ({ onEditAddress }) => {
   } = useOrderForm()
 
   if (
-    (canEditData || address.isDisposable) &&
-    (!address || invalidFields.includes('postalCode'))
+    !address ||
+    ((canEditData || address?.isDisposable) &&
+      invalidFields.includes('postalCode'))
   ) {
     return (
       <p className="t-body mt0 mb6">
