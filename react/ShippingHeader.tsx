@@ -18,11 +18,10 @@ const ShippingHeader: React.VFC<Props> = ({ onEditAddress }) => {
     orderForm: { canEditData },
   } = useOrderForm()
 
-  if (
-    !address ||
-    ((canEditData || address?.isDisposable) &&
-      invalidFields.includes('postalCode'))
-  ) {
+  const isAddressEditable = canEditData || address?.isDisposable
+  const isPostalCodeInvalid = invalidFields.includes('postalCode')
+
+  if (!address || (isAddressEditable && isPostalCodeInvalid)) {
     return (
       <p className="t-body mt0 mb6">
         <FormattedMessage id="store/checkout.shipping.informAddress" />
