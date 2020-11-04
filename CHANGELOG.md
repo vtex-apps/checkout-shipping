@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.4.0] - 2020-11-04
+
 ## [0.3.1] - 2020-07-15
 ### Fixed
 - Editable fields in complete address step are now consistent when the user proceeds to payment and then returns to this step.
