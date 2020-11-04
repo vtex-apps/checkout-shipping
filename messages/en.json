@@ -1,5 +1,7 @@
 {
+  "store/checkout.shipping.informAddress": "Please inform your address",
   "store/checkout.shipping.chooseAddress": "Choose an address",
+  "store/checkout.shipping.selectedDeliveryOptionsLabel": "You selected",
   "store/checkout.shipping.newAddressLabel": "New address…",
   "store/checkout.shipping.shippingOptionLabel": "Shipping option",
   "store/checkout.shipping.completeAddressLabel": "Complete the delivery address",
@@ -8,5 +10,7 @@
   "store/checkout.shipping.receiverNameLabel": "Name",
   "store/checkout.shipping.receiverLabel": "Receiver",
   "store/checkout.shipping.shippingOptionsForAddressLabel": "Shipping options for",
-  "store/checkout.shipping.continue": "Continue"
+  "store/checkout.shipping.continue": "Continue",
+  "store/checkout.shipping.emptyDeliveryOptionsAlert": "No delivery options are available.",
+  "store/checkout.shipping.changeAddressLabel": "change"
 }

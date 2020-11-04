@@ -3,14 +3,17 @@ import React, { useCallback } from 'react'
 import { OrderForm } from 'vtex.order-manager'
 import { OrderShipping } from 'vtex.order-shipping'
 import { AddressContext } from 'vtex.address-context'
+import { FormattedMessage } from 'react-intl'
+import { ButtonPlain, IconEdit } from 'vtex.styleguide'
 
 import NewAddressForm from './components/NewAddressForm'
 import AddressList from './components/AddressList'
-import ShippingOptionList from './components/ShippingOptionList'
+import ShippingOptionList from './ShippingOptionList'
 import AddressCompletionForm from './components/AddressCompletionForm'
 import ReceiverInfoForm from './components/ReceiverInfoForm'
 import useShippingStateMachine from './shippingStateMachine/useShippingStateMachine'
-import { useAddressRules } from './hooks/useAddressRules'
+import useAddressRules from './useAddressRules'
+import ShippingHeader from './ShippingHeader'
 
 const { useOrderForm } = OrderForm
 const { useOrderShipping } = OrderShipping
@@ -24,6 +27,7 @@ const ShippingForm: React.FC = () => {
       userProfileId,
     },
   } = useOrderForm()
+
   const { selectedAddress, deliveryOptions } = useOrderShipping()
   const { isValid } = useAddressContext()
 
@@ -101,13 +105,31 @@ const ShippingForm: React.FC = () => {
 
     case matches('selectDeliveryOption'): {
       return (
-        <ShippingOptionList
-          deliveryOptions={state.context.deliveryOptions}
-          onEditAddress={() => send('EDIT_ADDRESS')}
-          onEditReceiverInfo={() => send('EDIT_RECEIVER_INFO')}
-          onDeliveryOptionSelected={handleDeliveryOptionSelect}
-          selectedAddress={state.context.selectedAddress!}
-        />
+        <>
+          {selectedAddress?.receiverName && (
+            <div className="c-muted-1">
+              <span className="fw6 flex items-center">
+                <FormattedMessage id="store/checkout.shipping.receiverLabel" />{' '}
+                <div className="dib ml4">
+                  <ButtonPlain onClick={() => send('EDIT_RECEIVER_INFO')}>
+                    <IconEdit solid />
+                  </ButtonPlain>
+                </div>
+              </span>
+
+              <div className="mt2 mb6 lh-copy">
+                {selectedAddress.receiverName}
+              </div>
+            </div>
+          )}
+
+          <ShippingHeader onEditAddress={() => send('EDIT_ADDRESS')} />
+
+          <ShippingOptionList
+            deliveryOptions={state.context.deliveryOptions}
+            onDeliveryOptionSelected={handleDeliveryOptionSelect}
+          />
+        </>
       )
     }
 

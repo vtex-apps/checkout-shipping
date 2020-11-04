@@ -2,11 +2,11 @@ import { useMemo } from 'react'
 import { useQuery } from 'react-apollo'
 import { OrderShipping } from 'vtex.order-shipping'
 
-import addressRulesQuery from '../graphql/addressRulesQuery.gql'
+import addressRulesQuery from './graphql/addressRulesQuery.gql'
 
 const { useOrderShipping } = OrderShipping
 
-export const useAddressRules = () => {
+const useAddressRules = () => {
   const { countries } = useOrderShipping()
 
   const { data } = useQuery(addressRulesQuery, { variables: { countries } })
@@ -29,3 +29,5 @@ export const useAddressRules = () => {
 
   return addressRules
 }
+
+export default useAddressRules
