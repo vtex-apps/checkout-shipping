@@ -3,17 +3,25 @@ import { ButtonPlain } from 'vtex.styleguide'
 import { PlaceDetails } from 'vtex.place-components'
 import { FormattedMessage } from 'react-intl'
 import { AddressContext } from 'vtex.address-context'
+import { OrderForm } from 'vtex.order-manager'
 
 interface Props {
   onEditAddress?: () => void
 }
 
 const { useAddressContext } = AddressContext
+const { useOrderForm } = OrderForm
 
 const ShippingHeader: React.VFC<Props> = ({ onEditAddress }) => {
   const { address, invalidFields } = useAddressContext()
+  const {
+    orderForm: { canEditData },
+  } = useOrderForm()
 
-  if (!address || invalidFields.includes('postalCode')) {
+  const isAddressEditable = canEditData || address?.isDisposable
+  const isPostalCodeInvalid = invalidFields.includes('postalCode')
+
+  if (!address || (isAddressEditable && isPostalCodeInvalid)) {
     return (
       <p className="t-body mt0 mb6">
         <FormattedMessage id="store/checkout.shipping.informAddress" />
