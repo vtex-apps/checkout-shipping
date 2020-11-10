@@ -40,7 +40,7 @@ const NewAddressForm: React.FC<Props> = ({ onAddressCreated }) => {
           <LocationInput onSuccess={onAddressCreated} variation="primary" />
         </div>
       ) : (
-        <div className="mt6 w-100 mh3">
+        <div className="mt6 w-100 mw6">
           <LocationSearch onSelectAddress={onAddressCreated} />
         </div>
       )}
