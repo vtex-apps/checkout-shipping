@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classnames from 'classnames'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { GroupOption } from 'vtex.checkout-components'
-import { DeliveryOption } from 'vtex.checkout-graphql'
-import { IconDelete } from 'vtex.styleguide'
+import { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
+import { IconDelete, ButtonPlain, Modal, Divider } from 'vtex.styleguide'
 
 interface EstimateDeliveryOption {
   shippingEstimate: string
@@ -14,10 +14,14 @@ interface EstimateDeliveryOption {
 interface Props {
   onSelectDeliveryOption?: () => void
   onDeselectDeliveryOption?: () => void
-  deliveryOption: DeliveryOption
+  deliveryOption: any
   isSelected?: boolean
   fastestOption?: EstimateDeliveryOption
   cheapestOption?: EstimateDeliveryOption
+}
+
+const getName = (shippingOption: any ) => {
+  return shippingOption.channel === 'pickup-in-point' ? shippingOption.friendlyName : shippingOption.id 
 }
 
 const ShippingOption: React.VFC<Props> = ({
@@ -28,10 +32,12 @@ const ShippingOption: React.VFC<Props> = ({
   cheapestOption,
   isSelected = false,
 }) => {
+  const [showPickupModal, setShowPickupModal] = useState(false)
+
   const content = (
     <div className="flex w-100">
       <div className="flex flex-column w-100">
-        <span className="c-on-base fw5">{deliveryOption.id}</span>
+        <span className="c-on-base fw5">{getName(deliveryOption)}</span>
         <span
           className={classnames('dib mt2 fw5', {
             'c-muted-1':
@@ -42,6 +48,8 @@ const ShippingOption: React.VFC<Props> = ({
         >
           <TranslateEstimate shippingEstimate={deliveryOption.estimate ?? ''} />
         </span>
+        <div>
+        </div>
       </div>
       <div
         className={classnames('fw4', {

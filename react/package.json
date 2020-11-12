@@ -15,7 +15,7 @@
     "vtex.format-currency": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.2.0/public/@types/vtex.format-currency",
     "vtex.formatted-price": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.formatted-price@0.4.0/public/@types/vtex.formatted-price",
     "vtex.order-manager": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-manager@0.8.7/public/@types/vtex.order-manager",
-    "vtex.order-shipping": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.6.0/public/@types/vtex.order-shipping",
+    "vtex.order-shipping": "https://jeff--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.6.0+build1605011137/public/@types/vtex.order-shipping",
     "vtex.place-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.12.0/public/@types/vtex.place-components",
     "vtex.places-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.4.0/public/@types/vtex.places-graphql",
     "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.124.3/public/@types/vtex.render-runtime",

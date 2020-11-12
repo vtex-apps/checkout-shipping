@@ -127,6 +127,7 @@ const ShippingForm: React.FC = () => {
 
           <ShippingOptionList
             deliveryOptions={state.context.deliveryOptions}
+            pickupOptions={[]}
             onDeliveryOptionSelected={handleDeliveryOptionSelect}
           />
         </>
