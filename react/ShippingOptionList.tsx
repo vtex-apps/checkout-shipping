@@ -61,7 +61,7 @@ const ShippingOptionList: React.FC<Props> = ({
           <FormattedMessage id="store/checkout.shipping.selectedDeliveryOptionsLabel" />
         </p>
 
-        <ListGroup>
+        <ListGroup borderPosition="none">
           {selectedDeliveryOptions.map((deliveryOption) => (
             <ShippingOption
               key={deliveryOption.id}
