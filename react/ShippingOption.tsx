@@ -77,17 +77,22 @@ const ShippingOption: React.VFC<Props> = ({
         </button>
       </div>
 
-      <div>
-        <ButtonPlain size="small" onClick={() => setShowPickupModal(true)}>
-          Ver Detalhes
-        </ButtonPlain>
+      {deliveryOption.channel === 'pickup-in-point' && (
+        <div className="flex flex-column items-start">
+          <span className="fw4 f6 c-muted-1">
+            {deliveryOption.storeDistance.toFixed(1)}km de distância
+          </span>
+          <ButtonPlain size="small" onClick={() => setShowPickupModal(true)}>
+            Ver detalhes
+          </ButtonPlain>
 
-        <PickupDetailsModal
-          pickupOption={deliveryOption}
-          showPickupModal={showPickupModal}
-          setShowPickupModal={setShowPickupModal}
-        />
-      </div>
+          <PickupDetailsModal
+            pickupOption={deliveryOption}
+            showPickupModal={showPickupModal}
+            setShowPickupModal={setShowPickupModal}
+          />
+        </div>
+      )}
     </div>
   ) : (
     <GroupOption

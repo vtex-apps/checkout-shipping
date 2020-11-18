@@ -23,27 +23,27 @@ const PickupDetailsModal: React.VFC<Props> = ({
     >
       <div className="lh-copy">
         <Divider orientation="horizontal" />
-        <div className="flex-column mt4">
-          <div className="flex justify-between">
-            <h2 className="fw6">{pickupOption.friendlyName}</h2>
-            <div className="fw5 mt6">
+        <div className="flex-column mt4 mb4">
+          <div className="flex justify-between mb0">
+            <div className="fw6 f3">{pickupOption.friendlyName}</div>
+            <div className="fw5 f5">
               <FormattedPrice value={(pickupOption.price ?? 0) / 100} />
             </div>
           </div>
 
-          <div className="fw5">
+          <div className="fw5 f5 c-muted-1">
             <TranslateEstimate shippingEstimate={pickupOption.estimate ?? ''} />
           </div>
 
-          <div>{pickupOption.storeDistance.toFixed(1)}km de distância</div>
+          <div className="fw4 f6 c-muted-1">
+            {pickupOption.storeDistance.toFixed(1)}km de distância
+          </div>
         </div>
 
-        <div className="flex mb4">
-          <div className="flex-column">
-            <span className="fw6 mb2">Endereço</span>
-            <div>{`${pickupOption.address?.street}, ${pickupOption.address?.number}`}</div>
-            <div>{`${pickupOption.address?.neighborhood} - ${pickupOption.address?.city} - ${pickupOption.address?.state}`}</div>
-          </div>
+        <div className="flex-column mb4">
+          <span className="fw6 mb2">Endereço</span>
+          <div>{`${pickupOption.address?.street}, ${pickupOption.address?.number}`}</div>
+          <div>{`${pickupOption.address?.neighborhood} - ${pickupOption.address?.city} - ${pickupOption.address?.state}`}</div>
         </div>
 
         <div className="flex-column mb4">
