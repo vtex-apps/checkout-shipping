@@ -20,7 +20,8 @@
     "vtex.place-components": "0.x",
     "vtex.places-graphql": "0.x",
     "vtex.shipping-estimate-translator": "2.x",
-    "vtex.styleguide": "9.x"
+    "vtex.styleguide": "9.x",
+    "vtex.apps-graphql": "3.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
