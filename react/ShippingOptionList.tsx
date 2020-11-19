@@ -22,13 +22,14 @@ const ShippingOptionList: React.FC<Props> = ({
   onDeliveryOptionDeselected = () => {},
   onPickupOptionSelected = () => {},
 }) => {
-  const deliveryAndPickupOptions = [...deliveryOptions, ...pickupOptions]
-  console.log({deliveryAndPickupOptions, pickupOptions, onPickupOptionSelected})
+  const shippingOptions = [...deliveryOptions, ...pickupOptions.slice(0, 1)]
 
-  const handleDeliveryOptionSelect = (deliveryOption: DeliveryOption | PickupOption) => {
-    if(deliveryOption.channel === 'pickup-in-point'){
+  const handleDeliveryOptionSelect = (
+    deliveryOption: DeliveryOption | PickupOption
+  ) => {
+    if (deliveryOption.channel === 'pickup-in-point') {
       onPickupOptionSelected(deliveryOption.id)
-    }else {
+    } else {
       onDeliveryOptionSelected(deliveryOption.id!)
     }
   }
@@ -57,26 +58,26 @@ const ShippingOptionList: React.FC<Props> = ({
     )
   }, [deliveryOptions])
 
-  const selectedDeliveryOptions = useMemo(() => {
-    return deliveryAndPickupOptions.filter(({ isSelected }) => isSelected)
-  }, [deliveryAndPickupOptions])
+  const selectedShippingOptions = useMemo(() => {
+    return shippingOptions.filter(({ isSelected }) => isSelected)
+  }, [shippingOptions])
 
   const [showSelectedDeliveryOption, setShowSelectedDeliveryOption] = useState(
-    !!selectedDeliveryOptions.length 
+    !!selectedShippingOptions.length
   )
 
-  return deliveryAndPickupOptions.length > 0 ? (
+  return shippingOptions.length > 0 ? (
     showSelectedDeliveryOption ? (
       <>
         <p className="mt0 mb5 fw4 f4 lh-copy">
           <FormattedMessage id="store/checkout.shipping.selectedDeliveryOptionsLabel" />
         </p>
 
-        <ListGroup borderPosition="none">
-          {selectedDeliveryOptions.map((deliveryOption) => (
+        <ListGroup>
+          {selectedShippingOptions.map((deliveryOption) => (
             <ShippingOption
               key={deliveryOption.id}
-              deliveryOption={deliveryOption}
+              shippingOption={deliveryOption}
               fastestOption={fastestOption}
               cheapestOption={cheapestOption}
               onDeselectDeliveryOption={() =>
@@ -89,10 +90,10 @@ const ShippingOptionList: React.FC<Props> = ({
       </>
     ) : (
       <ListGroup>
-        {deliveryAndPickupOptions.map((shippingOption) => (
+        {shippingOptions.map((shippingOption) => (
           <ShippingOption
             key={shippingOption.id}
-            deliveryOption={shippingOption}
+            shippingOption={shippingOption}
             fastestOption={fastestOption}
             cheapestOption={cheapestOption}
             onSelectDeliveryOption={() => {
