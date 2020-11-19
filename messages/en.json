@@ -15,6 +15,7 @@
   "store/checkout.shipping.changeAddressLabel": "change",
   "store/checkout.shipping.seeDetails": "See details",
   "store/checkout.shipping.distance": "{distanceValue}km away",
+  "store/checkout.shipping.pickupPointsModal.details": "Details",
   "store/checkout.shipping.pickupPointsModal.weekDay0": "Sunday",
   "store/checkout.shipping.pickupPointsModal.weekDay1": "Monday",
   "store/checkout.shipping.pickupPointsModal.weekDay2": "Tuesday",

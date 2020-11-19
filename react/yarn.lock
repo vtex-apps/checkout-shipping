@@ -342,9 +342,9 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.8.7"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-manager@0.8.7/public/@types/vtex.order-manager#d666dbf9c6d630dba38ac26e815ffaa3811933df"
 
-"vtex.order-shipping@https://jeff--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.6.0+build1605675074/public/@types/vtex.order-shipping":
+"vtex.order-shipping@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.6.0/public/@types/vtex.order-shipping":
   version "0.6.0"
-  resolved "https://jeff--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.6.0+build1605675074/public/@types/vtex.order-shipping#52b70a40f6313e0cd0d2946cbac9d2b8e18a227e"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.6.0/public/@types/vtex.order-shipping#1fe8aacc58874a5d247055b0144439db5d08a989"
 
 "vtex.place-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.12.0/public/@types/vtex.place-components":
   version "0.12.0"

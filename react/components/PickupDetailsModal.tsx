@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
-import { PickupOption } from 'vtex.checkout-graphql'
+import { PickupOption, BusinessHour } from 'vtex.checkout-graphql'
 import { Modal, Divider } from 'vtex.styleguide'
 import { FormattedMessage, defineMessages, FormattedTime } from 'react-intl'
 
 const messages = defineMessages({
+  details: {
+    defaultMessage: 'Details',
+    id: 'store/checkout.shipping.pickupPointsModal.details',
+  },
   weekDay0: {
-    defaultMessage: 'Monday',
+    defaultMessage: 'Sunday',
     id: 'store/checkout.shipping.pickupPointsModal.weekDay0',
   },
   weekDay1: {
@@ -15,27 +19,27 @@ const messages = defineMessages({
     id: 'store/checkout.shipping.pickupPointsModal.weekDay1',
   },
   weekDay2: {
-    defaultMessage: 'Monday',
+    defaultMessage: 'Tuesday',
     id: 'store/checkout.shipping.pickupPointsModal.weekDay2',
   },
   weekDay3: {
-    defaultMessage: 'Monday',
+    defaultMessage: 'Wednesday',
     id: 'store/checkout.shipping.pickupPointsModal.weekDay3',
   },
   weekDay4: {
-    defaultMessage: 'Monday',
+    defaultMessage: 'Thursday',
     id: 'store/checkout.shipping.pickupPointsModal.weekDay4',
   },
   weekDay5: {
-    defaultMessage: 'Monday',
+    defaultMessage: 'Friday',
     id: 'store/checkout.shipping.pickupPointsModal.weekDay5',
   },
   weekDay6: {
-    defaultMessage: 'Monday',
+    defaultMessage: 'Saturday',
     id: 'store/checkout.shipping.pickupPointsModal.weekDay6',
   },
   weekDay1to5: {
-    defaultMessage: 'Monday',
+    defaultMessage: 'Monday to Friday',
     id: 'store/checkout.shipping.pickupPointsModal.weekDay1to5',
   },
 })
@@ -63,7 +67,7 @@ const PickupDetailsModal: React.VFC<Props> = ({
     <Modal
       isOpen={showPickupModal}
       onClose={() => setShowPickupModal(false)}
-      title="Detalhes"
+      title={<FormattedMessage {...messages.details} />}
     >
       <div className="lh-copy">
         <Divider orientation="horizontal" />
@@ -101,7 +105,7 @@ const PickupDetailsModal: React.VFC<Props> = ({
           <span className="fw6 mb2">
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.businessHours" />
           </span>
-          {pickupOption.businessHours.map((businessHour: any) => (
+          {pickupOption.businessHours.map((businessHour: BusinessHour) => (
             <>
               <div className="flex justify-between mb2 mt2">
                 <FormattedMessage
