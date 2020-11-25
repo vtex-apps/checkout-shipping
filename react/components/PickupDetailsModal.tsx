@@ -5,6 +5,8 @@ import { PickupOption, BusinessHour } from 'vtex.checkout-graphql'
 import { Modal, Divider } from 'vtex.styleguide'
 import { FormattedMessage, defineMessages, FormattedTime } from 'react-intl'
 
+import PickupPointAddress from './PickupPointAddress'
+
 const messages = defineMessages({
   details: {
     defaultMessage: 'Details',
@@ -73,38 +75,38 @@ const PickupDetailsModal: React.VFC<Props> = ({
         <Divider orientation="horizontal" />
         <div className="flex-column mt4 mb4">
           <div className="flex justify-between mb0">
-            <div className="fw6 f3">{pickupOption.friendlyName}</div>
-            <div className="fw5 f5">
+            <p className="fw6 f3 mv0">{pickupOption.friendlyName}</p>
+            <span className="fw5 f5 flex items-center">
               <FormattedPrice value={(pickupOption.price ?? 0) / 100} />
-            </div>
+            </span>
           </div>
 
-          <div className="fw5 f5 c-muted-1">
+          <p className="fw5 f5 c-muted-1 mv0">
             <TranslateEstimate shippingEstimate={pickupOption.estimate ?? ''} />
-          </div>
+          </p>
 
-          <div className="fw4 f6 c-muted-1">
+          <p className="fw4 f6 c-muted-1 mv0">
             <FormattedMessage
               id="store/checkout.shipping.distance"
               values={{
                 distanceValue: pickupOption.storeDistance.toFixed(1),
               }}
             />
-          </div>
+          </p>
         </div>
 
         <div className="flex-column mb4">
-          <span className="fw6 mb2">
+          <p className="fw6 mb2">
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.address" />
-          </span>
-          <div>{`${pickupOption.address?.street}, ${pickupOption.address?.number}`}</div>
-          <div>{`${pickupOption.address?.neighborhood} - ${pickupOption.address?.city} - ${pickupOption.address?.state}`}</div>
+          </p>
+
+          <PickupPointAddress address={pickupOption.address} />
         </div>
 
         <div className="flex-column mb4">
-          <span className="fw6 mb2">
+          <p className="fw6 mb2">
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.businessHours" />
-          </span>
+          </p>
           {pickupOption.businessHours.map((businessHour: BusinessHour) => (
             <>
               <div className="flex justify-between mb2 mt2">
@@ -133,9 +135,9 @@ const PickupDetailsModal: React.VFC<Props> = ({
         </div>
 
         <div className="flex-column">
-          <div className="fw6 mb2">
+          <p className="fw6 mb2">
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.availableItems" />
-          </div>
+          </p>
           <div>
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.allItemsAvailable" />
           </div>
