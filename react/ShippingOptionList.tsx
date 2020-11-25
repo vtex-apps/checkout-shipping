@@ -17,7 +17,7 @@ interface Props {
 
 const ShippingOptionList: React.FC<Props> = ({
   deliveryOptions,
-  pickupOptions,
+  pickupOptions = [],
   onDeliveryOptionSelected = () => {},
   onDeliveryOptionDeselected = () => {},
   onPickupOptionSelected = () => {},
@@ -27,7 +27,7 @@ const ShippingOptionList: React.FC<Props> = ({
   const handleDeliveryOptionSelect = (
     deliveryOption: DeliveryOption | PickupOption
   ) => {
-    if (deliveryOption.channel === 'pickup-in-point') {
+    if (deliveryOption.deliveryChannel === 'pickup-in-point') {
       onPickupOptionSelected(deliveryOption.id)
     } else {
       onDeliveryOptionSelected(deliveryOption.id!)

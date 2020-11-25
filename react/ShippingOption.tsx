@@ -24,7 +24,7 @@ interface Props {
 }
 
 const getName = (shippingOption: any) => {
-  return shippingOption.channel === 'pickup-in-point'
+  return shippingOption.deliveryChannel === 'pickup-in-point'
     ? shippingOption.friendlyName
     : shippingOption.id
 }
@@ -53,7 +53,7 @@ const ShippingOption: React.VFC<Props> = ({
         >
           <TranslateEstimate shippingEstimate={shippingOption.estimate ?? ''} />
         </span>
-        {shippingOption.channel === 'pickup-in-point' && (
+        {shippingOption.deliveryChannel === 'pickup-in-point' && (
           <span className="fw4 f6 c-muted-1">
             <FormattedMessage
               id="store/checkout.shipping.distance"
@@ -88,7 +88,7 @@ const ShippingOption: React.VFC<Props> = ({
         </button>
       </div>
 
-      {shippingOption.channel === 'pickup-in-point' && (
+      {shippingOption.deliveryChannel === 'pickup-in-point' && (
         <div className="flex flex-column items-start">
           <ButtonPlain size="small" onClick={() => setShowPickupModal(true)}>
             <FormattedMessage id="store/checkout.shipping.seeDetails" />
