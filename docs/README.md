@@ -1,5 +1,7 @@
 # Checkout Shipping
 
+⚠️ **This is an ongoing, unsupported, unfinished and undocumented project. We do not guarantee any results after installation.** ⚠️
+
 This app has the `ShippingSummary` and `ShippingForm` components used in the shipping step of the checkout.
 
 ![Shipping summary component](./images/shipping_summary.png)
