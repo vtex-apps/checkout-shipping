@@ -142,9 +142,9 @@ const PickupDetailsModal: React.VFC<Props> = ({
           <p className="fw6 mb2">
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.availableItems" />
           </p>
-          <div>
+          <p className="mv0">
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.allItemsAvailable" />
-          </div>
+          </p>
         </div>
       </div>
     </Modal>
