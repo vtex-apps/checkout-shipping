@@ -24,7 +24,7 @@ const ShippingOptionList: React.FC<Props> = ({
 }) => {
   const shippingOptions = [...deliveryOptions, ...pickupOptions.slice(0, 1)]
 
-  const handleDeliveryOptionSelect = (
+  const handleShippingOptionSelect = (
     deliveryOption: DeliveryOption | PickupOption
   ) => {
     if (deliveryOption.deliveryChannel === 'pickup-in-point') {
@@ -62,26 +62,26 @@ const ShippingOptionList: React.FC<Props> = ({
     return shippingOptions.filter(({ isSelected }) => isSelected)
   }, [shippingOptions])
 
-  const [showSelectedDeliveryOption, setShowSelectedDeliveryOption] = useState(
+  const [showSelectedShippingOption, setShowSelectedShippingOption] = useState(
     !!selectedShippingOptions.length
   )
 
   return shippingOptions.length > 0 ? (
-    showSelectedDeliveryOption ? (
+    showSelectedShippingOption ? (
       <>
         <p className="mt0 mb5 fw4 f4 lh-copy">
           <FormattedMessage id="store/checkout.shipping.selectedDeliveryOptionsLabel" />
         </p>
 
         <ListGroup>
-          {selectedShippingOptions.map((deliveryOption) => (
+          {selectedShippingOptions.map((shippingOption) => (
             <ShippingOption
-              key={deliveryOption.id}
-              shippingOption={deliveryOption}
+              key={shippingOption.id}
+              shippingOption={shippingOption}
               fastestOption={fastestOption}
               cheapestOption={cheapestOption}
               onDeselectDeliveryOption={() =>
-                setShowSelectedDeliveryOption(false)
+                setShowSelectedShippingOption(false)
               }
               isSelected
             />
@@ -97,8 +97,8 @@ const ShippingOptionList: React.FC<Props> = ({
             fastestOption={fastestOption}
             cheapestOption={cheapestOption}
             onSelectDeliveryOption={() => {
-              handleDeliveryOptionSelect(shippingOption)
-              setShowSelectedDeliveryOption(true)
+              handleShippingOptionSelect(shippingOption)
+              setShowSelectedShippingOption(true)
             }}
           />
         ))}
