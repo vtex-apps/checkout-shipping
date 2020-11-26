@@ -107,31 +107,35 @@ const PickupDetailsModal: React.VFC<Props> = ({
           <p className="fw6 mb2">
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.businessHours" />
           </p>
-          {pickupOption.businessHours.map((businessHour: BusinessHour) => (
-            <>
-              <div className="flex justify-between mb2 mt2">
-                <FormattedMessage
-                  id={`store/checkout.shipping.pickupPointsModal.weekDay${businessHour.dayNumber}`}
-                />
-                <div>
+
+          <table className="dt--fixed">
+            {pickupOption.businessHours.map((businessHour: BusinessHour) => (
+              <tr
+                key={businessHour.dayNumber}
+                className="flex justify-between bb b--light-gray mt2"
+              >
+                <td>
+                  <FormattedMessage
+                    id={`store/checkout.shipping.pickupPointsModal.weekDay${businessHour.dayNumber}`}
+                  />
+                </td>
+
+                <td>
                   {businessHour.closed ? (
                     <FormattedMessage id="store/checkout.shipping.pickupPointsModal.closed" />
                   ) : (
-                    <div>
-                      <FormattedMessage
-                        id="store/checkout.shipping.pickupPointsModal.hourFromTo"
-                        values={{
-                          openingTime: formatHour(businessHour.openingTime),
-                          closingTime: formatHour(businessHour.closingTime),
-                        }}
-                      />
-                    </div>
+                    <FormattedMessage
+                      id="store/checkout.shipping.pickupPointsModal.hourFromTo"
+                      values={{
+                        openingTime: formatHour(businessHour.openingTime),
+                        closingTime: formatHour(businessHour.closingTime),
+                      }}
+                    />
                   )}
-                </div>
-              </div>
-              <Divider orientation="horizontal" />
-            </>
-          ))}
+                </td>
+              </tr>
+            ))}
+          </table>
         </div>
 
         <div className="flex-column">
