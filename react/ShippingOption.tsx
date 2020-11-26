@@ -17,15 +17,15 @@ interface EstimateDeliveryOption {
 interface Props {
   onSelectDeliveryOption?: () => void
   onDeselectDeliveryOption?: () => void
-  shippingOption: any
+  shippingOption: DeliveryOption | PickupOption
   isSelected?: boolean
   fastestOption?: EstimateDeliveryOption
   cheapestOption?: EstimateDeliveryOption
 }
 
-const getName = (shippingOption: any) => {
+const getName = (shippingOption: DeliveryOption | PickupOption) => {
   return shippingOption.deliveryChannel === 'pickup-in-point'
-    ? shippingOption.friendlyName
+    ? (shippingOption as PickupOption).friendlyName
     : shippingOption.id
 }
 
@@ -58,7 +58,9 @@ const ShippingOption: React.VFC<Props> = ({
             <FormattedMessage
               id="store/checkout.shipping.distance"
               values={{
-                distanceValue: shippingOption.storeDistance.toFixed(1),
+                distanceValue: (shippingOption as PickupOption).storeDistance.toFixed(
+                  1
+                ),
               }}
             />
           </span>
@@ -95,7 +97,7 @@ const ShippingOption: React.VFC<Props> = ({
           </ButtonPlain>
 
           <PickupDetailsModal
-            pickupOption={shippingOption}
+            pickupOption={shippingOption as PickupOption}
             showPickupModal={showPickupModal}
             setShowPickupModal={setShowPickupModal}
           />
