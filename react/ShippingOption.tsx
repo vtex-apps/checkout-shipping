@@ -8,7 +8,7 @@ import { IconDelete, ButtonPlain, Modal, Divider } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
 import PickupDetailsModal from './components/PickupDetailsModal'
-import { getName } from './utils/sla'
+import { getName, isPickupOption } from './utils/sla'
 
 interface EstimateDeliveryOption {
   shippingEstimate: string
@@ -48,14 +48,12 @@ const ShippingOption: React.VFC<Props> = ({
         >
           <TranslateEstimate shippingEstimate={shippingOption.estimate ?? ''} />
         </span>
-        {shippingOption.deliveryChannel === 'pickup-in-point' && (
+        {isPickupOption(shippingOption) && (
           <span className="fw4 f6 c-muted-1">
             <FormattedMessage
               id="store/checkout.shipping.distance"
               values={{
-                distanceValue: (shippingOption as PickupOption).storeDistance.toFixed(
-                  1
-                ),
+                distanceValue: shippingOption.storeDistance.toFixed(1),
               }}
             />
           </span>
@@ -85,14 +83,14 @@ const ShippingOption: React.VFC<Props> = ({
         </button>
       </div>
 
-      {shippingOption.deliveryChannel === 'pickup-in-point' && (
+      {isPickupOption(shippingOption) && (
         <div className="flex flex-column items-start">
           <ButtonPlain size="small" onClick={() => setShowPickupModal(true)}>
             <FormattedMessage id="store/checkout.shipping.seeDetails" />
           </ButtonPlain>
 
           <PickupDetailsModal
-            pickupOption={shippingOption as PickupOption}
+            pickupOption={shippingOption}
             showPickupModal={showPickupModal}
             setShowPickupModal={setShowPickupModal}
           />

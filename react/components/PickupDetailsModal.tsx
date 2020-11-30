@@ -95,7 +95,7 @@ const PickupDetailsModal: React.VFC<Props> = ({
         </div>
 
         <div className="flex-column mb4">
-          <p className="fw6 mb2">
+          <p className="fw6 mb2 mt0">
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.address" />
           </p>
 
@@ -103,7 +103,7 @@ const PickupDetailsModal: React.VFC<Props> = ({
         </div>
 
         <div className="flex-column mb4">
-          <p className="fw6 mb2">
+          <p className="fw6 mb2 mt0">
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.businessHours" />
           </p>
 
@@ -140,7 +140,7 @@ const PickupDetailsModal: React.VFC<Props> = ({
         </div>
 
         <div className="flex-column">
-          <p className="fw6 mb2">
+          <p className="fw6 mb2 mt0">
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.availableItems" />
           </p>
           <p className="mv0">
