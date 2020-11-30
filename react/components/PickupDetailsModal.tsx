@@ -3,9 +3,8 @@ import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { PickupOption, BusinessHour } from 'vtex.checkout-graphql'
 import { Modal, Divider } from 'vtex.styleguide'
+import { PlaceDetails } from 'vtex.place-components'
 import { FormattedMessage, defineMessages, FormattedTime } from 'react-intl'
-
-import PickupPointAddress from './PickupPointAddress'
 
 const messages = defineMessages({
   details: {
@@ -100,7 +99,7 @@ const PickupDetailsModal: React.VFC<Props> = ({
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.address" />
           </p>
 
-          <PickupPointAddress address={pickupOption.address} />
+          <PlaceDetails />
         </div>
 
         <div className="flex-column mb4">
