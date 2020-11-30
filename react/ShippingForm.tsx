@@ -57,20 +57,16 @@ const ShippingForm: React.FC = () => {
   const handleDeliveryOptionSelect = (deliveryOptionId: string) => {
     send({
       type: 'SUBMIT_SELECT_SHIPPING_OPTION',
-      event: {
-        shippingOptionId: deliveryOptionId,
-        deliveryChannel: 'delivery',
-      },
+      shippingOptionId: deliveryOptionId,
+      deliveryChannel: 'delivery',
     })
   }
 
   const handlePickupOptionSelect = (pickupOptionId: string) => {
     send({
       type: 'SUBMIT_SELECT_SHIPPING_OPTION',
-      event: {
-        shippingOptionId: pickupOptionId,
-        deliveryChannel: 'pickup-in-point',
-      },
+      shippingOptionId: pickupOptionId,
+      deliveryChannel: 'pickup-in-point',
     })
   }
 

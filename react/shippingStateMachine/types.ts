@@ -36,7 +36,8 @@ export type ShippingMachineEvents =
   | { type: 'SUBMIT_RECEIVER_INFO'; receiverName: string }
   | {
       type: 'SUBMIT_SELECT_SHIPPING_OPTION'
-      event: { shippingOptionId: string; deliveryChannel: string }
+      shippingOptionId: string
+      deliveryChannel: string
     }
   | { type: 'SUBMIT_CREATE_ADDRESS'; address: Address }
   | {

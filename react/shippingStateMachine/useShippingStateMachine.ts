@@ -85,11 +85,11 @@ const useShippingStateMachine = ({
         return updateSelectedAddress(event.address)
       },
       tryToSelectShippingOption: (_, event) => {
-        if (event.event.deliveryChannel === 'delivery') {
-          return selectDeliveryOption(event.event.shippingOptionId)
+        if (event.deliveryChannel === 'delivery') {
+          return selectDeliveryOption(event.shippingOptionId)
         }
 
-        return selectPickupOption(event.event.shippingOptionId)
+        return selectPickupOption(event.shippingOptionId)
       },
       tryToUpdateCompleteAddress: async (_, event) => {
         const result = await updateSelectedAddress(event.updatedAddress)
