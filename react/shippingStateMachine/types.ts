@@ -1,4 +1,4 @@
-import { Address, DeliveryOption } from 'vtex.checkout-graphql'
+import { Address, DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
 
 type MaybeState<T, U> = U extends true ? Record<'states', T> : T | keyof T
 
@@ -14,6 +14,7 @@ export interface ShippingMachineContext {
   availableAddresses: Address[]
   canEditData: boolean
   deliveryOptions: DeliveryOption[]
+  pickupOptions: PickupOption[]
   selectedAddress: Address | null
   userProfileId: string | null | undefined
   isAddressValid: boolean
@@ -44,6 +45,7 @@ export type ShippingMachineEvents =
         orderForm: {
           shipping: {
             deliveryOptions: DeliveryOption[]
+            pickupOptions: PickupOption[]
             selectedAddress: Address
           }
         }
@@ -57,6 +59,7 @@ export type ShippingMachineEvents =
         orderForm: {
           shipping: {
             deliveryOptions: DeliveryOption[]
+            pickupOptions: PickupOption[]
             selectedAddress: Address
           }
         }
@@ -69,6 +72,7 @@ export type ShippingMachineEvents =
         orderForm: {
           shipping: {
             deliveryOptions: DeliveryOption[]
+            pickupOptions: PickupOption[]
             selectedAddress: Address
           }
         }

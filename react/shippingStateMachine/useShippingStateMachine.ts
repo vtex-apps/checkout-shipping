@@ -19,6 +19,7 @@ export const useMatcher = <T, U>(state: State<U>) => (params: T) =>
 const useShippingStateMachine = ({
   availableAddresses,
   deliveryOptions,
+  pickupOptions,
   selectedAddress,
   canEditData,
   userProfileId,
@@ -43,6 +44,7 @@ const useShippingStateMachine = ({
       availableAddresses,
       selectedAddress,
       deliveryOptions,
+      pickupOptions,
       canEditData,
       userProfileId,
       isAddressValid,

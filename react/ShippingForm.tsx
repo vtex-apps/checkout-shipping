@@ -35,6 +35,7 @@ const ShippingForm: React.FC = () => {
     availableAddresses: (availableAddresses as Address[]) ?? [],
     canEditData,
     deliveryOptions,
+    pickupOptions,
     selectedAddress: selectedAddress ?? null,
     userProfileId,
     isAddressValid: isValid,

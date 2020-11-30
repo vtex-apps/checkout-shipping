@@ -18,6 +18,7 @@ const shippingStateMachine = Machine<
       availableAddresses: [],
       canEditData: true,
       deliveryOptions: [],
+      pickupOptions: [],
       selectedAddress: null,
       userProfileId: null,
       isAddressValid: false,

@@ -10,14 +10,22 @@ import useAddressRules from './useAddressRules'
 const { useOrderShipping } = OrderShipping
 
 const ShippingSummary: React.FC = () => {
-  const { selectedAddress, countries, deliveryOptions } = useOrderShipping()
+  const {
+    selectedAddress,
+    countries,
+    deliveryOptions,
+    pickupOptions,
+  } = useOrderShipping()
+
   const addressRules = useAddressRules()
 
-  const selectedDeliveryOptions = deliveryOptions.filter(
+  const shippingOptions = [...deliveryOptions, ...pickupOptions]
+
+  const selectedShippingOptions = shippingOptions.filter(
     ({ isSelected }) => isSelected
   )
 
-  if (!selectedDeliveryOptions.length) {
+  if (!selectedShippingOptions.length) {
     return null
   }
 
@@ -30,14 +38,14 @@ const ShippingSummary: React.FC = () => {
       >
         <PlaceDetails display="extended" />
       </AddressContext.AddressContextProvider>
-      {selectedDeliveryOptions.map((deliveryOption: any) => (
-        <div className="mt5" key={deliveryOption.id}>
+      {selectedShippingOptions.map((shippingOption: any) => (
+        <div className="mt5" key={shippingOption.id}>
           <span>
-            {deliveryOption.id} &ndash; {''}
-            <FormattedCurrency value={deliveryOption.price / 100} />
+            {shippingOption.id} &ndash; {''}
+            <FormattedCurrency value={shippingOption.price / 100} />
           </span>
           <p className="mv0">
-            <TranslateEstimate shippingEstimate={deliveryOption.estimate} />
+            <TranslateEstimate shippingEstimate={shippingOption.estimate} />
           </p>
         </div>
       ))}
