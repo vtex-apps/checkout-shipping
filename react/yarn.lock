@@ -314,6 +314,10 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.5.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.5.0/public/@types/vtex.address-context#3f984bc73fba901d1c7dbdcebea8d29c7bc450e9"
 
+"vtex.apps-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@3.7.0/public/@types/vtex.apps-graphql":
+  version "3.7.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@3.7.0/public/@types/vtex.apps-graphql#83757b19fd9cebf25a253c611696d1f906b89b1f"
+
 "vtex.checkout-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.5.1/public/@types/vtex.checkout-components":
   version "0.5.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.5.1/public/@types/vtex.checkout-components#77d654aea75319f3024612fe7b263777b116105f"
@@ -322,9 +326,9 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.6.2"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.6.2/public/@types/vtex.checkout-container#a3862cecfeaf1af70e26f70e24a51224297e1138"
 
-"vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.47.0/public/@types/vtex.checkout-graphql":
-  version "0.47.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.47.0/public/@types/vtex.checkout-graphql#4206974436b5fabeb23eb165628c43994ce4c1bf"
+"vtex.checkout-graphql@https://unifyshipping--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-graphql@0.46.0+build1606720629/public/@types/vtex.checkout-graphql":
+  version "0.46.0"
+  resolved "https://unifyshipping--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-graphql@0.46.0+build1606720629/public/@types/vtex.checkout-graphql#aafed0e34e3ec5bbe53e31d7d89bc8d079de5677"
 
 "vtex.country-data-settings@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.3.0/public/@types/vtex.country-data-settings":
   version "0.3.0"
@@ -342,9 +346,9 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.8.7"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-manager@0.8.7/public/@types/vtex.order-manager#d666dbf9c6d630dba38ac26e815ffaa3811933df"
 
-"vtex.order-shipping@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.6.0/public/@types/vtex.order-shipping":
+"vtex.order-shipping@https://unifyshipping--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.6.0+build1606720470/public/@types/vtex.order-shipping":
   version "0.6.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.6.0/public/@types/vtex.order-shipping#1fe8aacc58874a5d247055b0144439db5d08a989"
+  resolved "https://unifyshipping--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.order-shipping@0.6.0+build1606720470/public/@types/vtex.order-shipping#1bd5c913f4e18339bf84863cd12ed07b7116b6c8"
 
 "vtex.place-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.13.1/public/@types/vtex.place-components":
   version "0.13.1"

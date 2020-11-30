@@ -28,7 +28,7 @@ const ShippingForm: React.FC = () => {
     },
   } = useOrderForm()
 
-  const { selectedAddress, deliveryOptions } = useOrderShipping()
+  const { selectedAddress, deliveryOptions, pickupOptions } = useOrderShipping()
   const { isValid } = useAddressContext()
 
   const { matches, send, state } = useShippingStateMachine({
@@ -54,7 +54,23 @@ const ShippingForm: React.FC = () => {
   )
 
   const handleDeliveryOptionSelect = (deliveryOptionId: string) => {
-    send({ type: 'SUBMIT_SELECT_DELIVERY_OPTION', deliveryOptionId })
+    send({
+      type: 'SUBMIT_SELECT_SHIPPING_OPTION',
+      event: {
+        shippingOptionId: deliveryOptionId,
+        deliveryChannel: 'delivery',
+      },
+    })
+  }
+
+  const handlePickupOptionSelect = (pickupOptionId: string) => {
+    send({
+      type: 'SUBMIT_SELECT_SHIPPING_OPTION',
+      event: {
+        shippingOptionId: pickupOptionId,
+        deliveryChannel: 'pickup-in-point',
+      },
+    })
   }
 
   const handleAddressCompleted = (
@@ -77,7 +93,8 @@ const ShippingForm: React.FC = () => {
         <AddressCompletionForm
           selectedAddress={selectedAddress!}
           deliveryOptions={state.context.deliveryOptions}
-          onShippingOptionEdit={() => send('GO_TO_SELECT_DELIVERY_OPTION')}
+          pickupOptions={pickupOptions}
+          onShippingOptionEdit={() => send('GO_TO_SELECT_SHIPPING_OPTION')}
           onAddressCompleted={handleAddressCompleted}
           onAddressReset={() => send('RESET_ADDRESS')}
           onEditReceiverInfo={() => send('EDIT_RECEIVER_INFO')}
@@ -97,13 +114,13 @@ const ShippingForm: React.FC = () => {
             onReceiverInfoSave={(receiverName) => {
               send({ type: 'SUBMIT_RECEIVER_INFO', receiverName })
             }}
-            onShippingOptionEdit={() => send('GO_TO_SELECT_DELIVERY_OPTION')}
+            onShippingOptionEdit={() => send('GO_TO_SELECT_SHIPPING_OPTION')}
           />
         )
       )
     }
 
-    case matches('selectDeliveryOption'): {
+    case matches('selectShippingOption'): {
       return (
         <>
           {selectedAddress?.receiverName && (
@@ -122,13 +139,12 @@ const ShippingForm: React.FC = () => {
               </div>
             </div>
           )}
-
           <ShippingHeader onEditAddress={() => send('EDIT_ADDRESS')} />
-
           <ShippingOptionList
             deliveryOptions={state.context.deliveryOptions}
-            pickupOptions={[]}
+            pickupOptions={pickupOptions}
             onDeliveryOptionSelected={handleDeliveryOptionSelect}
+            onPickupOptionSelected={handlePickupOptionSelect}
           />
         </>
       )

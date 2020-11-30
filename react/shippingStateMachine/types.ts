@@ -22,7 +22,7 @@ export interface ShippingMachineContext {
 export type ShippingMachineEvents =
   | { type: 'EDIT_RECEIVER_INFO' }
   | { type: 'GO_TO_CREATE_ADDRESS' }
-  | { type: 'GO_TO_SELECT_DELIVERY_OPTION' }
+  | { type: 'GO_TO_SELECT_SHIPPING_OPTION' }
   | { type: 'GO_TO_SELECT_ADDRESS' }
   | { type: 'EDIT_ADDRESS' }
   | { type: 'RESET_ADDRESS' }
@@ -33,7 +33,10 @@ export type ShippingMachineEvents =
       buyerIsReceiver: boolean
     }
   | { type: 'SUBMIT_RECEIVER_INFO'; receiverName: string }
-  | { type: 'SUBMIT_SELECT_DELIVERY_OPTION'; deliveryOptionId: string }
+  | {
+      type: 'SUBMIT_SELECT_SHIPPING_OPTION'
+      event: { shippingOptionId: string; deliveryChannel: string }
+    }
   | { type: 'SUBMIT_CREATE_ADDRESS'; address: Address }
   | {
       type: 'done.invoke.tryToCreateAddress'
@@ -104,7 +107,7 @@ interface ShippingMachineStates<HasStates = false> {
       },
       HasStates
     >
-    selectDeliveryOption: MaybeState<
+    selectShippingOption: MaybeState<
       {
         editing: {}
         submitting: {}

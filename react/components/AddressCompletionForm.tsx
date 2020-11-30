@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AddressForm } from 'vtex.place-components'
-import { Address, DeliveryOption } from 'vtex.checkout-graphql'
+import { Address, DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
 import {
   Checkbox,
   Button,
@@ -23,6 +23,7 @@ const { validateAddress } = Utils
 interface Props {
   selectedAddress: Address
   deliveryOptions: DeliveryOption[]
+  pickupOptions: PickupOption[]
   isSubmitting: boolean
   onShippingOptionEdit?: () => void
   onAddressCompleted?: (
@@ -36,6 +37,7 @@ interface Props {
 const AddressCompletionForm: React.FC<Props> = ({
   selectedAddress,
   deliveryOptions,
+  pickupOptions,
   isSubmitting,
   onAddressReset = () => {},
   onShippingOptionEdit,
@@ -60,7 +62,9 @@ const AddressCompletionForm: React.FC<Props> = ({
 
   const { firstName, lastName } = clientProfileData!
 
-  const selectedDeliveryOption = deliveryOptions.find(
+  const shippingOptions = [...deliveryOptions, ...pickupOptions.slice(0, 1)]
+
+  const selectedShippingOption = shippingOptions.find(
     ({ isSelected }) => isSelected
   )
 
@@ -116,14 +120,14 @@ const AddressCompletionForm: React.FC<Props> = ({
 
         <div className="mt2 flex flex-column c-muted-1">
           <span>
-            {selectedDeliveryOption?.id} &ndash;{' '}
+            {selectedShippingOption?.id} &ndash;{' '}
             <FormattedCurrency
-              value={(selectedDeliveryOption?.price ?? 0) / 100}
+              value={(selectedShippingOption?.price ?? 0) / 100}
             />
           </span>
           <span>
             <TranslateEstimate
-              shippingEstimate={selectedDeliveryOption?.estimate ?? ''}
+              shippingEstimate={selectedShippingOption?.estimate ?? ''}
             />
           </span>
         </div>

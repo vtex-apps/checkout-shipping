@@ -27,6 +27,7 @@ const useShippingStateMachine = ({
   const {
     insertAddress,
     selectDeliveryOption,
+    selectPickupOption,
     updateSelectedAddress,
   } = useOrderShipping()
 
@@ -81,8 +82,12 @@ const useShippingStateMachine = ({
       tryToSelectAddress: (_, event) => {
         return updateSelectedAddress(event.address)
       },
-      tryToSelectDeliveryOption: (_, event) => {
-        return selectDeliveryOption(event.deliveryOptionId)
+      tryToSelectShippingOption: (_, event) => {
+        if (event.event.deliveryChannel === 'delivery') {
+          return selectDeliveryOption(event.event.shippingOptionId)
+        }
+
+        return selectPickupOption(event.event.shippingOptionId)
       },
       tryToUpdateCompleteAddress: async (_, event) => {
         const result = await updateSelectedAddress(event.updatedAddress)
