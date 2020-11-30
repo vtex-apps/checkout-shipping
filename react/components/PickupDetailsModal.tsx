@@ -108,32 +108,34 @@ const PickupDetailsModal: React.VFC<Props> = ({
           </p>
 
           <table className="dt--fixed">
-            {pickupOption.businessHours.map((businessHour: BusinessHour) => (
-              <tr
-                key={businessHour.dayNumber}
-                className="flex justify-between bb b--light-gray mt2"
-              >
-                <td>
-                  <FormattedMessage
-                    id={`store/checkout.shipping.pickupPointsModal.weekDay${businessHour.dayNumber}`}
-                  />
-                </td>
-
-                <td>
-                  {businessHour.closed ? (
-                    <FormattedMessage id="store/checkout.shipping.pickupPointsModal.closed" />
-                  ) : (
+            <tbody>
+              {pickupOption.businessHours.map((businessHour: BusinessHour) => (
+                <tr
+                  key={businessHour.dayNumber}
+                  className="flex justify-between bb b--light-gray mt2"
+                >
+                  <td>
                     <FormattedMessage
-                      id="store/checkout.shipping.pickupPointsModal.hourFromTo"
-                      values={{
-                        openingTime: formatHour(businessHour.openingTime),
-                        closingTime: formatHour(businessHour.closingTime),
-                      }}
+                      id={`store/checkout.shipping.pickupPointsModal.weekDay${businessHour.dayNumber}`}
                     />
-                  )}
-                </td>
-              </tr>
-            ))}
+                  </td>
+
+                  <td>
+                    {businessHour.closed ? (
+                      <FormattedMessage id="store/checkout.shipping.pickupPointsModal.closed" />
+                    ) : (
+                      <FormattedMessage
+                        id="store/checkout.shipping.pickupPointsModal.hourFromTo"
+                        values={{
+                          openingTime: formatHour(businessHour.openingTime),
+                          closingTime: formatHour(businessHour.closingTime),
+                        }}
+                      />
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
 
