@@ -6,7 +6,7 @@ import { AddressContext } from 'vtex.address-context'
 import { FormattedMessage } from 'react-intl'
 import { ButtonPlain, IconEdit } from 'vtex.styleguide'
 
-import NewAddressForm from './components/NewAddressForm'
+import NewAddressForm from './NewAddressForm'
 import AddressList from './components/AddressList'
 import ShippingOptionList from './ShippingOptionList'
 import AddressCompletionForm from './components/AddressCompletionForm'

@@ -9,7 +9,7 @@ import {
 import { Address } from 'vtex.places-graphql'
 import { Query, QueryInstalledAppArgs } from 'vtex.apps-graphql'
 
-import installedApp from '../graphql/installedApp.gql'
+import installedApp from './graphql/installedApp.gql'
 
 interface Props {
   onAddressCreated: (address: Address) => void

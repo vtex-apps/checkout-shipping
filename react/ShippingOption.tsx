@@ -8,6 +8,7 @@ import { IconDelete, ButtonPlain, Modal, Divider } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
 import PickupDetailsModal from './components/PickupDetailsModal'
+import { getName } from './utils/sla'
 
 interface EstimateDeliveryOption {
   shippingEstimate: string
@@ -21,12 +22,6 @@ interface Props {
   isSelected?: boolean
   fastestOption?: EstimateDeliveryOption
   cheapestOption?: EstimateDeliveryOption
-}
-
-const getName = (shippingOption: DeliveryOption | PickupOption) => {
-  return shippingOption.deliveryChannel === 'pickup-in-point'
-    ? (shippingOption as PickupOption).friendlyName
-    : shippingOption.id
 }
 
 const ShippingOption: React.VFC<Props> = ({
