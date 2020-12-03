@@ -12,5 +12,22 @@
   "store/checkout.shipping.shippingOptionsForAddressLabel": "Shipping options for",
   "store/checkout.shipping.continue": "Continue",
   "store/checkout.shipping.emptyDeliveryOptionsAlert": "No delivery options are available.",
-  "store/checkout.shipping.changeAddressLabel": "change"
+  "store/checkout.shipping.changeAddressLabel": "change",
+  "store/checkout.shipping.seeDetails": "See details",
+  "store/checkout.shipping.distance": "{distanceValue}km away",
+  "store/checkout.shipping.pickupPointsModal.details": "Details",
+  "store/checkout.shipping.pickupPointsModal.weekDay0": "Sunday",
+  "store/checkout.shipping.pickupPointsModal.weekDay1": "Monday",
+  "store/checkout.shipping.pickupPointsModal.weekDay2": "Tuesday",
+  "store/checkout.shipping.pickupPointsModal.weekDay3": "Wednesday",
+  "store/checkout.shipping.pickupPointsModal.weekDay4": "Thursday",
+  "store/checkout.shipping.pickupPointsModal.weekDay5": "Friday",
+  "store/checkout.shipping.pickupPointsModal.weekDay6": "Saturday",
+  "store/checkout.shipping.pickupPointsModal.weekDay1to5": "Monday to Friday",
+  "store/checkout.shipping.pickupPointsModal.closed": "Closed",
+  "store/checkout.shipping.pickupPointsModal.hourFromTo": "{openingTime}h - {closingTime}h",
+  "store/checkout.shipping.pickupPointsModal.businessHours": "Business hours",
+  "store/checkout.shipping.pickupPointsModal.allItemsAvailable": "All the items are available.",
+  "store/checkout.shipping.pickupPointsModal.availableItems": "Available items",
+  "store/checkout.shipping.pickupPointsModal.address": "Address"
 }

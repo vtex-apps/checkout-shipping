@@ -19,6 +19,7 @@ export const useMatcher = <T, U>(state: State<U>) => (params: T) =>
 const useShippingStateMachine = ({
   availableAddresses,
   deliveryOptions,
+  pickupOptions,
   selectedAddress,
   canEditData,
   userProfileId,
@@ -27,6 +28,7 @@ const useShippingStateMachine = ({
   const {
     insertAddress,
     selectDeliveryOption,
+    selectPickupOption,
     updateSelectedAddress,
   } = useOrderShipping()
 
@@ -42,6 +44,7 @@ const useShippingStateMachine = ({
       availableAddresses,
       selectedAddress,
       deliveryOptions,
+      pickupOptions,
       canEditData,
       userProfileId,
       isAddressValid,
@@ -81,8 +84,12 @@ const useShippingStateMachine = ({
       tryToSelectAddress: (_, event) => {
         return updateSelectedAddress(event.address)
       },
-      tryToSelectDeliveryOption: (_, event) => {
-        return selectDeliveryOption(event.deliveryOptionId)
+      tryToSelectShippingOption: (_, event) => {
+        if (event.deliveryChannel === 'delivery') {
+          return selectDeliveryOption(event.shippingOptionId)
+        }
+
+        return selectPickupOption(event.shippingOptionId)
       },
       tryToUpdateCompleteAddress: async (_, event) => {
         const result = await updateSelectedAddress(event.updatedAddress)

@@ -4,20 +4,30 @@ import { AddressContext } from 'vtex.address-context'
 import { OrderShipping } from 'vtex.order-shipping'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedCurrency } from 'vtex.format-currency'
+import { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
 
 import useAddressRules from './useAddressRules'
+import { getName } from './utils/sla'
 
 const { useOrderShipping } = OrderShipping
 
 const ShippingSummary: React.FC = () => {
-  const { selectedAddress, countries, deliveryOptions } = useOrderShipping()
+  const {
+    selectedAddress,
+    countries,
+    deliveryOptions,
+    pickupOptions,
+  } = useOrderShipping()
+
   const addressRules = useAddressRules()
 
-  const selectedDeliveryOptions = deliveryOptions.filter(
+  const shippingOptions = [...deliveryOptions, ...pickupOptions]
+
+  const selectedShippingOptions = shippingOptions.filter(
     ({ isSelected }) => isSelected
   )
 
-  if (!selectedDeliveryOptions.length) {
+  if (!selectedShippingOptions.length) {
     return null
   }
 
@@ -30,17 +40,19 @@ const ShippingSummary: React.FC = () => {
       >
         <PlaceDetails display="extended" />
       </AddressContext.AddressContextProvider>
-      {selectedDeliveryOptions.map((deliveryOption: any) => (
-        <div className="mt5" key={deliveryOption.id}>
-          <span>
-            {deliveryOption.id} &ndash; {''}
-            <FormattedCurrency value={deliveryOption.price / 100} />
-          </span>
-          <p className="mv0">
-            <TranslateEstimate shippingEstimate={deliveryOption.estimate} />
-          </p>
-        </div>
-      ))}
+      {selectedShippingOptions.map(
+        (shippingOption: DeliveryOption | PickupOption) => (
+          <div className="mt5" key={shippingOption.id}>
+            <span>
+              {getName(shippingOption)} &ndash; {''}
+              <FormattedCurrency value={shippingOption.price / 100} />
+            </span>
+            <p className="mv0">
+              <TranslateEstimate shippingEstimate={shippingOption.estimate} />
+            </p>
+          </div>
+        )
+      )}
     </div>
   )
 }

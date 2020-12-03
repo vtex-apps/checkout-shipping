@@ -1,4 +1,4 @@
-import { Address, DeliveryOption } from 'vtex.checkout-graphql'
+import { Address, DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
 
 type MaybeState<T, U> = U extends true ? Record<'states', T> : T | keyof T
 
@@ -14,6 +14,7 @@ export interface ShippingMachineContext {
   availableAddresses: Address[]
   canEditData: boolean
   deliveryOptions: DeliveryOption[]
+  pickupOptions: PickupOption[]
   selectedAddress: Address | null
   userProfileId: string | null | undefined
   isAddressValid: boolean
@@ -22,7 +23,7 @@ export interface ShippingMachineContext {
 export type ShippingMachineEvents =
   | { type: 'EDIT_RECEIVER_INFO' }
   | { type: 'GO_TO_CREATE_ADDRESS' }
-  | { type: 'GO_TO_SELECT_DELIVERY_OPTION' }
+  | { type: 'GO_TO_SELECT_SHIPPING_OPTION' }
   | { type: 'GO_TO_SELECT_ADDRESS' }
   | { type: 'EDIT_ADDRESS' }
   | { type: 'RESET_ADDRESS' }
@@ -33,7 +34,11 @@ export type ShippingMachineEvents =
       buyerIsReceiver: boolean
     }
   | { type: 'SUBMIT_RECEIVER_INFO'; receiverName: string }
-  | { type: 'SUBMIT_SELECT_DELIVERY_OPTION'; deliveryOptionId: string }
+  | {
+      type: 'SUBMIT_SELECT_SHIPPING_OPTION'
+      shippingOptionId: string
+      deliveryChannel: string
+    }
   | { type: 'SUBMIT_CREATE_ADDRESS'; address: Address }
   | {
       type: 'done.invoke.tryToCreateAddress'
@@ -41,6 +46,7 @@ export type ShippingMachineEvents =
         orderForm: {
           shipping: {
             deliveryOptions: DeliveryOption[]
+            pickupOptions: PickupOption[]
             selectedAddress: Address
           }
         }
@@ -54,6 +60,7 @@ export type ShippingMachineEvents =
         orderForm: {
           shipping: {
             deliveryOptions: DeliveryOption[]
+            pickupOptions: PickupOption[]
             selectedAddress: Address
           }
         }
@@ -66,6 +73,7 @@ export type ShippingMachineEvents =
         orderForm: {
           shipping: {
             deliveryOptions: DeliveryOption[]
+            pickupOptions: PickupOption[]
             selectedAddress: Address
           }
         }
@@ -104,7 +112,7 @@ interface ShippingMachineStates<HasStates = false> {
       },
       HasStates
     >
-    selectDeliveryOption: MaybeState<
+    selectShippingOption: MaybeState<
       {
         editing: {}
         submitting: {}

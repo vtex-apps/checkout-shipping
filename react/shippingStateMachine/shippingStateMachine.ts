@@ -18,6 +18,7 @@ const shippingStateMachine = Machine<
       availableAddresses: [],
       canEditData: true,
       deliveryOptions: [],
+      pickupOptions: [],
       selectedAddress: null,
       userProfileId: null,
       isAddressValid: false,
@@ -26,7 +27,7 @@ const shippingStateMachine = Machine<
       initial: {
         on: {
           '': [
-            { target: 'selectDeliveryOption', cond: 'hasSelectedAddress' },
+            { target: 'selectShippingOption', cond: 'hasSelectedAddress' },
             { target: 'selectAddress', cond: 'hasAvailableAddresses' },
             { target: 'createAddress' },
           ],
@@ -44,7 +45,7 @@ const shippingStateMachine = Machine<
             invoke: {
               src: 'tryToCreateAddress',
               onDone: {
-                target: '#shipping.selectDeliveryOption',
+                target: '#shipping.selectShippingOption',
                 actions: [
                   'updateSelectDeliveryOptions',
                   'updateSelectedAddress',
@@ -77,14 +78,14 @@ const shippingStateMachine = Machine<
             invoke: {
               src: 'tryToSelectAddress',
               onDone: {
-                target: '#shipping.selectDeliveryOption',
+                target: '#shipping.selectShippingOption',
                 actions: 'updateSelectedAddress',
               },
             },
           },
         },
       },
-      selectDeliveryOption: {
+      selectShippingOption: {
         initial: 'editing',
         states: {
           editing: {
@@ -102,7 +103,7 @@ const shippingStateMachine = Machine<
                   target: '#shipping.selectAddress',
                 },
               ],
-              SUBMIT_SELECT_DELIVERY_OPTION: 'submitting',
+              SUBMIT_SELECT_SHIPPING_OPTION: 'submitting',
               EDIT_RECEIVER_INFO: [
                 {
                   cond: 'canEditReceiverInfo',
@@ -114,7 +115,7 @@ const shippingStateMachine = Machine<
           },
           submitting: {
             invoke: {
-              src: 'tryToSelectDeliveryOption',
+              src: 'tryToSelectShippingOption',
               onDone: [
                 {
                   target: '#shipping.completeAddress',
@@ -132,7 +133,7 @@ const shippingStateMachine = Machine<
           editing: {
             on: {
               SUBMIT_COMPLETE_ADDRESS: 'submitting',
-              GO_TO_SELECT_DELIVERY_OPTION: '#shipping.selectDeliveryOption',
+              GO_TO_SELECT_SHIPPING_OPTION: '#shipping.selectShippingOption',
               RESET_ADDRESS: '#shipping.selectAddress',
               EDIT_RECEIVER_INFO: '#shipping.editReceiverInfo',
             },
@@ -159,7 +160,7 @@ const shippingStateMachine = Machine<
         initial: 'editing',
         on: {
           GO_TO_CREATE_ADDRESS: 'createAddress',
-          GO_TO_SELECT_DELIVERY_OPTION: '#shipping.selectDeliveryOption',
+          GO_TO_SELECT_SHIPPING_OPTION: '#shipping.selectShippingOption',
           EDIT_ADDRESS: '#shipping.completeAddress',
         },
         states: {
