@@ -6,10 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Border on selected SLAs list.
 
 ## [0.6.0] - 2020-12-03
 ### Added
-
 - Pickup points to the list of available shipping options.
 - Modal with details about a given pickup point.
 

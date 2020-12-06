@@ -6,6 +6,7 @@ import { getFastestSla, getCheapestSla } from '@vtex/estimate-calculator'
 import { FormattedMessage } from 'react-intl'
 
 import ShippingOption from './ShippingOption'
+import { isPickupOption } from './utils/sla'
 
 interface Props {
   deliveryOptions: DeliveryOption[]
@@ -27,7 +28,7 @@ const ShippingOptionList: React.FC<Props> = ({
   const handleShippingOptionSelect = (
     deliveryOption: DeliveryOption | PickupOption
   ) => {
-    if (deliveryOption.deliveryChannel === 'pickup-in-point') {
+    if (isPickupOption(deliveryOption)) {
       onPickupOptionSelected(deliveryOption.id)
     } else {
       onDeliveryOptionSelected(deliveryOption.id!)
@@ -73,7 +74,7 @@ const ShippingOptionList: React.FC<Props> = ({
           <FormattedMessage id="store/checkout.shipping.selectedDeliveryOptionsLabel" />
         </p>
 
-        <ListGroup>
+        <ListGroup borderPosition="none">
           {selectedShippingOptions.map((shippingOption) => (
             <ShippingOption
               key={shippingOption.id}
