@@ -14,4 +14,6 @@ declare module 'vtex.styleguide' {
   const Checkbox: React.FC<any>
 
   const Input: React.FC<any>
+
+  const Alert: React.FC<any>
 }
