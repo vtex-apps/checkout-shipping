@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Unnecessary top margin when `LocationCountry` component is not rendered.
 
+### Changed 
+- `PickupDetailsModal` to use the `Modal` from the `vtex.checkout-components`.
+
 ## [0.6.1] - 2020-12-07
 ### Fixed
 - Border on selected SLAs list.
