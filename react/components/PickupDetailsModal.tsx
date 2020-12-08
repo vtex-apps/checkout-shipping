@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { PickupOption, BusinessHour } from 'vtex.checkout-graphql'
-import { Modal, Divider } from 'vtex.styleguide'
+import { Divider } from 'vtex.styleguide'
 import { PlaceDetails } from 'vtex.place-components'
+import { Modal } from 'vtex.checkout-components'
 import { FormattedMessage, defineMessages, FormattedTime } from 'react-intl'
 
 const messages = defineMessages({
