@@ -8,7 +8,7 @@ import { IconDelete, ButtonPlain, Modal, Divider } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
 import PickupDetailsModal from './components/PickupDetailsModal'
-import { getName, isPickupOption } from './utils/sla'
+import { getName, isPickupOption, slugify } from './utils/sla'
 
 interface EstimateDeliveryOption {
   shippingEstimate: string
@@ -35,7 +35,7 @@ const ShippingOption: React.VFC<Props> = ({
   const [showPickupModal, setShowPickupModal] = useState(false)
 
   const content = (
-    <div className="flex w-100">
+    <div className="flex w-100" id={slugify(shippingOption.id)}>
       <div className="flex flex-column w-100">
         <span className="c-on-base fw5">{getName(shippingOption)}</span>
         <span
