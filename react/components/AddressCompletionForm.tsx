@@ -168,7 +168,7 @@ const AddressCompletionForm: React.FC<Props> = ({
         )}
 
         <Button
-          testId="continue-shipping"
+          testId="continue-shipping-button"
           block
           size="large"
           type="submit"
