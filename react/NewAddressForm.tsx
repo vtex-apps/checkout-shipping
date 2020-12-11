@@ -32,9 +32,9 @@ const NewAddressForm: React.FC<Props> = ({ onAddressCreated }) => {
       <div className="pv3">
         <DeviceCoordinates onSuccess={onAddressCreated} />
       </div>
-      <div className="mt6 w-100 mw6">
-        <LocationCountry />
-      </div>
+
+      <LocationCountry className="w-100 mw6 mt6" />
+
       {data?.installedApp?.source === 'none' ? (
         <div className="mt6 w-100 mw5">
           <LocationInput onSuccess={onAddressCreated} variation="primary" />
