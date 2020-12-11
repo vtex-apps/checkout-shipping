@@ -350,9 +350,9 @@ tslib@^1.10.0, tslib@^1.9.3:
   version "0.7.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.7.0/public/@types/vtex.order-shipping#4d020086b9da30807f0b6ec059c30d5a8727889d"
 
-"vtex.place-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.13.2/public/@types/vtex.place-components":
-  version "0.13.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.13.2/public/@types/vtex.place-components#a97e5140d855f455d85b71692e60226fea93e603"
+"vtex.place-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.13.4/public/@types/vtex.place-components":
+  version "0.13.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.13.4/public/@types/vtex.place-components#80739c510fc232ef76ab66f11f5cefbbf95e63b2"
 
 "vtex.places-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.4.0/public/@types/vtex.places-graphql":
   version "0.4.0"
