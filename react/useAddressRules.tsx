@@ -23,7 +23,7 @@ const useAddressRules = () => {
           },
         }),
         {}
-      ) ?? {},
+      ),
     [data]
   )
 
