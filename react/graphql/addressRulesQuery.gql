@@ -66,6 +66,9 @@ query AddressRules($countries: [String!]!) {
       minimal {
         ...DisplayFragment
       }
+      brief {
+        ...DisplayFragment
+      }
       compact {
         ...DisplayFragment
       }
