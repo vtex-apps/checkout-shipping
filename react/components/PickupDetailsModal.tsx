@@ -89,7 +89,7 @@ const PickupDetailsModal: React.VFC<Props> = ({
             <FormattedMessage
               id="store/checkout.shipping.distance"
               values={{
-                distanceValue: pickupOption.storeDistance.toFixed(1),
+                distanceValue: pickupOption.storeDistance?.toFixed(1),
               }}
             />
           </p>

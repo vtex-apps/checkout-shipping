@@ -53,7 +53,7 @@ const ShippingOption: React.VFC<Props> = ({
             <FormattedMessage
               id="store/checkout.shipping.distance"
               values={{
-                distanceValue: shippingOption.storeDistance.toFixed(1),
+                distanceValue: shippingOption.storeDistance?.toFixed(1),
               }}
             />
           </span>
