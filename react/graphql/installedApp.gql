@@ -1,5 +1,0 @@
-query installedApp($slug: String!) {
-  installedApp(slug: $slug) {
-    source
-  }
-}

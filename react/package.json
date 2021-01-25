@@ -9,11 +9,11 @@
     "@types/node": "^12.12.31",
     "@types/react": "^16.9.26",
     "@types/react-router": "^5.1.11",
-    "vtex.address-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.5.0/public/@types/vtex.address-context",
-    "vtex.apps-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@3.9.1/public/@types/vtex.apps-graphql",
+    "vtex.address-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.6.1/public/@types/vtex.address-context",
     "vtex.checkout-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.5.1/public/@types/vtex.checkout-components",
     "vtex.checkout-container": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-container@0.7.0/public/@types/vtex.checkout-container",
     "vtex.checkout-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.56.1/public/@types/vtex.checkout-graphql",
+    "vtex.checkout-resources": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-resources@0.42.0/public/@types/vtex.checkout-resources",
     "vtex.country-data-settings": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.3.0/public/@types/vtex.country-data-settings",
     "vtex.format-currency": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.3.0/public/@types/vtex.format-currency",
     "vtex.formatted-price": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.formatted-price@0.4.0/public/@types/vtex.formatted-price",
@@ -23,7 +23,7 @@
     "vtex.places-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.4.0/public/@types/vtex.places-graphql",
     "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.11/public/@types/vtex.render-runtime",
     "vtex.shipping-estimate-translator": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shipping-estimate-translator@2.2.2/public/@types/vtex.shipping-estimate-translator",
-    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.1/public/@types/vtex.styleguide"
+    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.3/public/@types/vtex.styleguide"
   },
   "dependencies": {
     "@vtex/estimate-calculator": "^1.1.0",

@@ -18,4 +18,8 @@ declare module 'vtex.styleguide' {
   const Input: React.FC<any>
 
   const Alert: React.FC<any>
+
+  const Modal: React.FC<any>
+
+  const Divider: React.FC<any>
 }
