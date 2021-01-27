@@ -1,14 +1,9 @@
 import { assign, Machine } from 'xstate'
 
-import type {
-  ShippingMachineContext,
-  ShippingMachineStateSchema,
-  ShippingMachineEvents,
-} from './types'
+import type { ShippingMachineContext, ShippingMachineEvents } from './types'
 
 const shippingStateMachine = Machine<
   ShippingMachineContext,
-  ShippingMachineStateSchema,
   ShippingMachineEvents
 >(
   {
@@ -25,13 +20,11 @@ const shippingStateMachine = Machine<
     },
     states: {
       initial: {
-        on: {
-          '': [
-            { target: 'selectShippingOption', cond: 'hasSelectedAddress' },
-            { target: 'selectAddress', cond: 'hasAvailableAddresses' },
-            { target: 'createAddress' },
-          ],
-        },
+        always: [
+          { target: 'selectShippingOption', cond: 'hasSelectedAddress' },
+          { target: 'selectAddress', cond: 'hasAvailableAddresses' },
+          { target: 'createAddress' },
+        ],
       },
       createAddress: {
         initial: 'editing',
@@ -59,17 +52,17 @@ const shippingStateMachine = Machine<
         initial: 'idle',
         states: {
           idle: {
+            always: [
+              {
+                target: '#shipping.createAddress',
+                cond: 'hasNoAvailableAddresses',
+              },
+              {
+                target: '#shipping.createAddress',
+                cond: 'isFirstPurchase',
+              },
+            ],
             on: {
-              '': [
-                {
-                  target: '#shipping.createAddress',
-                  cond: 'hasNoAvailableAddresses',
-                },
-                {
-                  target: '#shipping.createAddress',
-                  cond: 'isFirstPurchase',
-                },
-              ],
               GO_TO_CREATE_ADDRESS: '#shipping.createAddress',
               SUBMIT_SELECT_ADDRESS: 'submitting',
             },

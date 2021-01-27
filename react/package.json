@@ -25,13 +25,13 @@
   },
   "dependencies": {
     "@vtex/estimate-calculator": "^1.1.0",
-    "@xstate/react": "^0.8.1",
+    "@xstate/react": "^1.2.2",
     "classnames": "^2.2.6",
     "graphql": "^14.6.0",
     "react": "^16.13.1",
     "react-apollo": "^3.1.5",
     "react-dom": "^16.13.1",
     "react-intl": "^3",
-    "xstate": "^4.8.0"
+    "xstate": "^4.16.0"
   }
 }

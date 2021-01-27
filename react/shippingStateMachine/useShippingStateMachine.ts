@@ -1,20 +1,24 @@
 import { useMachine } from '@xstate/react'
-import { useMemo } from 'react'
+import { useMemo, useCallback } from 'react'
 import { Router, routes, ContainerContext } from 'vtex.checkout-container'
 import { OrderShipping } from 'vtex.order-shipping'
-import { State, assign } from 'xstate'
+import { State, assign, EventObject, Typestate } from 'xstate'
 import { AddressContext } from 'vtex.address-context'
 
 import shippingStateMachine from './shippingStateMachine'
-import { ShippingMachineContext, ShippingMachineState } from './types'
+import { ShippingMachineContext, ShippingMachineEvents } from './types'
 
 const { useHistory } = Router
 const { useOrderShipping } = OrderShipping
 const { useCheckoutContainer } = ContainerContext
 const { useAddressContext } = AddressContext
 
-export const useMatcher = <T, U>(state: State<U>) => (params: T) =>
-  state.matches(params)
+export const useMatcher = <Context, Events extends EventObject>(
+  state: State<Context, Events>
+) =>
+  useCallback((params: Typestate<Context>['value']) => state.matches(params), [
+    state,
+  ])
 
 const useShippingStateMachine = ({
   availableAddresses,
@@ -38,7 +42,10 @@ const useShippingStateMachine = ({
 
   const history = useHistory()
 
-  const [state, send] = useMachine(shippingStateMachine, {
+  const [state, send] = useMachine<
+    ShippingMachineContext,
+    ShippingMachineEvents
+  >(shippingStateMachine, {
     devTools: true,
     context: {
       availableAddresses,
@@ -72,19 +79,35 @@ const useShippingStateMachine = ({
       }),
     },
     services: {
-      tryToEditReceiverInfo: (ctx, { receiverName }) => {
+      tryToEditReceiverInfo: async (ctx, event) => {
+        if (event.type !== 'SUBMIT_RECEIVER_INFO') {
+          return
+        }
+
         return updateSelectedAddress({
           ...ctx.selectedAddress,
-          receiverName,
+          receiverName: event.receiverName,
         })
       },
-      tryToCreateAddress: (_, event) => {
+      tryToCreateAddress: async (_, event) => {
+        if (event.type !== 'SUBMIT_CREATE_ADDRESS') {
+          return
+        }
+
         return insertAddress(event.address)
       },
-      tryToSelectAddress: (_, event) => {
+      tryToSelectAddress: async (_, event) => {
+        if (event.type !== 'SUBMIT_SELECT_ADDRESS') {
+          return
+        }
+
         return updateSelectedAddress(event.address)
       },
-      tryToSelectShippingOption: (_, event) => {
+      tryToSelectShippingOption: async (_, event) => {
+        if (event.type !== 'SUBMIT_SELECT_SHIPPING_OPTION') {
+          return
+        }
+
         if (event.deliveryChannel === 'delivery') {
           return selectDeliveryOption(event.shippingOptionId)
         }
@@ -92,6 +115,10 @@ const useShippingStateMachine = ({
         return selectPickupOption(event.shippingOptionId)
       },
       tryToUpdateCompleteAddress: async (_, event) => {
+        if (event.type !== 'SUBMIT_COMPLETE_ADDRESS') {
+          return
+        }
+
         const result = await updateSelectedAddress(event.updatedAddress)
 
         return { ...result, buyerIsReceiver: event.buyerIsReceiver }
@@ -99,7 +126,7 @@ const useShippingStateMachine = ({
     },
   })
 
-  const matches = useMatcher<ShippingMachineState, ShippingMachineContext>(
+  const matches = useMatcher<ShippingMachineContext, ShippingMachineEvents>(
     state
   )
 
