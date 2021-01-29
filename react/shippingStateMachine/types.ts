@@ -6,8 +6,9 @@ export interface ShippingMachineContext {
   deliveryOptions: DeliveryOption[]
   pickupOptions: PickupOption[]
   selectedAddress: Address | null
-  userProfileId: string | null | undefined
+  userProfileId?: string | null
   isAddressValid: boolean
+  editingAddressId?: string | null
 }
 
 export type ShippingMachineEvents =

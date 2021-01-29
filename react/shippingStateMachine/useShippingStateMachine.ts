@@ -89,12 +89,16 @@ const useShippingStateMachine = ({
           receiverName: event.receiverName,
         })
       },
-      tryToCreateAddress: async (_, event) => {
+      tryToCreateAddress: async (ctx, event) => {
         if (event.type !== 'SUBMIT_CREATE_ADDRESS') {
           return
         }
 
-        return insertAddress(event.address)
+        return insertAddress(
+          ctx.editingAddressId != null
+            ? { ...event.address, addressId: ctx.editingAddressId }
+            : event.address
+        )
       },
       tryToSelectAddress: async (_, event) => {
         if (event.type !== 'SUBMIT_SELECT_ADDRESS') {

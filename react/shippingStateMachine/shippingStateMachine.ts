@@ -17,6 +17,7 @@ const shippingStateMachine = Machine<
       selectedAddress: null,
       userProfileId: null,
       isAddressValid: false,
+      editingAddressId: null,
     },
     states: {
       initial: {
@@ -42,6 +43,7 @@ const shippingStateMachine = Machine<
                 actions: [
                   'updateSelectDeliveryOptions',
                   'updateSelectedAddress',
+                  'clearEditingAddressId',
                 ],
               },
             },
@@ -86,11 +88,13 @@ const shippingStateMachine = Machine<
               EDIT_ADDRESS: [
                 {
                   target: '#shipping.completeAddress',
-                  cond: 'firstPurchaseCompleteAddress',
+                  cond: 'isFirstPurchaseCompleteAddress',
+                  actions: 'updateEditingAddressId',
                 },
                 {
                   target: '#shipping.createAddress',
-                  cond: 'firstPurchaseIncompleteAddress',
+                  cond: 'isFirstPurchaseIncompleteAddress',
+                  actions: 'updateEditingAddressId',
                 },
                 {
                   target: '#shipping.selectAddress',
@@ -127,7 +131,10 @@ const shippingStateMachine = Machine<
             on: {
               SUBMIT_COMPLETE_ADDRESS: 'submitting',
               GO_TO_SELECT_SHIPPING_OPTION: '#shipping.selectShippingOption',
-              RESET_ADDRESS: '#shipping.selectAddress',
+              RESET_ADDRESS: {
+                target: '#shipping.selectAddress',
+                actions: 'clearEditingAddressId',
+              },
               EDIT_RECEIVER_INFO: '#shipping.editReceiverInfo',
             },
           },
@@ -137,12 +144,12 @@ const shippingStateMachine = Machine<
               onDone: [
                 {
                   target: '#shipping.done',
-                  actions: 'updateSelectedAddress',
+                  actions: ['updateSelectedAddress', 'clearEditingAddressId'],
                   cond: 'buyerIsReceiver',
                 },
                 {
                   target: '#shipping.editReceiverInfo',
-                  actions: 'updateSelectedAddress',
+                  actions: ['updateSelectedAddress', 'clearEditingAddressId'],
                 },
               ],
             },
@@ -152,8 +159,10 @@ const shippingStateMachine = Machine<
       editReceiverInfo: {
         initial: 'editing',
         on: {
-          GO_TO_CREATE_ADDRESS: 'createAddress',
-          GO_TO_SELECT_SHIPPING_OPTION: '#shipping.selectShippingOption',
+          GO_TO_SELECT_SHIPPING_OPTION: {
+            target: '#shipping.selectShippingOption',
+            actions: 'clearEditingAddressId',
+          },
           EDIT_ADDRESS: '#shipping.completeAddress',
         },
         states: {
@@ -167,7 +176,7 @@ const shippingStateMachine = Machine<
               src: 'tryToEditReceiverInfo',
               onDone: {
                 target: '#shipping.done',
-                actions: 'updateSelectedAddress',
+                actions: ['updateSelectedAddress', 'clearEditingAddressId'],
               },
             },
           },
@@ -191,6 +200,16 @@ const shippingStateMachine = Machine<
         }
 
         return {}
+      }),
+      updateEditingAddressId: assign((ctx) => {
+        return {
+          editingAddressId: ctx.selectedAddress?.addressId,
+        }
+      }),
+      clearEditingAddressId: assign((_) => {
+        return {
+          editingAddressId: null,
+        }
       }),
     },
     guards: {
@@ -217,12 +236,12 @@ const shippingStateMachine = Machine<
       },
       isFirstPurchase: ({ canEditData, userProfileId }) =>
         canEditData && !userProfileId,
-      firstPurchaseCompleteAddress: ({
+      isFirstPurchaseCompleteAddress: ({
         canEditData,
         userProfileId,
         isAddressValid,
       }) => canEditData && !userProfileId && isAddressValid,
-      firstPurchaseIncompleteAddress: ({
+      isFirstPurchaseIncompleteAddress: ({
         canEditData,
         userProfileId,
         isAddressValid,
