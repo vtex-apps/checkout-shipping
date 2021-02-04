@@ -1,34 +1,23 @@
 import { useMachine } from '@xstate/react'
-import { useMemo, useCallback } from 'react'
-import { Router, routes, ContainerContext } from 'vtex.checkout-container'
+import { Router, routes } from 'vtex.checkout-container'
 import { OrderShipping } from 'vtex.order-shipping'
-import { State, assign, EventObject, Typestate } from 'xstate'
+import { assign } from 'xstate'
 import { AddressContext } from 'vtex.address-context'
+import { useContext } from 'react'
 
 import shippingStateMachine from './shippingStateMachine'
 import { ShippingMachineContext, ShippingMachineEvents } from './types'
+import useMatcher from './useMatcher'
 
-const { useHistory } = Router
 const { useOrderShipping } = OrderShipping
-const { useCheckoutContainer } = ContainerContext
 const { useAddressContext } = AddressContext
-
-export const useMatcher = <Context, Events extends EventObject>(
-  state: State<Context, Events>
-) =>
-  useCallback((params: Typestate<Context>['value']) => state.matches(params), [
-    state,
-  ])
 
 const useShippingStateMachine = ({
   availableAddresses,
-  deliveryOptions,
-  pickupOptions,
   selectedAddress,
   canEditData,
   userProfileId,
-  isAddressValid,
-}: ShippingMachineContext) => {
+}: Omit<ShippingMachineContext, 'hasHistory'>) => {
   const {
     insertAddress,
     selectDeliveryOption,
@@ -38,9 +27,7 @@ const useShippingStateMachine = ({
 
   const { setAddress } = useAddressContext()
 
-  const { requestLogin } = useCheckoutContainer()
-
-  const history = useHistory()
+  const history = useContext(Router.__RouterContext)?.history
 
   const [state, send] = useMachine<
     ShippingMachineContext,
@@ -50,21 +37,16 @@ const useShippingStateMachine = ({
     context: {
       availableAddresses,
       selectedAddress,
-      deliveryOptions,
-      pickupOptions,
       canEditData,
       userProfileId,
-      isAddressValid,
+      hasHistory: !!history,
     },
     actions: {
-      goToNextStep: () => history.push(routes.PAYMENT),
-      requestLogin: () => requestLogin(),
+      goToNextStep: () => history?.push(routes.ADDRESS),
       updateSelectedAddress: assign((_, event) => {
         if (
           event.type === 'done.invoke.tryToCreateAddress' ||
-          event.type === 'done.invoke.tryToSelectAddress' ||
-          event.type === 'done.invoke.tryToEditReceiverInfo' ||
-          event.type === 'done.invoke.tryToUpdateCompleteAddress'
+          event.type === 'done.invoke.tryToSelectAddress'
         ) {
           const updatedAddress = event.data.orderForm.shipping.selectedAddress
 
@@ -79,26 +61,12 @@ const useShippingStateMachine = ({
       }),
     },
     services: {
-      tryToEditReceiverInfo: async (ctx, event) => {
-        if (event.type !== 'SUBMIT_RECEIVER_INFO') {
-          return
-        }
-
-        return updateSelectedAddress({
-          ...ctx.selectedAddress,
-          receiverName: event.receiverName,
-        })
-      },
-      tryToCreateAddress: async (ctx, event) => {
+      tryToCreateAddress: async (_, event) => {
         if (event.type !== 'SUBMIT_CREATE_ADDRESS') {
           return
         }
 
-        return insertAddress(
-          ctx.editingAddressId != null
-            ? { ...event.address, addressId: ctx.editingAddressId }
-            : event.address
-        )
+        return insertAddress(event.address)
       },
       tryToSelectAddress: async (_, event) => {
         if (event.type !== 'SUBMIT_SELECT_ADDRESS') {
@@ -118,15 +86,6 @@ const useShippingStateMachine = ({
 
         return selectPickupOption(event.shippingOptionId)
       },
-      tryToUpdateCompleteAddress: async (_, event) => {
-        if (event.type !== 'SUBMIT_COMPLETE_ADDRESS') {
-          return
-        }
-
-        const result = await updateSelectedAddress(event.updatedAddress)
-
-        return { ...result, buyerIsReceiver: event.buyerIsReceiver }
-      },
     },
   })
 
@@ -134,7 +93,7 @@ const useShippingStateMachine = ({
     state
   )
 
-  return useMemo(() => ({ matches, send, state }), [matches, send, state])
+  return { matches, send, state }
 }
 
 export default useShippingStateMachine

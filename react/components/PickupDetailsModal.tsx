@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { PickupOption, BusinessHour } from 'vtex.checkout-graphql'
@@ -89,7 +89,7 @@ const PickupDetailsModal: React.VFC<Props> = ({
             <FormattedMessage
               id="store/checkout.shipping.distance"
               values={{
-                distanceValue: pickupOption.storeDistance.toFixed(1),
+                distanceValue: pickupOption.storeDistance?.toFixed(1),
               }}
             />
           </p>

@@ -3,23 +3,20 @@ import React, { useCallback } from 'react'
 import { OrderForm } from 'vtex.order-manager'
 import { OrderShipping } from 'vtex.order-shipping'
 import { AddressContext } from 'vtex.address-context'
+import { Button } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
-import { ButtonPlain, IconEdit } from 'vtex.styleguide'
 
 import NewAddressForm from './NewAddressForm'
 import AddressList from './components/AddressList'
 import ShippingOptionList from './ShippingOptionList'
-import AddressCompletionForm from './components/AddressCompletionForm'
-import ReceiverInfoForm from './components/ReceiverInfoForm'
-import useShippingStateMachine from './shippingStateMachine/useShippingStateMachine'
+import useShippingStateMachine from './machines/useShippingStateMachine'
 import useAddressRules from './useAddressRules'
 import ShippingHeader from './ShippingHeader'
 
 const { useOrderForm } = OrderForm
 const { useOrderShipping } = OrderShipping
-const { useAddressContext } = AddressContext
 
-const ShippingForm: React.FC = () => {
+const ShippingForm: React.VFC = () => {
   const {
     orderForm: {
       canEditData,
@@ -29,16 +26,12 @@ const ShippingForm: React.FC = () => {
   } = useOrderForm()
 
   const { selectedAddress, deliveryOptions, pickupOptions } = useOrderShipping()
-  const { isValid } = useAddressContext()
 
   const { matches, send, state } = useShippingStateMachine({
     availableAddresses: (availableAddresses as Address[]) ?? [],
     canEditData,
-    deliveryOptions,
-    pickupOptions,
     selectedAddress: selectedAddress ?? null,
     userProfileId,
-    isAddressValid: isValid,
   })
 
   const handleAddressCreated = useCallback(
@@ -70,79 +63,39 @@ const ShippingForm: React.FC = () => {
     })
   }
 
-  const handleAddressCompleted = (
-    updatedAddress: Address,
-    buyerIsReceiver: boolean
-  ) => {
-    send({
-      type: 'SUBMIT_COMPLETE_ADDRESS',
-      buyerIsReceiver,
-      updatedAddress: {
-        ...updatedAddress,
-        addressType: updatedAddress.addressType ?? 'residential',
-      },
-    })
-  }
-
   switch (true) {
-    case matches('completeAddress'): {
-      return (
-        <AddressCompletionForm
-          selectedAddress={selectedAddress!}
-          deliveryOptions={state.context.deliveryOptions}
-          pickupOptions={pickupOptions}
-          onShippingOptionEdit={() => send('GO_TO_SELECT_SHIPPING_OPTION')}
-          onAddressCompleted={handleAddressCompleted}
-          onAddressReset={() => send('RESET_ADDRESS')}
-          onEditReceiverInfo={() => send('EDIT_RECEIVER_INFO')}
-          isSubmitting={matches({ completeAddress: 'submitting' })}
-        />
-      )
-    }
-
-    case matches('editReceiverInfo'): {
-      return (
-        state.context.selectedAddress && (
-          <ReceiverInfoForm
-            deliveryOptions={state.context.deliveryOptions}
-            isSubmitting={matches({ editReceiverInfo: 'submitting' })}
-            selectedAddress={state.context.selectedAddress}
-            onEditAddress={() => send('EDIT_ADDRESS')}
-            onReceiverInfoSave={(receiverName) => {
-              send({ type: 'SUBMIT_RECEIVER_INFO', receiverName })
-            }}
-            onShippingOptionEdit={() => send('GO_TO_SELECT_SHIPPING_OPTION')}
-          />
-        )
-      )
-    }
-
     case matches('selectShippingOption'): {
       return (
         <>
-          {selectedAddress?.receiverName && (
-            <div className="c-muted-1">
-              <span className="fw6 flex items-center">
-                <FormattedMessage id="store/checkout.shipping.receiverLabel" />{' '}
-                <div className="dib ml4">
-                  <ButtonPlain onClick={() => send('EDIT_RECEIVER_INFO')}>
-                    <IconEdit solid />
-                  </ButtonPlain>
-                </div>
-              </span>
-
-              <div className="mt2 mb6 lh-copy">
-                {selectedAddress.receiverName}
-              </div>
-            </div>
-          )}
           <ShippingHeader onEditAddress={() => send('EDIT_ADDRESS')} />
+
           <ShippingOptionList
-            deliveryOptions={state.context.deliveryOptions}
+            deliveryOptions={deliveryOptions}
             pickupOptions={pickupOptions}
             onDeliveryOptionSelected={handleDeliveryOptionSelect}
             onPickupOptionSelected={handlePickupOptionSelect}
+            onDeliveryOptionDeselected={() => send('DESELECT_SHIPPING_OPTION')}
+            onPickupOptionDeselected={() => send('DESELECT_SHIPPING_OPTION')}
+            showOnlySelectedShippingOption={matches({
+              selectShippingOption: 'idle',
+            })}
           />
+
+          {matches({ selectShippingOption: 'idle' }) &&
+            state.context.hasHistory && (
+              <div className="mt6">
+                <Button
+                  block
+                  size="large"
+                  onClick={() => send('GO_TO_ADDRESS_STEP')}
+                  testId="continue-shipping-button"
+                >
+                  <span className="f5">
+                    <FormattedMessage id="store/checkout.shipping.continue" />
+                  </span>
+                </Button>
+              </div>
+            )}
         </>
       )
     }

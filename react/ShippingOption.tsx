@@ -4,7 +4,7 @@ import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { GroupOption } from 'vtex.checkout-components'
 import { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
-import { IconDelete, ButtonPlain, Modal, Divider } from 'vtex.styleguide'
+import { IconDelete, ButtonPlain } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
 import PickupDetailsModal from './components/PickupDetailsModal'
@@ -16,8 +16,8 @@ interface EstimateDeliveryOption {
 }
 
 interface Props {
-  onSelectDeliveryOption?: () => void
-  onDeselectDeliveryOption?: () => void
+  onSelectShippingOption?: () => void
+  onDeselectShippingOption?: () => void
   shippingOption: DeliveryOption | PickupOption
   isSelected?: boolean
   fastestOption?: EstimateDeliveryOption
@@ -25,8 +25,8 @@ interface Props {
 }
 
 const ShippingOption: React.VFC<Props> = ({
-  onSelectDeliveryOption,
-  onDeselectDeliveryOption,
+  onSelectShippingOption,
+  onDeselectShippingOption,
   shippingOption,
   fastestOption,
   cheapestOption,
@@ -53,7 +53,7 @@ const ShippingOption: React.VFC<Props> = ({
             <FormattedMessage
               id="store/checkout.shipping.distance"
               values={{
-                distanceValue: shippingOption.storeDistance.toFixed(1),
+                distanceValue: shippingOption.storeDistance?.toFixed(1),
               }}
             />
           </span>
@@ -75,7 +75,7 @@ const ShippingOption: React.VFC<Props> = ({
         {content}
         <button
           className="flex-shrink-0 c-muted-1 ml5 pa2 flex bg-transparent bn pointer"
-          onClick={onDeselectDeliveryOption}
+          onClick={onDeselectShippingOption}
           role="option"
           aria-selected
         >
@@ -99,7 +99,7 @@ const ShippingOption: React.VFC<Props> = ({
     </div>
   ) : (
     <GroupOption
-      onClick={onSelectDeliveryOption}
+      onClick={onSelectShippingOption}
       selected={shippingOption.isSelected}
     >
       {content}

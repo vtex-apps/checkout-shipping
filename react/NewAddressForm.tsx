@@ -8,6 +8,7 @@ import {
 } from 'vtex.place-components'
 import { Address } from 'vtex.places-graphql'
 import { Query, QueryInstalledAppArgs } from 'vtex.apps-graphql'
+import { FormattedMessage } from 'react-intl'
 
 import installedApp from './graphql/installedApp.gql'
 
@@ -29,7 +30,11 @@ const NewAddressForm: React.FC<Props> = ({ onAddressCreated }) => {
 
   return (
     <Fragment>
-      <div className="pv3">
+      <p className="t-body mt0 mb6">
+        <FormattedMessage id="store/checkout.shipping.informAddress" />
+      </p>
+
+      <div>
         <DeviceCoordinates onSuccess={onAddressCreated} />
       </div>
 

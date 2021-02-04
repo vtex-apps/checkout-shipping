@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
 import { Alert } from 'vtex.styleguide'
 import { ListGroup } from 'vtex.checkout-components'
@@ -14,6 +14,8 @@ interface Props {
   onDeliveryOptionSelected?: (id: string) => void
   onDeliveryOptionDeselected?: (id: string) => void
   onPickupOptionSelected?: (id: string) => void
+  onPickupOptionDeselected?: (id: string) => void
+  showOnlySelectedShippingOption?: boolean
 }
 
 const ShippingOptionList: React.FC<Props> = ({
@@ -22,21 +24,27 @@ const ShippingOptionList: React.FC<Props> = ({
   onDeliveryOptionSelected = () => {},
   onDeliveryOptionDeselected = () => {},
   onPickupOptionSelected = () => {},
+  onPickupOptionDeselected = () => {},
+  showOnlySelectedShippingOption = false,
 }) => {
   const shippingOptions = [...deliveryOptions, ...pickupOptions.slice(0, 1)]
 
   const handleShippingOptionSelect = (
-    deliveryOption: DeliveryOption | PickupOption
+    shippingOption: DeliveryOption | PickupOption
   ) => {
-    if (isPickupOption(deliveryOption)) {
-      onPickupOptionSelected(deliveryOption.id)
+    if (isPickupOption(shippingOption)) {
+      onPickupOptionSelected(shippingOption.id)
     } else {
-      onDeliveryOptionSelected(deliveryOption.id!)
+      onDeliveryOptionSelected(shippingOption.id!)
     }
   }
 
   const handleDeliveryOptionDeselect = (deliveryOption: DeliveryOption) => {
     onDeliveryOptionDeselected(deliveryOption.id!)
+  }
+
+  const handlePickupOptionDeselect = (pickupOption: PickupOption) => {
+    onPickupOptionDeselected(pickupOption.id!)
   }
 
   const fastestOption = useMemo(() => {
@@ -63,12 +71,8 @@ const ShippingOptionList: React.FC<Props> = ({
     return shippingOptions.filter(({ isSelected }) => isSelected)
   }, [shippingOptions])
 
-  const [showSelectedShippingOption, setShowSelectedShippingOption] = useState(
-    !!selectedShippingOptions.length
-  )
-
   return shippingOptions.length > 0 ? (
-    showSelectedShippingOption ? (
+    showOnlySelectedShippingOption ? (
       <>
         <p className="mt0 mb5 fw4 f4 lh-copy">
           <FormattedMessage id="store/checkout.shipping.selectedDeliveryOptionsLabel" />
@@ -81,9 +85,13 @@ const ShippingOptionList: React.FC<Props> = ({
               shippingOption={shippingOption}
               fastestOption={fastestOption}
               cheapestOption={cheapestOption}
-              onDeselectDeliveryOption={() =>
-                setShowSelectedShippingOption(false)
-              }
+              onDeselectShippingOption={() => {
+                if (isPickupOption(shippingOption)) {
+                  handlePickupOptionDeselect(shippingOption)
+                } else {
+                  handleDeliveryOptionDeselect(shippingOption)
+                }
+              }}
               isSelected
             />
           ))}
@@ -97,9 +105,8 @@ const ShippingOptionList: React.FC<Props> = ({
             shippingOption={shippingOption}
             fastestOption={fastestOption}
             cheapestOption={cheapestOption}
-            onSelectDeliveryOption={() => {
+            onSelectShippingOption={() => {
               handleShippingOptionSelect(shippingOption)
-              setShowSelectedShippingOption(true)
             }}
           />
         ))}
