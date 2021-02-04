@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-apollo'
 import {
   DeviceCoordinates,
@@ -9,14 +9,28 @@ import {
 import { Address } from 'vtex.places-graphql'
 import { Query, QueryInstalledAppArgs } from 'vtex.apps-graphql'
 import { FormattedMessage } from 'react-intl'
+import { ListGroup } from 'vtex.checkout-components'
 
 import installedApp from './graphql/installedApp.gql'
+import ShippingHeader from './ShippingHeader'
+import { ShippingOptionPreview } from './ShippingOption'
+import ShippingEditError from './components/ShippingEditError'
 
 interface Props {
   onAddressCreated: (address: Address) => void
+  onRetryCreateAddress?: () => void
+  onEditAddress?: () => void
+  isSubmitting: boolean
+  hasError: boolean
 }
 
-const NewAddressForm: React.FC<Props> = ({ onAddressCreated }) => {
+const NewAddressForm: React.FC<Props> = ({
+  onAddressCreated,
+  onRetryCreateAddress = () => {},
+  onEditAddress = () => {},
+  isSubmitting,
+  hasError,
+}) => {
   const { data, error } = useQuery<Query, QueryInstalledAppArgs>(installedApp, {
     ssr: false,
     variables: {
@@ -24,12 +38,37 @@ const NewAddressForm: React.FC<Props> = ({ onAddressCreated }) => {
     },
   })
 
-  if (error) {
-    console.error(error)
+  useEffect(() => {
+    if (error) {
+      console.error(error)
+    }
+  }, [error])
+
+  if (hasError) {
+    return (
+      <ShippingEditError
+        onEditAddress={onEditAddress}
+        onTryAgain={onRetryCreateAddress}
+      />
+    )
+  }
+
+  if (isSubmitting) {
+    return (
+      <>
+        <ShippingHeader onEditAddress={onEditAddress} />
+
+        <ListGroup>
+          <ShippingOptionPreview />
+          <ShippingOptionPreview />
+          <ShippingOptionPreview />
+        </ListGroup>
+      </>
+    )
   }
 
   return (
-    <Fragment>
+    <>
       <p className="t-body mt0 mb6">
         <FormattedMessage id="store/checkout.shipping.informAddress" />
       </p>
@@ -49,7 +88,7 @@ const NewAddressForm: React.FC<Props> = ({ onAddressCreated }) => {
           <LocationSearch onSelectAddress={onAddressCreated} />
         </div>
       )}
-    </Fragment>
+    </>
   )
 }
 

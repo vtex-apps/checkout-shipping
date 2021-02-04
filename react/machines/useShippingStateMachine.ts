@@ -43,6 +43,16 @@ const useShippingStateMachine = ({
     },
     actions: {
       goToNextStep: () => history?.push(routes.ADDRESS),
+      updateAddressContext: (_, event) => {
+        if (
+          event.type !== 'SUBMIT_CREATE_ADDRESS' &&
+          event.type !== 'SUBMIT_SELECT_ADDRESS'
+        ) {
+          return
+        }
+
+        setAddress(event.address)
+      },
       updateSelectedAddress: assign((_, event) => {
         if (
           event.type === 'done.invoke.tryToCreateAddress' ||
@@ -62,18 +72,32 @@ const useShippingStateMachine = ({
     },
     services: {
       tryToCreateAddress: async (_, event) => {
-        if (event.type !== 'SUBMIT_CREATE_ADDRESS') {
+        if (
+          event.type !== 'SUBMIT_CREATE_ADDRESS' &&
+          event.type !== 'RETRY_CREATE_ADDRESS'
+        ) {
           return
         }
 
-        return insertAddress(event.address)
+        try {
+          return await insertAddress(event.address)
+        } catch {
+          throw event.address
+        }
       },
       tryToSelectAddress: async (_, event) => {
-        if (event.type !== 'SUBMIT_SELECT_ADDRESS') {
+        if (
+          event.type !== 'SUBMIT_SELECT_ADDRESS' &&
+          event.type !== 'RETRY_SELECT_ADDRESS'
+        ) {
           return
         }
 
-        return updateSelectedAddress(event.address)
+        try {
+          return await updateSelectedAddress(event.address)
+        } catch {
+          throw event.address
+        }
       },
       tryToSelectShippingOption: async (_, event) => {
         if (event.type !== 'SUBMIT_SELECT_SHIPPING_OPTION') {

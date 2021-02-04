@@ -34,6 +34,7 @@ const shippingStateMachine = Machine<
       userProfileId: null,
       editingAddressId: null,
       hasHistory: true,
+      retryAddress: null,
     },
     states: {
       initial: {
@@ -49,15 +50,38 @@ const shippingStateMachine = Machine<
         states: {
           editing: {
             on: {
-              SUBMIT_CREATE_ADDRESS: 'submitting',
+              SUBMIT_CREATE_ADDRESS: {
+                target: 'submitting',
+                actions: 'updateAddressContext',
+              },
             },
           },
           submitting: {
+            on: {
+              EDIT_ADDRESS: undefined,
+            },
             invoke: {
               src: 'tryToCreateAddress',
               onDone: {
                 target: 'done',
-                actions: ['updateSelectedAddress'],
+                actions: [
+                  'updateSelectedAddress',
+                  'updateAvailableAddresses',
+                  'clearRetryAddress',
+                ],
+              },
+              onError: {
+                target: 'error',
+                actions: 'updateRetryAddress',
+              },
+            },
+          },
+          error: {
+            on: {
+              RETRY_CREATE_ADDRESS: 'submitting',
+              EDIT_ADDRESS: {
+                target: 'editing',
+                actions: 'clearRetryAddress',
               },
             },
           },
@@ -84,15 +108,34 @@ const shippingStateMachine = Machine<
             ],
             on: {
               GO_TO_CREATE_ADDRESS: 'createAddress',
-              SUBMIT_SELECT_ADDRESS: 'submitting',
+              SUBMIT_SELECT_ADDRESS: {
+                target: 'submitting',
+                actions: 'updateAddressContext',
+              },
             },
           },
           submitting: {
+            on: {
+              EDIT_ADDRESS: undefined,
+            },
             invoke: {
               src: 'tryToSelectAddress',
               onDone: {
                 target: 'selectOption',
-                actions: 'updateSelectedAddress',
+                actions: ['updateSelectedAddress', 'clearRetryAddress'],
+              },
+              onError: {
+                target: 'error',
+                actions: 'updateRetryAddress',
+              },
+            },
+          },
+          error: {
+            on: {
+              RETRY_SELECT_ADDRESS: 'submitting',
+              EDIT_ADDRESS: {
+                target: 'idle',
+                actions: 'clearRetryAddress',
               },
             },
           },
@@ -172,6 +215,32 @@ const shippingStateMachine = Machine<
         return {
           editingAddressId: null,
         }
+      }),
+      updateRetryAddress: assign((_, action) => {
+        if (
+          action.type !== 'error.platform.tryToCreateAddress' &&
+          action.type !== 'error.platform.tryToSelectAddress'
+        ) {
+          return {}
+        }
+
+        return {
+          retryAddress: action.data,
+        }
+      }),
+      clearRetryAddress: assign({
+        retryAddress: (_) => {
+          return null
+        },
+      }),
+      updateAvailableAddresses: assign({
+        availableAddresses: (ctx, action) => {
+          if (action.type !== 'done.invoke.tryToCreateAddress') {
+            return ctx.availableAddresses
+          }
+
+          return action.data.orderForm.shipping.availableAddresses
+        },
       }),
     },
     guards: {

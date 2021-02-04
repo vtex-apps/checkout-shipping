@@ -9,6 +9,8 @@ declare module 'vtex.styleguide' {
 
   const IconEdit: React.FC<IconEditProps>
 
+  const IconDelete: React.FC
+
   const Button: React.FC<any>
 
   const Checkbox: React.FC<any>

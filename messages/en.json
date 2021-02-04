@@ -30,5 +30,7 @@
   "store/checkout.shipping.pickupPointsModal.availableItems": "Available items",
   "store/checkout.shipping.pickupPointsModal.address": "Address",
   "store/checkout.shipping.goToPayment": "Go to payment",
-  "store/checkout.shipping.goToAddress": "Go to address"
+  "store/checkout.shipping.goToAddress": "Go to address",
+  "store/checkout.shipping.tryAgainButton": "Try again",
+  "store/checkout.shipping.unknownErrorMessage": "There was an error while trying to make your request."
 }

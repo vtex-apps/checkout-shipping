@@ -4,6 +4,7 @@ export interface ShippingMachineContext {
   availableAddresses: Address[]
   canEditData: boolean
   selectedAddress: Address | null
+  retryAddress: Address | null
   userProfileId?: string | null
   editingAddressId?: string | null
   hasHistory: boolean
@@ -15,24 +16,29 @@ export type ShippingMachineEvents =
   | { type: 'GO_TO_ADDRESS_STEP' }
   | { type: 'DESELECT_SHIPPING_OPTION' }
   | { type: 'EDIT_ADDRESS' }
-  | { type: 'SUBMIT_SELECT_ADDRESS'; address: Address }
+  | { type: 'SUBMIT_SELECT_ADDRESS' | 'RETRY_SELECT_ADDRESS'; address: Address }
   | {
       type: 'SUBMIT_SELECT_SHIPPING_OPTION'
       shippingOptionId: string
       deliveryChannel: string
     }
-  | { type: 'SUBMIT_CREATE_ADDRESS'; address: Address }
+  | { type: 'SUBMIT_CREATE_ADDRESS' | 'RETRY_CREATE_ADDRESS'; address: Address }
   | {
       type: 'done.invoke.tryToCreateAddress'
       data: {
         orderForm: {
           shipping: {
+            availableAddresses: Address[]
             deliveryOptions: DeliveryOption[]
             pickupOptions: PickupOption[]
             selectedAddress: Address
           }
         }
       }
+    }
+  | {
+      type: 'error.platform.tryToCreateAddress'
+      data: Address
     }
   | {
       type: 'done.invoke.tryToSelectAddress'
@@ -45,6 +51,10 @@ export type ShippingMachineEvents =
           }
         }
       }
+    }
+  | {
+      type: 'error.platform.tryToSelectAddress'
+      data: Address
     }
   | {
       type: 'done.invoke.tryToSelectShippingOption'

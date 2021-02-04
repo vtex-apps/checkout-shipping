@@ -4,7 +4,7 @@ import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { GroupOption } from 'vtex.checkout-components'
 import { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
-import { IconDelete, ButtonPlain } from 'vtex.styleguide'
+import { IconDelete, ButtonPlain, Divider } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
 import PickupDetailsModal from './components/PickupDetailsModal'
@@ -13,6 +13,32 @@ import { getName, isPickupOption, slugify } from './utils/sla'
 interface EstimateDeliveryOption {
   shippingEstimate: string
   price: number
+}
+
+export const ShippingOptionPreview: React.VFC = () => {
+  return (
+    <>
+      <button
+        className="w-100 tl pointer db lh-copy bg-base ph5 pv5-ns flex items-center justify-between bn pv4"
+        role="option"
+        aria-selected="false"
+        disabled
+      >
+        <div className="flex w-100">
+          <div className="flex flex-column w-100">
+            <span className="br1 mw4 w-100 pt2 pb3 mv2 bg-muted-5" />
+            <span className="br1 dib mt4 mw5 w-100 pt2 pb3 mv2 bg-muted-5" />
+          </div>
+          <div className="mw3 w-100">
+            <span className="br1 dib w-100 pt2 pb3 mv2 bg-muted-5" />
+          </div>
+        </div>
+      </button>
+      <div className="w-100 pr5 pr0-ns pl5">
+        <Divider />
+      </div>
+    </>
+  )
 }
 
 interface Props {

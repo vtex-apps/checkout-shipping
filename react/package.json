@@ -12,7 +12,7 @@
     "vtex.address-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.5.0/public/@types/vtex.address-context",
     "vtex.apps-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@3.9.1/public/@types/vtex.apps-graphql",
     "vtex.checkout-components": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.5.1/public/@types/vtex.checkout-components",
-    "vtex.checkout-container": "https://addr--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-container@0.6.2+build1612384432/public/@types/vtex.checkout-container",
+    "vtex.checkout-container": "https://addr--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-container@0.6.2+build1612455466/public/@types/vtex.checkout-container",
     "vtex.checkout-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.56.0/public/@types/vtex.checkout-graphql",
     "vtex.country-data-settings": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.3.0/public/@types/vtex.country-data-settings",
     "vtex.format-currency": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.format-currency@0.3.0/public/@types/vtex.format-currency",

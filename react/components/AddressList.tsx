@@ -6,6 +6,10 @@ import { OrderShipping } from 'vtex.order-shipping'
 import { FormattedMessage } from 'react-intl'
 import { ListGroup, GroupOption } from 'vtex.checkout-components'
 
+import ShippingHeader from '../ShippingHeader'
+import { ShippingOptionPreview } from '../ShippingOption'
+import ShippingEditError from './ShippingEditError'
+
 const { useAddressContext } = AddressContext
 const { useOrderShipping } = OrderShipping
 
@@ -13,17 +17,48 @@ interface Props {
   addresses: Address[]
   onCreateAddress?: () => void
   onAddressSelected?: (address: Address) => void
+  onRetrySelectAddress?: () => void
+  onEditAddress?: () => void
   selectedAddress: Address | null
+  isSubmitting: boolean
+  hasError: boolean
 }
 
 const AddressList: React.FC<Props> = ({
   addresses,
+  onEditAddress = () => {},
   onCreateAddress = () => {},
+  onRetrySelectAddress = () => {},
   onAddressSelected = () => {},
   selectedAddress,
+  isSubmitting,
+  hasError,
 }) => {
   const { countries } = useOrderShipping()
   const { rules } = useAddressContext()
+
+  if (hasError) {
+    return (
+      <ShippingEditError
+        onEditAddress={onEditAddress}
+        onTryAgain={onRetrySelectAddress}
+      />
+    )
+  }
+
+  if (isSubmitting) {
+    return (
+      <>
+        <ShippingHeader onEditAddress={onEditAddress} />
+
+        <ListGroup>
+          <ShippingOptionPreview />
+          <ShippingOptionPreview />
+          <ShippingOptionPreview />
+        </ListGroup>
+      </>
+    )
+  }
 
   return (
     <div>

@@ -32,6 +32,7 @@ const ShippingForm: React.VFC = () => {
     canEditData,
     selectedAddress: selectedAddress ?? null,
     userProfileId,
+    retryAddress: null,
   })
 
   const handleAddressCreated = useCallback(
@@ -103,12 +104,20 @@ const ShippingForm: React.VFC = () => {
     case matches('selectAddress'): {
       return (
         <AddressList
+          hasError={matches({ selectAddress: 'error' })}
+          isSubmitting={matches({ selectAddress: 'submitting' })}
           addresses={state.context.availableAddresses}
           selectedAddress={state.context.selectedAddress}
           onCreateAddress={() => send('GO_TO_CREATE_ADDRESS')}
           onAddressSelected={(address) =>
             send({ type: 'SUBMIT_SELECT_ADDRESS', address })
           }
+          onRetrySelectAddress={() => {
+            send('RETRY_SELECT_ADDRESS', {
+              address: state.context.retryAddress!,
+            })
+          }}
+          onEditAddress={() => send('EDIT_ADDRESS')}
         />
       )
     }
@@ -117,7 +126,19 @@ const ShippingForm: React.VFC = () => {
 
     // eslint-disable-next-line no-fallthrough
     default: {
-      return <NewAddressForm onAddressCreated={handleAddressCreated} />
+      return (
+        <NewAddressForm
+          onAddressCreated={handleAddressCreated}
+          onEditAddress={() => send('EDIT_ADDRESS')}
+          onRetryCreateAddress={() => {
+            send('RETRY_CREATE_ADDRESS', {
+              address: state.context.retryAddress!,
+            })
+          }}
+          isSubmitting={matches({ createAddress: 'submitting' })}
+          hasError={matches({ createAddress: 'error' })}
+        />
+      )
     }
   }
 }
