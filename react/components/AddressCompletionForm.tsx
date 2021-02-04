@@ -11,7 +11,7 @@ const { useAddressContext } = AddressContext
 const { validateAddress } = Utils
 
 interface Props {
-  selectedAddress: Address
+  selectedAddress?: Address | null
   isSubmitting: boolean
   onAddressCompleted?: (
     updatedAddress: Address,
@@ -22,7 +22,7 @@ interface Props {
 }
 
 const AddressCompletionForm: React.FC<Props> = ({
-  selectedAddress,
+  selectedAddress = null,
   isSubmitting,
   onAddressReset = () => {},
   onAddressCompleted = () => {},
@@ -42,7 +42,10 @@ const AddressCompletionForm: React.FC<Props> = ({
     rules
   )
 
-  const { firstName, lastName } = clientProfileData!
+  const { firstName, lastName } = clientProfileData ?? {
+    firstName: '',
+    lastName: '',
+  }
 
   const handleBuyerIsReceiverChange: React.ChangeEventHandler<HTMLInputElement> = (
     evt
@@ -69,7 +72,7 @@ const AddressCompletionForm: React.FC<Props> = ({
 
   return (
     <div className="lh-copy">
-      {selectedAddress.receiverName && (
+      {selectedAddress?.receiverName && (
         <div className="c-muted-1">
           <span className="fw6 flex items-center">
             <FormattedMessage id="store/checkout.shipping.receiverLabel" />{' '}
@@ -97,22 +100,24 @@ const AddressCompletionForm: React.FC<Props> = ({
           />
         </div>
 
-        {selectedAddress.receiverName == null && canEditData && (
-          <div className="mt5 mb7">
-            <Checkbox
-              label={
-                <FormattedMessage
-                  id="store/checkout.shipping.nameWillReceiveOrderLabel"
-                  values={{ name: <span className="fw6">{firstName}</span> }}
-                />
-              }
-              name="buyer-is-receiver"
-              id="buyer-is-receiver-checkbox"
-              checked={buyerIsReceiver}
-              onChange={handleBuyerIsReceiverChange}
-            />
-          </div>
-        )}
+        {selectedAddress != null &&
+          selectedAddress.receiverName == null &&
+          canEditData && (
+            <div className="mt5 mb7">
+              <Checkbox
+                label={
+                  <FormattedMessage
+                    id="store/checkout.shipping.nameWillReceiveOrderLabel"
+                    values={{ name: <span className="fw6">{firstName}</span> }}
+                  />
+                }
+                name="buyer-is-receiver"
+                id="buyer-is-receiver-checkbox"
+                checked={buyerIsReceiver}
+                onChange={handleBuyerIsReceiverChange}
+              />
+            </div>
+          )}
 
         <Button
           testId="continue-address-button"

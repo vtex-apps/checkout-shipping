@@ -43,7 +43,7 @@ const ShippingAddress: React.VFC = () => {
     case matches('editAddress'): {
       return (
         <AddressCompletionForm
-          selectedAddress={selectedAddress!}
+          selectedAddress={selectedAddress}
           onAddressCompleted={handleAddressCompleted}
           onAddressReset={() => send('RESET_ADDRESS')}
           onEditReceiverInfo={() => send('EDIT_RECEIVER_INFO')}
