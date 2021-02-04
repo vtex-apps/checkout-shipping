@@ -91,7 +91,7 @@ const ShippingForm: React.VFC = () => {
                   testId="continue-shipping-button"
                 >
                   <span className="f5">
-                    <FormattedMessage id="store/checkout.shipping.continue" />
+                    <FormattedMessage id="store/checkout.shipping.goToAddress" />
                   </span>
                 </Button>
               </div>

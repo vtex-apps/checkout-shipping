@@ -52,3 +52,46 @@ export type ShippingMachineEvents =
         success: boolean
       }
     }
+
+export interface AddressMachineContext {
+  isAddressValid: boolean
+  selectedAddress: Address | null
+  canEditData: boolean
+}
+
+export type AddressMachineEvents =
+  | { type: 'SUBMIT_RECEIVER_INFO'; receiverName: string }
+  | { type: 'EDIT_ADDRESS' }
+  | { type: 'EDIT_RECEIVER_INFO' }
+  | {
+      type: 'SUBMIT_EDIT_ADDRESS'
+      updatedAddress: Address
+      buyerIsReceiver: boolean
+    }
+  | { type: 'RESET_ADDRESS' }
+  | {
+      type: 'done.invoke.tryToUpdateCompleteAddress'
+      data: {
+        success: boolean
+        orderForm: {
+          shipping: {
+            deliveryOptions: DeliveryOption[]
+            pickupOptions: PickupOption[]
+            selectedAddress: Address
+          }
+        }
+        buyerIsReceiver: boolean
+      }
+    }
+  | {
+      type: 'done.invoke.tryToEditReceiverInfo'
+      data: {
+        orderForm: {
+          shipping: {
+            deliveryOptions: DeliveryOption[]
+            pickupOptions: PickupOption[]
+            selectedAddress: Address
+          }
+        }
+      }
+    }

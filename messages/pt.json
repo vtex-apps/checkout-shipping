@@ -10,7 +10,6 @@
   "store/checkout.shipping.receiverNameLabel": "Nome",
   "store/checkout.shipping.receiverLabel": "Destinatário",
   "store/checkout.shipping.shippingOptionsForAddressLabel": "Opções de entrega para",
-  "store/checkout.shipping.continue": "Continuar",
   "store/checkout.shipping.emptyDeliveryOptionsAlert": "Não há opções de entrega disponíveis.",
   "store/checkout.shipping.changeAddressLabel": "alterar",
   "store/checkout.shipping.seeDetails": "Ver detalhes",
@@ -29,5 +28,7 @@
   "store/checkout.shipping.pickupPointsModal.businessHours": "Horário de funcionamento",
   "store/checkout.shipping.pickupPointsModal.allItemsAvailable": "Todos os itens estão disponíveis nesta loja.",
   "store/checkout.shipping.pickupPointsModal.availableItems": "Itens disponíveis",
-  "store/checkout.shipping.pickupPointsModal.address": "Endereço"
+  "store/checkout.shipping.pickupPointsModal.address": "Endereço",
+  "store/checkout.shipping.goToPayment": "Ir para pagamento",
+  "store/checkout.shipping.goToAddress": "Ir para endereço"
 }
