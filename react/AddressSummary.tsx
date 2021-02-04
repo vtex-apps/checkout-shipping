@@ -5,39 +5,37 @@ import { OrderShipping } from 'vtex.order-shipping'
 
 import useAddressRules from './useAddressRules'
 
+const { useAddressContext } = AddressContext
 const { useOrderShipping } = OrderShipping
 
 const AddressSummary: React.VFC = () => {
-  const {
-    selectedAddress,
-    countries,
-    deliveryOptions,
-    pickupOptions,
-  } = useOrderShipping()
+  const { isValid } = useAddressContext()
 
-  const addressRules = useAddressRules()
-
-  const shippingOptions = [...deliveryOptions, ...pickupOptions]
-
-  const selectedShippingOptions = shippingOptions.filter(
-    ({ isSelected }) => isSelected
-  )
-
-  if (!selectedShippingOptions.length) {
+  if (!isValid) {
     return null
   }
 
   return (
     <div className="c-muted-1 lh-copy">
-      <AddressContext.AddressContextProvider
-        address={selectedAddress!}
-        countries={countries}
-        rules={addressRules}
-      >
-        <PlaceDetails display="extended" />
-      </AddressContext.AddressContextProvider>
+      <PlaceDetails display="extended" />
     </div>
   )
 }
 
-export default AddressSummary
+const AddressSummaryWithAddress: React.VFC = () => {
+  const { selectedAddress, countries } = useOrderShipping()
+
+  const addressRules = useAddressRules()
+
+  return (
+    <AddressContext.AddressContextProvider
+      address={selectedAddress!}
+      countries={countries}
+      rules={addressRules}
+    >
+      <AddressSummary />
+    </AddressContext.AddressContextProvider>
+  )
+}
+
+export default AddressSummaryWithAddress
