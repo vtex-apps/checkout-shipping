@@ -1,17 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { PlaceDetails } from 'vtex.place-components'
 import { AddressContext } from 'vtex.address-context'
 import { OrderShipping } from 'vtex.order-shipping'
+import { OrderForm } from 'vtex.order-manager'
 
 import useAddressRules from './useAddressRules'
 
 const { useAddressContext } = AddressContext
 const { useOrderShipping } = OrderShipping
+const { useOrderForm } = OrderForm
 
 const AddressSummary: React.VFC = () => {
-  const { isValid } = useAddressContext()
+  const { selectedAddress } = useOrderShipping()
+  const { address, setAddress, isValid } = useAddressContext()
+  const {
+    orderForm: { canEditData },
+  } = useOrderForm()
 
-  if (!isValid) {
+  useEffect(() => {
+    if (selectedAddress == null) {
+      return
+    }
+
+    setAddress(selectedAddress)
+  }, [selectedAddress, setAddress])
+
+  const shouldConsiderValidation =
+    (address.isDisposable ?? false) || canEditData
+
+  if (shouldConsiderValidation && !isValid) {
     return null
   }
 
