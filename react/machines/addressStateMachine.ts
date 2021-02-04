@@ -9,7 +9,6 @@ const addressStateMachine = Machine<
   {
     initial: 'editAddress',
     context: {
-      isAddressValid: false,
       selectedAddress: null,
       canEditData: true,
     },

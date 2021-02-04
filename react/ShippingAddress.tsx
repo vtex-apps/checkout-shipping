@@ -11,7 +11,6 @@ import ReceiverInfoForm from './components/ReceiverInfoForm'
 import useAddressRules from './useAddressRules'
 
 const { useOrderShipping } = OrderShipping
-const { useAddressContext } = AddressContext
 const { useOrderForm } = OrderForm
 
 const ShippingAddress: React.VFC = () => {
@@ -19,11 +18,9 @@ const ShippingAddress: React.VFC = () => {
     orderForm: { canEditData },
   } = useOrderForm()
 
-  const { isValid } = useAddressContext()
   const { selectedAddress } = useOrderShipping()
 
   const { matches, send, state } = useAddressStateMachine({
-    isAddressValid: isValid,
     selectedAddress: selectedAddress ?? null,
     canEditData,
   })

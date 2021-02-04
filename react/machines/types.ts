@@ -54,7 +54,6 @@ export type ShippingMachineEvents =
     }
 
 export interface AddressMachineContext {
-  isAddressValid: boolean
   selectedAddress: Address | null
   canEditData: boolean
 }

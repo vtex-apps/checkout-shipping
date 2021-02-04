@@ -12,10 +12,7 @@ const { useHistory } = Router
 const { useOrderShipping } = OrderShipping
 const { useAddressContext } = AddressContext
 
-const useAddressStateMachine = ({
-  isAddressValid,
-  selectedAddress,
-}: AddressMachineContext) => {
+const useAddressStateMachine = ({ selectedAddress }: AddressMachineContext) => {
   const { updateSelectedAddress } = useOrderShipping()
   const { setAddress } = useAddressContext()
 
@@ -26,7 +23,6 @@ const useAddressStateMachine = ({
     {
       devTools: true,
       context: {
-        isAddressValid,
         selectedAddress,
       },
       actions: {
