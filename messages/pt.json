@@ -11,7 +11,7 @@
   "store/checkout.shipping.receiverLabel": "Destinatário",
   "store/checkout.shipping.shippingOptionsForAddressLabel": "Opções de entrega para",
   "store/checkout.shipping.continue": "Continuar",
-  "store/checkout.shipping.emptyDeliveryOptionsAlert": "Não há opções de entrega disponíveis.",
+  "store/checkout.shipping.emptyDeliveryOptionsAlert": "Não há opções de entrega disponíveis para a sua localidade.",
   "store/checkout.shipping.changeAddressLabel": "alterar",
   "store/checkout.shipping.seeDetails": "Ver detalhes",
   "store/checkout.shipping.distance": "{distanceValue}km de distância",
