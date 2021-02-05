@@ -49,7 +49,24 @@ const shippingStateMachine = Machine<
         initial: 'editing',
         states: {
           editing: {
+            initial: 'withListBacklink',
+            states: {
+              normal: {
+                on: {
+                  GO_TO_SELECT_ADDRESS: undefined,
+                },
+              },
+              withListBacklink: {
+                always: [
+                  {
+                    target: 'normal',
+                    cond: 'isFirstPurchase',
+                  },
+                ],
+              },
+            },
             on: {
+              GO_TO_SELECT_ADDRESS: 'selectAddress',
               SUBMIT_CREATE_ADDRESS: {
                 target: 'submitting',
                 actions: 'updateAddressContext',
@@ -85,12 +102,23 @@ const shippingStateMachine = Machine<
               },
             },
           },
+          selectAddress: {
+            entry: 'clearEditingAddressId',
+            type: 'final',
+          },
           done: {
             entry: 'clearEditingAddressId',
             type: 'final',
           },
         },
-        onDone: 'selectShippingOption',
+        onDone: [
+          {
+            target: 'selectAddress',
+            cond: (_, __, meta) =>
+              meta.state.matches({ createAddress: 'selectAddress' }),
+          },
+          { target: 'selectShippingOption' },
+        ],
       },
       selectAddress: {
         initial: 'idle',
@@ -134,7 +162,7 @@ const shippingStateMachine = Machine<
             on: {
               RETRY_SELECT_ADDRESS: 'submitting',
               EDIT_ADDRESS: {
-                target: 'idle',
+                target: 'createAddress',
                 actions: 'clearRetryAddress',
               },
             },

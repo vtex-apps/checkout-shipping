@@ -10,6 +10,7 @@ import { Address } from 'vtex.places-graphql'
 import { Query, QueryInstalledAppArgs } from 'vtex.apps-graphql'
 import { FormattedMessage } from 'react-intl'
 import { ListGroup } from 'vtex.checkout-components'
+import { Link } from 'vtex.render-runtime'
 
 import installedApp from './graphql/installedApp.gql'
 import ShippingHeader from './ShippingHeader'
@@ -20,16 +21,20 @@ interface Props {
   onAddressCreated: (address: Address) => void
   onRetryCreateAddress?: () => void
   onEditAddress?: () => void
+  onViewAddressList?: () => void
   isSubmitting: boolean
   hasError: boolean
+  hasAvailableAddresses: boolean
 }
 
 const NewAddressForm: React.FC<Props> = ({
   onAddressCreated,
   onRetryCreateAddress = () => {},
   onEditAddress = () => {},
+  onViewAddressList = () => {},
   isSubmitting,
   hasError,
+  hasAvailableAddresses,
 }) => {
   const { data, error } = useQuery<Query, QueryInstalledAppArgs>(installedApp, {
     ssr: false,
@@ -86,6 +91,27 @@ const NewAddressForm: React.FC<Props> = ({
       ) : (
         <div className="mt6 w-100 mw6">
           <LocationSearch onSelectAddress={onAddressCreated} />
+        </div>
+      )}
+
+      {hasAvailableAddresses && (
+        <div className="mt6">
+          <FormattedMessage
+            id="store/checkout.shipping.backToAddressList"
+            values={{
+              // eslint-disable-next-line react/display-name
+              a: (chunks: any) => {
+                return (
+                  <button
+                    className="bn bg-transparent pa0 c-action-primary pointer"
+                    onClick={onViewAddressList}
+                  >
+                    {chunks}
+                  </button>
+                )
+              },
+            }}
+          />
         </div>
       )}
     </>

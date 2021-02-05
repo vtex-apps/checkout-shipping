@@ -137,6 +137,10 @@ const ShippingForm: React.VFC = () => {
           }}
           isSubmitting={matches({ createAddress: 'submitting' })}
           hasError={matches({ createAddress: 'error' })}
+          hasAvailableAddresses={matches({
+            createAddress: { editing: 'withListBacklink' },
+          })}
+          onViewAddressList={() => send('GO_TO_SELECT_ADDRESS')}
         />
       )
     }
