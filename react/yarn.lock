@@ -354,9 +354,9 @@ use-subscription@^1.3.0:
   version "0.6.2"
   resolved "https://addr--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.checkout-container@0.6.2+build1612455466/public/@types/vtex.checkout-container#76c7a34e153fe5f95a012ba119ca41b2d331f164"
 
-"vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.56.0/public/@types/vtex.checkout-graphql":
-  version "0.56.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.56.0/public/@types/vtex.checkout-graphql#1114bdb46ba3d9cc6bb0a5079d145a6ae3fd2185"
+"vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.56.1/public/@types/vtex.checkout-graphql":
+  version "0.56.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.56.1/public/@types/vtex.checkout-graphql#c1153ec5faf232f92abfe495f867019bfb7d510f"
 
 "vtex.country-data-settings@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.3.0/public/@types/vtex.country-data-settings":
   version "0.3.0"
@@ -378,9 +378,9 @@ use-subscription@^1.3.0:
   version "0.7.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.order-shipping@0.7.0/public/@types/vtex.order-shipping#4d020086b9da30807f0b6ec059c30d5a8727889d"
 
-"vtex.place-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.13.11/public/@types/vtex.place-components":
+"vtex.place-components@https://addr--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.place-components@0.13.11+build1612905298/public/@types/vtex.place-components":
   version "0.13.11"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.place-components@0.13.11/public/@types/vtex.place-components#34e049c42bc44db4bf0799e6c127fe894fcdc8d9"
+  resolved "https://addr--checkoutio.myvtex.com/_v/private/typings/linked/v1/vtex.place-components@0.13.11+build1612905298/public/@types/vtex.place-components#b729649aa14e5d9beda8f54c28ebf69c4e157623"
 
 "vtex.places-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.places-graphql@0.4.0/public/@types/vtex.places-graphql":
   version "0.4.0"
