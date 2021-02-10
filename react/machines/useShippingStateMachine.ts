@@ -6,7 +6,7 @@ import { AddressContext } from 'vtex.address-context'
 import { useContext } from 'react'
 
 import shippingStateMachine from './shippingStateMachine'
-import { ShippingMachineContext, ShippingMachineEvents } from './types'
+import type { ShippingMachineContext, ShippingMachineEvents } from './types'
 import useMatcher from './useMatcher'
 
 const { useOrderShipping } = OrderShipping

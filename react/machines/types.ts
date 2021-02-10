@@ -1,4 +1,8 @@
-import { Address, DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
+import type {
+  Address,
+  DeliveryOption,
+  PickupOption,
+} from 'vtex.checkout-graphql'
 
 export interface ShippingMachineContext {
   availableAddresses: Address[]
@@ -63,19 +67,12 @@ export type ShippingMachineEvents =
       }
     }
 
-export interface AddressMachineContext {
-  selectedAddress: Address | null
-  canEditData: boolean
-}
-
 export type AddressMachineEvents =
   | { type: 'SUBMIT_RECEIVER_INFO'; receiverName: string }
   | { type: 'EDIT_ADDRESS' }
-  | { type: 'EDIT_RECEIVER_INFO' }
   | {
       type: 'SUBMIT_EDIT_ADDRESS'
       updatedAddress: Address
-      buyerIsReceiver: boolean
     }
   | { type: 'RESET_ADDRESS' }
   | {
@@ -90,17 +87,5 @@ export type AddressMachineEvents =
           }
         }
         buyerIsReceiver: boolean
-      }
-    }
-  | {
-      type: 'done.invoke.tryToEditReceiverInfo'
-      data: {
-        orderForm: {
-          shipping: {
-            deliveryOptions: DeliveryOption[]
-            pickupOptions: PickupOption[]
-            selectedAddress: Address
-          }
-        }
       }
     }

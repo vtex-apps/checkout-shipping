@@ -1,37 +1,21 @@
 import React from 'react'
 import { AddressContext } from 'vtex.address-context'
 import { OrderShipping } from 'vtex.order-shipping'
-import { OrderForm } from 'vtex.order-manager'
-import { Address } from 'vtex.checkout-graphql'
+import type { Address } from 'vtex.checkout-graphql'
 import { Loading } from 'vtex.render-runtime'
 
 import useAddressStateMachine from './machines/useAddressStateMachine'
 import AddressCompletionForm from './components/AddressCompletionForm'
-import ReceiverInfoForm from './components/ReceiverInfoForm'
 import useAddressRules from './useAddressRules'
 
 const { useOrderShipping } = OrderShipping
-const { useOrderForm } = OrderForm
 
 const ShippingAddress: React.VFC = () => {
-  const {
-    orderForm: { canEditData },
-  } = useOrderForm()
+  const { matches, send, state } = useAddressStateMachine()
 
-  const { selectedAddress } = useOrderShipping()
-
-  const { matches, send, state } = useAddressStateMachine({
-    selectedAddress: selectedAddress ?? null,
-    canEditData,
-  })
-
-  const handleAddressCompleted = (
-    updatedAddress: Address,
-    buyerIsReceiver: boolean
-  ) => {
+  const handleAddressCompleted = (updatedAddress: Address) => {
     send({
       type: 'SUBMIT_EDIT_ADDRESS',
-      buyerIsReceiver,
       updatedAddress: {
         ...updatedAddress,
         addressType: updatedAddress.addressType ?? 'residential',
@@ -40,29 +24,14 @@ const ShippingAddress: React.VFC = () => {
   }
 
   switch (true) {
-    case matches('editAddress'): {
+    case state.matches('editAddress'): {
       return (
         <AddressCompletionForm
-          selectedAddress={selectedAddress}
           onAddressCompleted={handleAddressCompleted}
           onAddressReset={() => send('RESET_ADDRESS')}
-          onEditReceiverInfo={() => send('EDIT_RECEIVER_INFO')}
           isSubmitting={matches({ editAddress: 'submitting' })}
         />
       )
-    }
-
-    case matches('editReceiverInfo'): {
-      return state.context.selectedAddress ? (
-        <ReceiverInfoForm
-          isSubmitting={matches({ editReceiverInfo: 'submitting' })}
-          selectedAddress={state.context.selectedAddress}
-          onEditAddress={() => send('EDIT_ADDRESS')}
-          onReceiverInfoSave={(receiverName) => {
-            send({ type: 'SUBMIT_RECEIVER_INFO', receiverName })
-          }}
-        />
-      ) : null
     }
 
     default: {

@@ -2,7 +2,7 @@ import React from 'react'
 import { OrderShipping } from 'vtex.order-shipping'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedCurrency } from 'vtex.format-currency'
-import { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
+import type { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
 
 import { getName } from './utils/sla'
 

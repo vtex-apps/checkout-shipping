@@ -1,7 +1,7 @@
 import React from 'react'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
-import { PickupOption, BusinessHour } from 'vtex.checkout-graphql'
+import type { PickupOption, BusinessHour } from 'vtex.checkout-graphql'
 import { Divider } from 'vtex.styleguide'
 import { PlaceDetails } from 'vtex.place-components'
 import { Modal } from 'vtex.checkout-components'

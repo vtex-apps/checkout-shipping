@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 
 declare module 'vtex.styleguide' {
   const IconCaretRight: React.FC

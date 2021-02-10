@@ -1,4 +1,4 @@
-import { Address } from 'vtex.checkout-graphql'
+import type { Address } from 'vtex.checkout-graphql'
 import React, { useCallback } from 'react'
 import { OrderForm } from 'vtex.order-manager'
 import { OrderShipping } from 'vtex.order-shipping'

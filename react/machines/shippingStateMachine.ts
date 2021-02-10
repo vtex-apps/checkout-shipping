@@ -40,8 +40,8 @@ const shippingStateMachine = Machine<
       initial: {
         always: [
           { target: 'createAddress', cond: hasEditingAddressId },
-          { target: 'selectShippingOption', cond: 'hasSelectedAddress' },
-          { target: 'selectAddress', cond: 'hasAvailableAddresses' },
+          { target: 'selectShippingOption', cond: hasSelectedAddress },
+          { target: 'selectAddress', cond: hasAvailableAddresses },
           { target: 'createAddress' },
         ],
       },
@@ -60,7 +60,11 @@ const shippingStateMachine = Machine<
                 always: [
                   {
                     target: 'normal',
-                    cond: 'isFirstPurchase',
+                    cond: isFirstPurchase,
+                  },
+                  {
+                    target: 'normal',
+                    cond: hasNoAvailableAddresses,
                   },
                 ],
               },
@@ -75,7 +79,10 @@ const shippingStateMachine = Machine<
           },
           submitting: {
             on: {
-              EDIT_ADDRESS: undefined,
+              EDIT_ADDRESS: {
+                target: 'editing',
+                actions: 'clearRetryAddress',
+              },
             },
             invoke: {
               src: 'tryToCreateAddress',
@@ -127,11 +134,11 @@ const shippingStateMachine = Machine<
             always: [
               {
                 target: 'createAddress',
-                cond: 'hasNoAvailableAddresses',
+                cond: hasNoAvailableAddresses,
               },
               {
                 target: 'createAddress',
-                cond: 'isFirstPurchase',
+                cond: isFirstPurchase,
               },
             ],
             on: {
@@ -144,7 +151,10 @@ const shippingStateMachine = Machine<
           },
           submitting: {
             on: {
-              EDIT_ADDRESS: undefined,
+              EDIT_ADDRESS: {
+                target: 'idle',
+                actions: 'clearRetryAddress',
+              },
             },
             invoke: {
               src: 'tryToSelectAddress',
@@ -162,7 +172,7 @@ const shippingStateMachine = Machine<
             on: {
               RETRY_SELECT_ADDRESS: 'submitting',
               EDIT_ADDRESS: {
-                target: 'createAddress',
+                target: 'idle',
                 actions: 'clearRetryAddress',
               },
             },
@@ -270,12 +280,6 @@ const shippingStateMachine = Machine<
           return action.data.orderForm.shipping.availableAddresses
         },
       }),
-    },
-    guards: {
-      hasSelectedAddress,
-      hasNoAvailableAddresses,
-      hasAvailableAddresses,
-      isFirstPurchase,
     },
   }
 )

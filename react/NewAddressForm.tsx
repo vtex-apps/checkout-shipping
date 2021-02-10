@@ -6,8 +6,8 @@ import {
   LocationCountry,
   LocationSearch,
 } from 'vtex.place-components'
-import { Address } from 'vtex.places-graphql'
-import { Query, QueryInstalledAppArgs } from 'vtex.apps-graphql'
+import type { Address } from 'vtex.places-graphql'
+import type { Query, QueryInstalledAppArgs } from 'vtex.apps-graphql'
 import { FormattedMessage } from 'react-intl'
 import { ListGroup } from 'vtex.checkout-components'
 import { Link } from 'vtex.render-runtime'

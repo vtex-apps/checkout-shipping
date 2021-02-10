@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
+import type { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
 import { Alert } from 'vtex.styleguide'
 import { ListGroup } from 'vtex.checkout-components'
 import { getFastestSla, getCheapestSla } from '@vtex/estimate-calculator'
@@ -27,7 +27,10 @@ const ShippingOptionList: React.FC<Props> = ({
   onPickupOptionDeselected = () => {},
   showOnlySelectedShippingOption = false,
 }) => {
-  const shippingOptions = [...deliveryOptions, ...pickupOptions.slice(0, 1)]
+  const shippingOptions = useMemo(
+    () => [...deliveryOptions, ...pickupOptions.slice(0, 1)],
+    [deliveryOptions, pickupOptions]
+  )
 
   const handleShippingOptionSelect = (
     shippingOption: DeliveryOption | PickupOption

@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { GroupOption } from 'vtex.checkout-components'
-import { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
+import type { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
 import { IconDelete, ButtonPlain, Divider } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 

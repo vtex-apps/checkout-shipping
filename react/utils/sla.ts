@@ -1,4 +1,4 @@
-import { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
+import type { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
 
 export const isPickupOption = (
   shippingOption: DeliveryOption | PickupOption
