@@ -40,13 +40,12 @@ const AddressCompletionForm: React.FC<Props> = ({
     lastName,
   ])
 
-  const [buyerIsReceiver, setBuyerIsReceiver] = useState(
-    form.address.receiverName === autoReceiverName &&
-      (!form.address.isDisposable || canEditData)
+  const [editingReceiverName, setEditingReceiverName] = useState(
+    !form.address.receiverName && !canEditData
   )
 
-  const handleBuyerIsReceiverChange = () => {
-    setBuyerIsReceiver(false)
+  const handleEditReceiverName = () => {
+    setEditingReceiverName(true)
   }
 
   const handleNameChange: React.ChangeEventHandler<HTMLInputElement> = (
@@ -60,11 +59,11 @@ const AddressCompletionForm: React.FC<Props> = ({
 
     const updatedAddress = { ...form.address }
 
-    const onlyReceiverInvalid = form.invalidFields.every(
-      (field) => field === 'receiverName'
-    )
+    const onlyReceiverInvalid =
+      form.invalidFields.length > 0 &&
+      form.invalidFields.every((field) => field === 'receiverName')
 
-    if (buyerIsReceiver && onlyReceiverInvalid) {
+    if (!editingReceiverName && onlyReceiverInvalid) {
       updatedAddress.receiverName = autoReceiverName
       onAddressCompleted(updatedAddress)
     } else if (form.isValid) {
@@ -95,12 +94,12 @@ const AddressCompletionForm: React.FC<Props> = ({
             <FormattedMessage id="store/checkout.shipping.receiverLabel" />
           </p>
 
-          {canEditData && buyerIsReceiver ? (
+          {!editingReceiverName ? (
             <div className="flex items-center">
               <span className="mr3">
-                {firstName} {lastName}
+                {form.address.receiverName ?? autoReceiverName}
               </span>
-              <ButtonPlain onClick={handleBuyerIsReceiverChange}>
+              <ButtonPlain onClick={handleEditReceiverName}>
                 <FormattedMessage id="store/checkout.shipping.changeReceiverLabel" />
               </ButtonPlain>
             </div>
