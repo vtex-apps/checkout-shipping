@@ -5,14 +5,12 @@
   "store/checkout.shipping.newAddressLabel": "Novo endereço…",
   "store/checkout.shipping.shippingOptionLabel": "Opção de entrega",
   "store/checkout.shipping.completeAddressLabel": "Complete o endereço de entrega",
-  "store/checkout.shipping.nameWillReceiveOrderLabel": "{name} vai receber o pedido.",
-  "store/checkout.shipping.receiverDescription": "Pessoa que vai receber o pedido",
-  "store/checkout.shipping.receiverNameLabel": "Nome",
+  "store/checkout.shipping.receiverNameLabel": "Nome e sobrenome",
   "store/checkout.shipping.receiverLabel": "Destinatário",
   "store/checkout.shipping.shippingOptionsForAddressLabel": "Opções de entrega para",
-  "store/checkout.shipping.continue": "Continuar",
   "store/checkout.shipping.emptyDeliveryOptionsAlert": "Não há opções de entrega disponíveis.",
   "store/checkout.shipping.changeAddressLabel": "alterar",
+  "store/checkout.shipping.changeReceiverLabel": "alterar",
   "store/checkout.shipping.seeDetails": "Ver detalhes",
   "store/checkout.shipping.distance": "{distanceValue}km de distância",
   "store/checkout.shipping.pickupPointsModal.details": "Detalhes",
@@ -29,5 +27,10 @@
   "store/checkout.shipping.pickupPointsModal.businessHours": "Horário de funcionamento",
   "store/checkout.shipping.pickupPointsModal.allItemsAvailable": "Todos os itens estão disponíveis nesta loja.",
   "store/checkout.shipping.pickupPointsModal.availableItems": "Itens disponíveis",
-  "store/checkout.shipping.pickupPointsModal.address": "Endereço"
+  "store/checkout.shipping.pickupPointsModal.address": "Endereço",
+  "store/checkout.shipping.goToPayment": "Ir para pagamento",
+  "store/checkout.shipping.goToAddress": "Ir para endereço",
+  "store/checkout.shipping.tryAgainButton": "Tentar novamente",
+  "store/checkout.shipping.unknownErrorMessage": "Ocorreu um erro ao tentar realizar sua solicitação.",
+  "store/checkout.shipping.backToAddressList": "Ou, <a>volte para a lista de endereços</a>."
 }

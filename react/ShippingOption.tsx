@@ -3,8 +3,8 @@ import classnames from 'classnames'
 import { TranslateEstimate } from 'vtex.shipping-estimate-translator'
 import { FormattedPrice } from 'vtex.formatted-price'
 import { GroupOption } from 'vtex.checkout-components'
-import { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
-import { IconDelete, ButtonPlain, Modal, Divider } from 'vtex.styleguide'
+import type { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
+import { IconDelete, ButtonPlain, Divider } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
 import PickupDetailsModal from './components/PickupDetailsModal'
@@ -15,9 +15,35 @@ interface EstimateDeliveryOption {
   price: number
 }
 
+export const ShippingOptionPreview: React.VFC = () => {
+  return (
+    <>
+      <button
+        className="w-100 tl pointer db lh-copy bg-base ph5 pv5-ns flex items-center justify-between bn pv4"
+        role="option"
+        aria-selected="false"
+        disabled
+      >
+        <div className="flex w-100">
+          <div className="flex flex-column w-100">
+            <span className="br1 mw4 w-100 pt2 pb3 mv2 bg-muted-5" />
+            <span className="br1 dib mt4 mw5 w-100 pt2 pb3 mv2 bg-muted-5" />
+          </div>
+          <div className="mw3 w-100">
+            <span className="br1 dib w-100 pt2 pb3 mv2 bg-muted-5" />
+          </div>
+        </div>
+      </button>
+      <div className="w-100 pr5 pr0-ns pl5">
+        <Divider />
+      </div>
+    </>
+  )
+}
+
 interface Props {
-  onSelectDeliveryOption?: () => void
-  onDeselectDeliveryOption?: () => void
+  onSelectShippingOption?: () => void
+  onDeselectShippingOption?: () => void
   shippingOption: DeliveryOption | PickupOption
   isSelected?: boolean
   fastestOption?: EstimateDeliveryOption
@@ -25,8 +51,8 @@ interface Props {
 }
 
 const ShippingOption: React.VFC<Props> = ({
-  onSelectDeliveryOption,
-  onDeselectDeliveryOption,
+  onSelectShippingOption,
+  onDeselectShippingOption,
   shippingOption,
   fastestOption,
   cheapestOption,
@@ -53,7 +79,7 @@ const ShippingOption: React.VFC<Props> = ({
             <FormattedMessage
               id="store/checkout.shipping.distance"
               values={{
-                distanceValue: shippingOption.storeDistance.toFixed(1),
+                distanceValue: shippingOption.storeDistance?.toFixed(1),
               }}
             />
           </span>
@@ -75,7 +101,7 @@ const ShippingOption: React.VFC<Props> = ({
         {content}
         <button
           className="flex-shrink-0 c-muted-1 ml5 pa2 flex bg-transparent bn pointer"
-          onClick={onDeselectDeliveryOption}
+          onClick={onDeselectShippingOption}
           role="option"
           aria-selected
         >
@@ -99,7 +125,7 @@ const ShippingOption: React.VFC<Props> = ({
     </div>
   ) : (
     <GroupOption
-      onClick={onSelectDeliveryOption}
+      onClick={onSelectShippingOption}
       selected={shippingOption.isSelected}
     >
       {content}

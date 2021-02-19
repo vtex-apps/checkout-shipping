@@ -1,40 +1,38 @@
-import { Address, DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
+import type {
+  Address,
+  DeliveryOption,
+  PickupOption,
+} from 'vtex.checkout-graphql'
 
 export interface ShippingMachineContext {
   availableAddresses: Address[]
   canEditData: boolean
-  deliveryOptions: DeliveryOption[]
-  pickupOptions: PickupOption[]
   selectedAddress: Address | null
-  userProfileId: string | null | undefined
-  isAddressValid: boolean
+  retryAddress: Address | null
+  userProfileId?: string | null
+  editingAddressId?: string | null
+  hasHistory: boolean
 }
 
 export type ShippingMachineEvents =
-  | { type: 'EDIT_RECEIVER_INFO' }
   | { type: 'GO_TO_CREATE_ADDRESS' }
-  | { type: 'GO_TO_SELECT_SHIPPING_OPTION' }
   | { type: 'GO_TO_SELECT_ADDRESS' }
+  | { type: 'GO_TO_ADDRESS_STEP' }
+  | { type: 'DESELECT_SHIPPING_OPTION' }
   | { type: 'EDIT_ADDRESS' }
-  | { type: 'RESET_ADDRESS' }
-  | { type: 'SUBMIT_SELECT_ADDRESS'; address: Address }
-  | {
-      type: 'SUBMIT_COMPLETE_ADDRESS'
-      updatedAddress: Address
-      buyerIsReceiver: boolean
-    }
-  | { type: 'SUBMIT_RECEIVER_INFO'; receiverName: string }
+  | { type: 'SUBMIT_SELECT_ADDRESS' | 'RETRY_SELECT_ADDRESS'; address: Address }
   | {
       type: 'SUBMIT_SELECT_SHIPPING_OPTION'
       shippingOptionId: string
       deliveryChannel: string
     }
-  | { type: 'SUBMIT_CREATE_ADDRESS'; address: Address }
+  | { type: 'SUBMIT_CREATE_ADDRESS' | 'RETRY_CREATE_ADDRESS'; address: Address }
   | {
       type: 'done.invoke.tryToCreateAddress'
       data: {
         orderForm: {
           shipping: {
+            availableAddresses: Address[]
             deliveryOptions: DeliveryOption[]
             pickupOptions: PickupOption[]
             selectedAddress: Address
@@ -43,9 +41,11 @@ export type ShippingMachineEvents =
       }
     }
   | {
-      type:
-        | 'done.invoke.tryToSelectAddress'
-        | 'done.invoke.tryToEditReceiverInfo'
+      type: 'error.platform.tryToCreateAddress'
+      data: Address
+    }
+  | {
+      type: 'done.invoke.tryToSelectAddress'
       data: {
         orderForm: {
           shipping: {
@@ -56,6 +56,25 @@ export type ShippingMachineEvents =
         }
       }
     }
+  | {
+      type: 'error.platform.tryToSelectAddress'
+      data: Address
+    }
+  | {
+      type: 'done.invoke.tryToSelectShippingOption'
+      data: {
+        success: boolean
+      }
+    }
+
+export type AddressMachineEvents =
+  | { type: 'SUBMIT_RECEIVER_INFO'; receiverName: string }
+  | { type: 'EDIT_ADDRESS' }
+  | {
+      type: 'SUBMIT_EDIT_ADDRESS'
+      updatedAddress: Address
+    }
+  | { type: 'RESET_ADDRESS' }
   | {
       type: 'done.invoke.tryToUpdateCompleteAddress'
       data: {

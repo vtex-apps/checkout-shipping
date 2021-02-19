@@ -2,10 +2,12 @@
 
 ⚠️ **This is an ongoing, unsupported, unfinished and undocumented project. We do not guarantee any results after installation.** ⚠️
 
-This app has the `ShippingSummary` and `ShippingForm` components used in the shipping step of the checkout.
+This app has the `ShippingSummary`, `AddressSummary`, `ShippingAddress` and `ShippingForm` components used in the shipping step of the checkout.
 
 ![Shipping summary component](./images/shipping_summary.png)
 ![Shipping form component](./images/form_postal_code.png)
+![Address summary component](./images/address_summary.png)
+![Shipping address component](./images/form_fill_address.png)
 
 ## Usage
 
@@ -17,9 +19,14 @@ This app is used by [`checkout-step-group`](https://github.com/vtex-apps/checkou
 
 ```jsx
 import React from 'react'
-import { ShippingSummary, ShippingForm } from 'vtex.checkout-shipping'
+import {
+  ShippingSummary,
+  ShippingForm,
+  ShippingAddress,
+  AddressSummary
+} from 'vtex.checkout-shipping'
 
-const Form = ({ isPreviewMode = false }) => {
+const MyShippingForm = ({ isPreviewMode = false }) => {
   if (isPreviewMode) {
     return (
       <ShippingSummary />
@@ -32,28 +39,40 @@ const Form = ({ isPreviewMode = false }) => {
     <ShippingForm />
   )
 }
+
+const MyShippingAddress = ({ isPreviewMode = false }) => {
+  if (isPreviewMode) {
+    return (
+      <AddressSummary />
+    )
+  }
+
+  return <ShippingAddress />
+}
 ```
 
-Note that you need to have `OrderShippingProvider` from `vtex.order-shipping` app somewhere above this
-component in your tree.
+Note that you need to have `OrderShippingProvider` from `vtex.order-shipping` app somewhere above these components in your tree.
 
-## State machine
+## State machines
+
+_Last updated in v0.7.0_
 
 This app uses [XState](https://xstate.js.org/) as its state management library. Having [XState DevTools](https://github.com/amitnovick/xstate-devtools) installed really helps when debugging or developing.
 
-### State Machine Diagram
-_Last updated in v0.1.0_
+Since the shipping inside checkout is comprised of two separate steps, shipping and address, we created two state machines to control each one of those steps, which we describe below.
 
-![State machine diagram](./images/shipping_state_machine.png)
+### Shipping State Machine Diagram
 
-### Each state explained
+![Shipping state machine diagram](./images/shipping_state_machine.png)
 
 The shipping has a multistep UI and its state machine has [states nodes](https://xstate.js.org/docs/guides/statenodes.html) that reflect each step of filling the shipping info.
 
 #### 1. `initial`:
-The initial state is used to determine the next state by combining [transient transitions](https://xstate.js.org/docs/guides/transitions.html#transient-transitions) (which are, in short, transitions that occur immediately) and [guarded transitions](https://xstate.js.org/docs/guides/guards.html#guarded-transitions) (conditional transitions).
+
+The initial state is used to determine the next state by combining [eventless transitions](https://xstate.js.org/docs/guides/transitions.html#eventless-always-transitions) (which are, in short, transitions that occur immediately) and [guarded transitions](https://xstate.js.org/docs/guides/guards.html#guarded-transitions) (conditional transitions).
 
 In the case the user is returning to the store (there are saved addresses already), the machine transitions to `selectAddress`.
+
 Another case is when the user was already filling the shipping information and had selected the shipping address in a previous interaction, then the machine transitions to `selectDeliveryOption`.
 
 #### 2. `createAddress`:
@@ -66,16 +85,30 @@ Another case is when the user was already filling the shipping information and h
 
 #### 4. `selectDeliveryOption`:
 
+This state is comprised of two sub-states, `idle` and `editing`.
+
+##### 4.1. `selectDeliveryOption.editing`:
+
 ![Select delivery option form](./images/form_delivery_options.png)
 
-#### 5. `completeAddress`:
+##### 4.2. `selectDeliveryOption.idle`:
 
-![Complete address form](./images/form_fill_address.png)
+![Delivery option selected](./images/form_delivery_confirmation.png)
 
-#### 6. `editReceiverInfo`:
+#### 5. `done`:
 
-![Receiver info form](./images/form_receiver_info.png)
+The machine is in its final state and calls `goToNextStep`, which in turn may redirect the user to either address step or payment step, depending on the conditions of the purchase.
 
-#### 7. `done`:
+### Address State Machine Diagram
 
-The machine is in its final state and calls `goToNextStep`.
+![Address state machine diagram](./images/address_state_machine.png)
+
+The address step has a simpler UI, consisting only of one screen which is solely responsible to update the customer's address.
+
+#### 1. `editAddress`:
+
+![Edit address form](./images/form_fill_address.png)
+
+#### 2. `done`:
+
+The machine is in its final state and calls `goToNextStep`, which in turn redirects the user to the payment step.

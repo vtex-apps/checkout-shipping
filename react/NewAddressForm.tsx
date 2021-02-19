@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-apollo'
 import {
   DeviceCoordinates,
@@ -6,16 +6,36 @@ import {
   LocationCountry,
   LocationSearch,
 } from 'vtex.place-components'
-import { Address } from 'vtex.places-graphql'
-import { Query, QueryInstalledAppArgs } from 'vtex.apps-graphql'
+import type { Address } from 'vtex.places-graphql'
+import type { Query, QueryInstalledAppArgs } from 'vtex.apps-graphql'
+import { FormattedMessage } from 'react-intl'
+import { ListGroup } from 'vtex.checkout-components'
+import { Link } from 'vtex.render-runtime'
 
 import installedApp from './graphql/installedApp.gql'
+import ShippingHeader from './ShippingHeader'
+import { ShippingOptionPreview } from './ShippingOption'
+import ShippingEditError from './components/ShippingEditError'
 
 interface Props {
   onAddressCreated: (address: Address) => void
+  onRetryCreateAddress?: () => void
+  onEditAddress?: () => void
+  onViewAddressList?: () => void
+  isSubmitting: boolean
+  hasError: boolean
+  hasAvailableAddresses: boolean
 }
 
-const NewAddressForm: React.FC<Props> = ({ onAddressCreated }) => {
+const NewAddressForm: React.FC<Props> = ({
+  onAddressCreated,
+  onRetryCreateAddress = () => {},
+  onEditAddress = () => {},
+  onViewAddressList = () => {},
+  isSubmitting,
+  hasError,
+  hasAvailableAddresses,
+}) => {
   const { data, error } = useQuery<Query, QueryInstalledAppArgs>(installedApp, {
     ssr: false,
     variables: {
@@ -23,13 +43,42 @@ const NewAddressForm: React.FC<Props> = ({ onAddressCreated }) => {
     },
   })
 
-  if (error) {
-    console.error(error)
+  useEffect(() => {
+    if (error) {
+      console.error(error)
+    }
+  }, [error])
+
+  if (hasError) {
+    return (
+      <ShippingEditError
+        onEditAddress={onEditAddress}
+        onTryAgain={onRetryCreateAddress}
+      />
+    )
+  }
+
+  if (isSubmitting) {
+    return (
+      <>
+        <ShippingHeader onEditAddress={onEditAddress} />
+
+        <ListGroup>
+          <ShippingOptionPreview />
+          <ShippingOptionPreview />
+          <ShippingOptionPreview />
+        </ListGroup>
+      </>
+    )
   }
 
   return (
-    <Fragment>
-      <div className="pv3">
+    <>
+      <p className="t-body mt0 mb6">
+        <FormattedMessage id="store/checkout.shipping.informAddress" />
+      </p>
+
+      <div>
         <DeviceCoordinates onSuccess={onAddressCreated} />
       </div>
 
@@ -44,7 +93,28 @@ const NewAddressForm: React.FC<Props> = ({ onAddressCreated }) => {
           <LocationSearch onSelectAddress={onAddressCreated} />
         </div>
       )}
-    </Fragment>
+
+      {hasAvailableAddresses && (
+        <div className="mt6">
+          <FormattedMessage
+            id="store/checkout.shipping.backToAddressList"
+            values={{
+              // eslint-disable-next-line react/display-name
+              a: (chunks: any) => {
+                return (
+                  <button
+                    className="bn bg-transparent pa0 c-action-primary pointer"
+                    onClick={onViewAddressList}
+                  >
+                    {chunks}
+                  </button>
+                )
+              },
+            }}
+          />
+        </div>
+      )}
+    </>
   )
 }
 
