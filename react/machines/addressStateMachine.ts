@@ -26,6 +26,7 @@ const addressStateMachine = Machine<unknown, AddressMachineEvents>(
                   actions: 'updateSelectedAddress',
                 },
               ],
+              onError: 'editing',
             },
           },
           updateComplete: {
