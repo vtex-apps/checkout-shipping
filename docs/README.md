@@ -103,16 +103,12 @@ The machine is in its final state and calls `goToNextStep`, which in turn may re
 
 ![Address state machine diagram](./images/address_state_machine.png)
 
-The address also has a multistep UI, similar to shipping which was explained above, but it is responsible solely to update the customer address.
+The address step has a simpler UI, consisting only of one screen which is solely responsible to update the customer's address.
 
 #### 1. `editAddress`:
 
 ![Edit address form](./images/form_fill_address.png)
 
-#### 2. `editReceiverInfo`:
-
-![Receiver info form](./images/form_receiver_info.png)
-
-#### 3. `done`:
+#### 2. `done`:
 
 The machine is in its final state and calls `goToNextStep`, which in turn redirects the user to the payment step.
