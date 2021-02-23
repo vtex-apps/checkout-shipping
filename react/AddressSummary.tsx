@@ -3,6 +3,7 @@ import { PlaceDetails } from 'vtex.place-components'
 import { AddressContext } from 'vtex.address-context'
 import { OrderShipping } from 'vtex.order-shipping'
 import { OrderForm } from 'vtex.order-manager'
+import { Loading } from 'vtex.render-runtime'
 
 import useAddressRules from './useAddressRules'
 
@@ -44,11 +45,15 @@ const AddressSummaryWithAddress: React.VFC = () => {
 
   const addressRules = useAddressRules()
 
+  if (selectedAddress != null && addressRules == null) {
+    return <Loading />
+  }
+
   return (
     <AddressContext.AddressContextProvider
       address={selectedAddress!}
       countries={countries}
-      rules={addressRules}
+      rules={addressRules ?? {}}
     >
       <AddressSummary />
     </AddressContext.AddressContextProvider>

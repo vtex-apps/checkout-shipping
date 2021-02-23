@@ -156,9 +156,9 @@
     tslib "^1.9.3"
 
 "@xstate/react@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@xstate/react/-/react-1.2.2.tgz#54d32034d40384782ee11145bbbb31b841a5a464"
-  integrity sha512-pXcUtts6EaEUmquzpMZ2yhAZZLAFYxKVaaHnQ8MPWpGuby0B5QMch17Ij59+LGQACQTSE0nDqXrvvBQId6m8qQ==
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@xstate/react/-/react-1.3.1.tgz#5794e1c7d2bc70759b5dc2c9ccc9ddaa6e68e98a"
+  integrity sha512-wgAHr4tWVQQwH6dIQTcZQYGLXiK9V8gMqMxOWyiLQzoKchqXFfb0LlCcw0FAc4jmpuGHSFSk6fAXjEpFpV+Jxw==
   dependencies:
     use-isomorphic-layout-effect "^1.0.0"
     use-subscription "^1.3.0"
@@ -338,13 +338,9 @@ use-subscription@^1.3.0:
   dependencies:
     object-assign "^4.1.1"
 
-"vtex.address-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.5.0/public/@types/vtex.address-context":
-  version "0.5.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.5.0/public/@types/vtex.address-context#3f984bc73fba901d1c7dbdcebea8d29c7bc450e9"
-
-"vtex.apps-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@3.9.1/public/@types/vtex.apps-graphql":
-  version "3.9.1"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@3.9.1/public/@types/vtex.apps-graphql#8fd451e4432bb49436eeca000a02ef03f9ba4079"
+"vtex.address-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.6.2/public/@types/vtex.address-context":
+  version "0.6.2"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.address-context@0.6.2/public/@types/vtex.address-context#f204028dd8a15f4ea0bfe28126684fec34758774"
 
 "vtex.checkout-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-components@0.5.1/public/@types/vtex.checkout-components":
   version "0.5.1"
@@ -357,6 +353,10 @@ use-subscription@^1.3.0:
 "vtex.checkout-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.56.1/public/@types/vtex.checkout-graphql":
   version "0.56.1"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-graphql@0.56.1/public/@types/vtex.checkout-graphql#c1153ec5faf232f92abfe495f867019bfb7d510f"
+
+"vtex.checkout-resources@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-resources@0.42.0/public/@types/vtex.checkout-resources":
+  version "0.42.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.checkout-resources@0.42.0/public/@types/vtex.checkout-resources#96b168e17fe063fc20ba201b027985995c3d37f7"
 
 "vtex.country-data-settings@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.country-data-settings@0.3.0/public/@types/vtex.country-data-settings":
   version "0.3.0"
@@ -394,11 +394,11 @@ use-subscription@^1.3.0:
   version "2.2.2"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shipping-estimate-translator@2.2.2/public/@types/vtex.shipping-estimate-translator#0daa482f261e7c40a06c27be07e9e5b9d70cf063"
 
-"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.1/public/@types/vtex.styleguide":
-  version "9.135.1"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.1/public/@types/vtex.styleguide#ed8d203eff74ed072b6e2f6ddb66d0c92b797ade"
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.3/public/@types/vtex.styleguide":
+  version "9.135.3"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.135.3/public/@types/vtex.styleguide#744a8674d69a56594de969da36b263f94c9de66f"
 
 xstate@^4.16.0:
-  version "4.16.0"
-  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.16.0.tgz#e434d0558c0f9a7e9212802834992a6c2f47bca6"
-  integrity sha512-2k/49QYLdzG6Ye1JQWYFuPdU6dnRqHXcuFLxuORiuel04GjApSPct7wp2SOz9RAlNME5EkzclRKw1fHm5yejuA==
+  version "4.16.2"
+  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.16.2.tgz#d6b973b1253b8c85f50f68601837287d59d4bf34"
+  integrity sha512-EY39NNZnwM4tRYNmQAi1c2qHuZ1lJmuDpEo1jxiRcfS+1jPtKRAjGRLNx3fYKcK0ohW6mL41Wze3mdCF0SqavA==

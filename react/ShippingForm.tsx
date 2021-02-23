@@ -5,6 +5,7 @@ import { OrderShipping } from 'vtex.order-shipping'
 import { AddressContext } from 'vtex.address-context'
 import { Button } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
+import { Loading } from 'vtex.render-runtime'
 
 import NewAddressForm from './NewAddressForm'
 import AddressList from './components/AddressList'
@@ -151,6 +152,10 @@ const ShippingFormWithAddress: React.FC = () => {
   const { selectedAddress, countries } = useOrderShipping()
 
   const addressRules = useAddressRules()
+
+  if (addressRules == null) {
+    return <Loading />
+  }
 
   return (
     <AddressContext.AddressContextProvider

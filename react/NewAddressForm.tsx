@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useQuery } from 'react-apollo'
+import React from 'react'
 import {
   DeviceCoordinates,
   LocationInput,
@@ -7,12 +6,11 @@ import {
   LocationSearch,
 } from 'vtex.place-components'
 import type { Address } from 'vtex.places-graphql'
-import type { Query, QueryInstalledAppArgs } from 'vtex.apps-graphql'
 import { FormattedMessage } from 'react-intl'
 import { ListGroup } from 'vtex.checkout-components'
-import { Link } from 'vtex.render-runtime'
+import { Loading } from 'vtex.render-runtime'
+import { useGeolocationEnabled } from 'vtex.checkout-resources'
 
-import installedApp from './graphql/installedApp.gql'
 import ShippingHeader from './ShippingHeader'
 import { ShippingOptionPreview } from './ShippingOption'
 import ShippingEditError from './components/ShippingEditError'
@@ -36,18 +34,11 @@ const NewAddressForm: React.FC<Props> = ({
   hasError,
   hasAvailableAddresses,
 }) => {
-  const { data, error } = useQuery<Query, QueryInstalledAppArgs>(installedApp, {
-    ssr: false,
-    variables: {
-      slug: 'vtex.geolocation-graphql-interface',
-    },
-  })
+  const [geolocationEnabled, loading] = useGeolocationEnabled()
 
-  useEffect(() => {
-    if (error) {
-      console.error(error)
-    }
-  }, [error])
+  if (loading) {
+    return <Loading />
+  }
 
   if (hasError) {
     return (
@@ -84,7 +75,7 @@ const NewAddressForm: React.FC<Props> = ({
 
       <LocationCountry className="w-100 mw6 mt6" />
 
-      {data?.installedApp?.source === 'none' ? (
+      {!geolocationEnabled ? (
         <div className="mt6 w-100 mw5">
           <LocationInput onSuccess={onAddressCreated} variation="primary" />
         </div>
