@@ -4,8 +4,11 @@ import { FormattedPrice } from 'vtex.formatted-price'
 import type { PickupOption, BusinessHour } from 'vtex.checkout-graphql'
 import { Divider } from 'vtex.styleguide'
 import { PlaceDetails } from 'vtex.place-components'
+import { AddressContext } from 'vtex.address-context'
 import { Modal } from 'vtex.checkout-components'
 import { FormattedMessage, defineMessages, FormattedTime } from 'react-intl'
+
+const { useAddressContext } = AddressContext
 
 const messages = defineMessages({
   details: {
@@ -65,6 +68,8 @@ const PickupDetailsModal: React.VFC<Props> = ({
   showPickupModal,
   setShowPickupModal,
 }) => {
+  const { countries, rules } = useAddressContext()
+
   return (
     <Modal
       isOpen={showPickupModal}
@@ -100,7 +105,13 @@ const PickupDetailsModal: React.VFC<Props> = ({
             <FormattedMessage id="store/checkout.shipping.pickupPointsModal.address" />
           </p>
 
-          <PlaceDetails />
+          <AddressContext.AddressContextProvider
+            address={pickupOption.address}
+            countries={countries}
+            rules={rules}
+          >
+            <PlaceDetails />
+          </AddressContext.AddressContextProvider>
         </div>
 
         <div className="flex-column mb4">
