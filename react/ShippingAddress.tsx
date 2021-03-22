@@ -51,7 +51,7 @@ const ShippingAddressWithAddress: React.VFC = () => {
 
   return (
     <AddressContext.AddressContextProvider
-      address={selectedAddress!}
+      address={selectedAddress ?? {}}
       countries={countries}
       rules={addressRules}
     >
