@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "checkout-shipping",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "builders": {
     "docs": "0.x",
     "messages": "1.x",
