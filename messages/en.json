@@ -8,7 +8,7 @@
   "store/checkout.shipping.receiverNameLabel": "Name and surname",
   "store/checkout.shipping.receiverLabel": "Receiver",
   "store/checkout.shipping.shippingOptionsForAddressLabel": "Shipping options for",
-  "store/checkout.shipping.emptyDeliveryOptionsAlert": "No delivery options are available.",
+  "store/checkout.shipping.emptyDeliveryOptionsAlert": "No delivery options are available for your location.",
   "store/checkout.shipping.changeAddressLabel": "change",
   "store/checkout.shipping.changeReceiverLabel": "change",
   "store/checkout.shipping.seeDetails": "See details",
