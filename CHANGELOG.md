@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- New translations.
+
+### Changed
+- Crowdin configuration file.
+
 ## [0.7.3] - 2021-03-25
 ### Fixed
 - `PickupDetailsModal` displays the store location instead of the user own location.
