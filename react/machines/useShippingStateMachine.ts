@@ -23,6 +23,8 @@ const useShippingStateMachine = ({
     selectDeliveryOption,
     selectPickupOption,
     updateSelectedAddress,
+    estimateCarbonFreeShipping,
+    clearCarbonFreeShipping,
   } = useOrderShipping()
 
   const { setAddress } = useAddressContext()
@@ -43,6 +45,17 @@ const useShippingStateMachine = ({
     },
     actions: {
       goToNextStep: () => history?.push(routes.ADDRESS),
+      toggleCarbonFreeShipping: (_, event) => {
+        if (event.type !== 'TOGGLE_CARBON_FREE_SHIPPING') {
+          return
+        }
+
+        if (!event.carbonFreeChecked) {
+          estimateCarbonFreeShipping()
+        } else {
+          clearCarbonFreeShipping()
+        }
+      },
       updateAddressContext: (_, event) => {
         if (
           event.type !== 'SUBMIT_CREATE_ADDRESS' &&

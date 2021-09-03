@@ -1,0 +1,8 @@
+.carbonToggleContainerSuccess {
+  background-color: rgba(234, 252, 227, 0.2);
+  border-color: #8BC34A;
+}
+
+.carbonToggleContainerSuccess:hover {
+  background-color: rgba(234, 252, 227, 0.5);
+}

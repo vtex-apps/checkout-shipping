@@ -211,12 +211,18 @@ const shippingStateMachine = Machine<
         states: {
           idle: {
             on: {
+              TOGGLE_CARBON_FREE_SHIPPING: {
+                actions: 'toggleCarbonFreeShipping',
+              },
               DESELECT_SHIPPING_OPTION: 'editing',
               GO_TO_ADDRESS_STEP: 'done',
             },
           },
           editing: {
             on: {
+              TOGGLE_CARBON_FREE_SHIPPING: {
+                actions: 'toggleCarbonFreeShipping',
+              },
               SUBMIT_SELECT_SHIPPING_OPTION: 'submitting',
             },
           },

@@ -5,7 +5,7 @@ import { FormattedPrice } from 'vtex.formatted-price'
 import { GroupOption } from 'vtex.checkout-components'
 import type { DeliveryOption, PickupOption } from 'vtex.checkout-graphql'
 import { IconDelete, ButtonPlain, Divider } from 'vtex.styleguide'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, FormattedNumber } from 'react-intl'
 
 import PickupDetailsModal from './components/PickupDetailsModal'
 import { getName, isPickupOption, slugify } from './utils/sla'
@@ -46,6 +46,7 @@ interface Props {
   onDeselectShippingOption?: () => void
   shippingOption: DeliveryOption | PickupOption
   isSelected?: boolean
+  carbonFreeChecked?: boolean
   fastestOption?: EstimateDeliveryOption
   cheapestOption?: EstimateDeliveryOption
 }
@@ -57,8 +58,31 @@ const ShippingOption: React.VFC<Props> = ({
   fastestOption,
   cheapestOption,
   isSelected = false,
+  carbonFreeChecked = false,
 }) => {
   const [showPickupModal, setShowPickupModal] = useState(false)
+
+  const carbonEstimateContent =
+    shippingOption.carbonEstimate == null ? (
+      'Calculating...'
+    ) : shippingOption.carbonEstimate.cost === 0 &&
+      shippingOption.carbonEstimate.carbonKg === 0 ? (
+      'No carbon emission data available'
+    ) : (
+      <>
+        <span className="ml2-s ml0-ns flex c-success order-1-s order-0-ns">
+          <span className="mr1">+</span>
+          <FormattedPrice value={shippingOption.carbonEstimate.cost / 100} />
+        </span>
+        <span className="">
+          Your offset:{' '}
+          <FormattedNumber
+            value={+shippingOption.carbonEstimate.carbonKg.toFixed(1)}
+          />
+          kg
+        </span>
+      </>
+    )
 
   const content = (
     <div className="flex w-100" id={slugify(shippingOption.id)}>
@@ -84,13 +108,25 @@ const ShippingOption: React.VFC<Props> = ({
             />
           </span>
         )}
+        {carbonFreeChecked ? (
+          <div className="mt2 c-muted-2 nowrap flex-s dn-ns">
+            {carbonEstimateContent}
+          </div>
+        ) : null}
       </div>
-      <div
-        className={classnames('fw4', {
-          'c-success fw5': shippingOption.price === cheapestOption?.price,
-        })}
-      >
-        <FormattedPrice value={(shippingOption.price ?? 0) / 100} />
+      <div className="fw4 flex flex-column items-end">
+        <div
+          className={classnames({
+            'c-success fw5': shippingOption.price === cheapestOption?.price,
+          })}
+        >
+          <FormattedPrice value={(shippingOption.price ?? 0) / 100} />
+        </div>
+        {carbonFreeChecked ? (
+          <div className="mt2 c-muted-2 nowrap flex-ns flex-column-ns dn-s items-end">
+            {carbonEstimateContent}
+          </div>
+        ) : null}
       </div>
     </div>
   )

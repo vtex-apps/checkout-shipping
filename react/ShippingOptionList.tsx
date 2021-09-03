@@ -16,6 +16,7 @@ interface Props {
   onPickupOptionSelected?: (id: string) => void
   onPickupOptionDeselected?: (id: string) => void
   showOnlySelectedShippingOption?: boolean
+  carbonFreeChecked?: boolean
 }
 
 const ShippingOptionList: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const ShippingOptionList: React.FC<Props> = ({
   onPickupOptionSelected = () => {},
   onPickupOptionDeselected = () => {},
   showOnlySelectedShippingOption = false,
+  carbonFreeChecked,
 }) => {
   const shippingOptions = useMemo(
     () => [...deliveryOptions, ...pickupOptions.slice(0, 1)],
@@ -88,6 +90,7 @@ const ShippingOptionList: React.FC<Props> = ({
               shippingOption={shippingOption}
               fastestOption={fastestOption}
               cheapestOption={cheapestOption}
+              carbonFreeChecked={carbonFreeChecked}
               onDeselectShippingOption={() => {
                 if (isPickupOption(shippingOption)) {
                   handlePickupOptionDeselect(shippingOption)
@@ -111,6 +114,7 @@ const ShippingOptionList: React.FC<Props> = ({
             onSelectShippingOption={() => {
               handleShippingOptionSelect(shippingOption)
             }}
+            carbonFreeChecked={carbonFreeChecked}
           />
         ))}
       </ListGroup>

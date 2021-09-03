@@ -20,6 +20,7 @@ export type ShippingMachineEvents =
   | { type: 'GO_TO_ADDRESS_STEP' }
   | { type: 'DESELECT_SHIPPING_OPTION' }
   | { type: 'EDIT_ADDRESS' }
+  | { type: 'TOGGLE_CARBON_FREE_SHIPPING'; carbonFreeChecked: boolean }
   | { type: 'SUBMIT_SELECT_ADDRESS' | 'RETRY_SELECT_ADDRESS'; address: Address }
   | {
       type: 'SUBMIT_SELECT_SHIPPING_OPTION'

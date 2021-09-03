@@ -1,9 +1,11 @@
+import type { MouseEvent, KeyboardEvent } from 'react'
+import React, { useCallback, useState } from 'react'
+import classNames from 'classnames'
 import type { Address } from 'vtex.checkout-graphql'
-import React, { useCallback } from 'react'
 import { OrderForm } from 'vtex.order-manager'
 import { OrderShipping } from 'vtex.order-shipping'
 import { AddressContext } from 'vtex.address-context'
-import { Button } from 'vtex.styleguide'
+import { Button, Toggle, IconInfo, Tooltip } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 import { Loading } from 'vtex.render-runtime'
 
@@ -13,6 +15,8 @@ import ShippingOptionList from './ShippingOptionList'
 import useShippingStateMachine from './machines/useShippingStateMachine'
 import useAddressRules from './useAddressRules'
 import ShippingHeader from './ShippingHeader'
+import CarbonFreeIcon from './components/CarbonFreeIcon'
+import styles from './styles.css'
 
 const { useOrderForm } = OrderForm
 const { useOrderShipping } = OrderShipping
@@ -35,6 +39,10 @@ const ShippingForm: React.VFC = () => {
     userProfileId,
     retryAddress: null,
   })
+
+  const [carbonFreeChecked, setCarbonFreeChecked] = useState(
+    deliveryOptions.some(({ carbonEstimate }) => carbonEstimate != null)
+  )
 
   const handleAddressCreated = useCallback(
     (address: Address) => {
@@ -65,15 +73,58 @@ const ShippingForm: React.VFC = () => {
     })
   }
 
+  const handleCarbonFreeChange = (event: MouseEvent | KeyboardEvent) => {
+    event.stopPropagation()
+
+    setCarbonFreeChecked(!carbonFreeChecked)
+    send({
+      type: 'TOGGLE_CARBON_FREE_SHIPPING',
+      carbonFreeChecked,
+    })
+  }
+
   switch (true) {
     case matches('selectShippingOption'): {
       return (
         <>
           <ShippingHeader onEditAddress={() => send('EDIT_ADDRESS')} />
 
+          <div
+            className={classNames(
+              'mv7 ba pl5 pv3 pr3 br3 flex items-center justify-between w-100 pointer',
+              {
+                'b--muted-4 hover-b--muted-2': !carbonFreeChecked,
+                [`b--success ${styles.carbonToggleContainerSuccess}`]: carbonFreeChecked,
+              }
+            )}
+            tabIndex={0}
+            role="button"
+            onKeyPress={handleCarbonFreeChange}
+            onClick={handleCarbonFreeChange}
+          >
+            <div className="flex">
+              <Toggle
+                label="Make my order carbon neutral"
+                checked={carbonFreeChecked}
+                onChange={handleCarbonFreeChange}
+              />
+              <Tooltip label="Contribute to the carbon offset of this purchase">
+                {/* eslint-disable-next-line */}
+                <div
+                  className="c-muted-3 ml2 mt1 dn-s db-ns"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <IconInfo />
+                </div>
+              </Tooltip>
+            </div>
+            <CarbonFreeIcon />
+          </div>
+
           <ShippingOptionList
             deliveryOptions={deliveryOptions}
             pickupOptions={pickupOptions}
+            carbonFreeChecked={carbonFreeChecked}
             onDeliveryOptionSelected={handleDeliveryOptionSelect}
             onPickupOptionSelected={handlePickupOptionSelect}
             onDeliveryOptionDeselected={() => send('DESELECT_SHIPPING_OPTION')}
