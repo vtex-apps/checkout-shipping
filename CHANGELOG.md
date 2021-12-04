@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Norwegian variant translation.
+
 ## [0.9.0] - 2021-11-17
 
 ### Added
@@ -57,7 +61,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Unnecessary top margin when `LocationCountry` component is not rendered.
 
-### Changed 
+### Changed
 - `PickupDetailsModal` to use the `Modal` from the `vtex.checkout-components`.
 
 ## [0.6.1] - 2020-12-07
